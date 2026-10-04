@@ -5,12 +5,12 @@ import Button from '../components/Button';
 import { usePreFlight } from '../context/PreFlightContext';
 
 const APPLICATION_TYPES = [
-  { id: 'scholarship',  label: 'Scholarship',      emoji: '🎓', available: true },
-  { id: 'college',      label: 'College Admission', emoji: '🏛️', available: false },
-  { id: 'exam',         label: 'Exam Registration', emoji: '📝', available: false },
-  { id: 'job',          label: 'Job Application',   emoji: '💼', available: false },
-  { id: 'visa',         label: 'Visa',              emoji: '✈️', available: false },
-  { id: 'kyc',          label: 'KYC Verification',  emoji: '🪪', available: false },
+  { id: 'scholarship',  label: 'Scholarship',       emoji: '🎓', available: true },
+  { id: 'college',      label: 'College Admission', emoji: '🏛️', available: true },
+  { id: 'exam',         label: 'Exam Registration', emoji: '📝', available: true },
+  { id: 'job',          label: 'Job Application',   emoji: '💼', available: true },
+  { id: 'visa',         label: 'Visa',              emoji: '✈️', available: true },
+  { id: 'kyc',          label: 'KYC Verification',  emoji: '🪪', available: true },
 ];
 
 const HOW_IT_WORKS = [

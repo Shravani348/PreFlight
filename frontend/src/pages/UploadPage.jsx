@@ -11,15 +11,55 @@ const ACCEPTED_TYPES = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png
 const MAX_SIZE_MB = 10;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-const REQUIRED_SLOTS = [
-  { id: 'application_form', label: 'Application Form', hint: 'PDF', required: true },
-  { id: 'aadhaar', label: 'Identity Document (Aadhaar / Passport)', hint: 'PDF or image', required: true },
-  { id: 'marksheet', label: 'Marksheet / Academic Certificate', hint: 'PDF', required: true },
-  { id: 'income_cert', label: 'Income Certificate', hint: 'PDF', required: false },
-  { id: 'caste_cert', label: 'Caste Certificate', hint: 'PDF', required: false },
-  { id: 'photo', label: 'Passport Photograph', hint: 'JPEG/PNG, max 50 KB recommended', required: true },
-  { id: 'instructions', label: 'Official Instructions / Notification', hint: 'PDF', required: false },
-];
+const SLOTS_BY_APP_TYPE = {
+  scholarship: [
+    { id: 'application_form', label: 'Application Form', hint: 'PDF', required: true },
+    { id: 'aadhaar', label: 'Identity Document (Aadhaar / Passport)', hint: 'PDF or image', required: true },
+    { id: 'marksheet', label: 'Marksheet / Academic Certificate', hint: 'PDF', required: true },
+    { id: 'income_cert', label: 'Income Certificate', hint: 'PDF', required: true },
+    { id: 'caste_cert', label: 'Caste Certificate', hint: 'PDF', required: false },
+    { id: 'photo', label: 'Passport Photograph', hint: 'JPEG/PNG, max 200 KB', required: true },
+    { id: 'instructions', label: 'Official Guidelines / Notification', hint: 'PDF', required: false },
+  ],
+  college: [
+    { id: 'application_form', label: 'College Admission Form', hint: 'PDF', required: true },
+    { id: 'marksheet', label: '10th / 12th Marksheet / Transcript', hint: 'PDF', required: true },
+    { id: 'transfer_certificate', label: 'Transfer / Migration Certificate', hint: 'PDF', required: true },
+    { id: 'identity_proof', label: 'Government ID (Aadhaar / Passport / DL)', hint: 'PDF or image', required: true },
+    { id: 'photo', label: 'Passport Photograph', hint: 'JPEG/PNG, max 300 KB', required: true },
+    { id: 'instructions', label: 'College Prospectus / Guidelines', hint: 'PDF', required: false },
+  ],
+  exam: [
+    { id: 'registration_form', label: 'Exam Registration Form', hint: 'PDF', required: true },
+    { id: 'qualification_cert', label: 'Degree / Educational Qualification', hint: 'PDF', required: true },
+    { id: 'identity_proof', label: 'Photo ID (Aadhaar / Voter ID / Passport)', hint: 'PDF or image', required: true },
+    { id: 'photo', label: 'Recent Passport Photograph', hint: 'JPEG/JPG, max 100 KB', required: true },
+    { id: 'signature', label: 'Candidate Signature Image', hint: 'JPEG/PNG, max 50 KB', required: true },
+    { id: 'instructions', label: 'Exam Notification Bulletin', hint: 'PDF', required: false },
+  ],
+  job: [
+    { id: 'resume', label: 'Resume / Curriculum Vitae', hint: 'PDF', required: true },
+    { id: 'degree_certificate', label: 'Highest Degree Certificate / Transcript', hint: 'PDF', required: true },
+    { id: 'identity_proof', label: 'Identity Proof (Aadhaar / Passport / DL)', hint: 'PDF or image', required: true },
+    { id: 'photo', label: 'Professional Photograph', hint: 'JPEG/PNG, max 500 KB', required: true },
+    { id: 'instructions', label: 'Job Description / Offer Letter', hint: 'PDF', required: false },
+  ],
+  visa: [
+    { id: 'visa_application_form', label: 'Visa Application Form', hint: 'PDF', required: true },
+    { id: 'passport', label: 'Valid Passport (Bio & Address Pages)', hint: 'PDF or image', required: true },
+    { id: 'travel_itinerary', label: 'Flight Itinerary / Travel Details', hint: 'PDF', required: true },
+    { id: 'bank_statement', label: 'Bank Statement / Proof of Funds', hint: 'PDF', required: true },
+    { id: 'photo', label: 'Visa Photograph (White background)', hint: 'JPEG/JPG, max 300 KB', required: true },
+    { id: 'instructions', label: 'Embassy / Consulate Guidelines', hint: 'PDF', required: false },
+  ],
+  kyc: [
+    { id: 'identity_proof', label: 'Identity Proof (Aadhaar / Passport)', hint: 'PDF or image', required: true },
+    { id: 'address_proof', label: 'Address Proof (Utility Bill / Bank Statement)', hint: 'PDF or image', required: true },
+    { id: 'pan_card', label: 'PAN Card Copy', hint: 'PDF or image', required: true },
+    { id: 'photo', label: 'Live Photograph / Selfie', hint: 'JPEG/PNG, max 500 KB', required: true },
+    { id: 'instructions', label: 'KYC Instructions Document', hint: 'PDF', required: false },
+  ],
+};
 
 function fileIcon(type) {
   if (type?.startsWith('image/')) return Image;
@@ -86,7 +126,8 @@ export default function UploadPage() {
   const [error, setError] = useState('');
   const fileInputRef = useRef(null);
 
-  const requiredFilled = REQUIRED_SLOTS.filter(s => s.required).every(s => slotFiles[s.id]);
+  const activeSlots = SLOTS_BY_APP_TYPE[state.applicationType] || SLOTS_BY_APP_TYPE.scholarship;
+  const requiredFilled = activeSlots.filter(s => s.required).every(s => slotFiles[s.id]);
   const hasFiles = Object.keys(slotFiles).length > 0;
 
   function openFilePicker(slotId) {
@@ -118,13 +159,13 @@ export default function UploadPage() {
     e.preventDefault();
     setDragOver(false);
     const file = e.dataTransfer.files?.[0];
-    const slot = activeSlot || REQUIRED_SLOTS.find(s => !slotFiles[s.id])?.id;
+    const slot = activeSlot || activeSlots.find(s => !slotFiles[s.id])?.id;
     if (!file || !slot) return;
     const err = validateFile(file);
     if (err) { setError(err); return; }
     setError('');
     setSlotFiles(prev => ({ ...prev, [slot]: file }));
-  }, [activeSlot, slotFiles]);
+  }, [activeSlot, slotFiles, activeSlots]);
 
   function removeFile(slotId) {
     setSlotFiles(prev => {
@@ -167,6 +208,17 @@ export default function UploadPage() {
     }
   }
 
+  const appTypeNames = {
+    scholarship: 'Scholarship',
+    college: 'College Admission',
+    exam: 'Exam Registration',
+    job: 'Job Application',
+    visa: 'Visa Application',
+    kyc: 'KYC Verification',
+  };
+
+  const readableAppName = appTypeNames[state.applicationType] || state.applicationType;
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* Header */}
@@ -178,7 +230,7 @@ export default function UploadPage() {
           Upload your documents
         </h1>
         <p style={{ color: 'var(--text-secondary)' }}>
-          Upload the documents for your <span className="text-indigo-400 font-semibold capitalize">{state.applicationType}</span> application.
+          Upload the documents for your <span className="text-indigo-400 font-semibold">{readableAppName}</span>.
           Required items are marked.
         </p>
       </div>
@@ -198,7 +250,7 @@ export default function UploadPage() {
 
       {/* Document slots */}
       <div className="space-y-3 mb-6" role="list" aria-label="Document upload slots">
-        {REQUIRED_SLOTS.map((slot) => (
+        {activeSlots.map((slot) => (
           <button
             key={slot.id}
             id={`slot-${slot.id}`}
@@ -235,7 +287,7 @@ export default function UploadPage() {
           <span>✅ {Object.keys(slotFiles).length} file{Object.keys(slotFiles).length !== 1 ? 's' : ''} selected</span>
           {!requiredFilled && (
             <span className="text-amber-400">
-              ⚠️ {REQUIRED_SLOTS.filter(s => s.required && !slotFiles[s.id]).length} required document(s) missing
+              ⚠️ {activeSlots.filter(s => s.required && !slotFiles[s.id]).length} required document(s) missing
             </span>
           )}
         </div>

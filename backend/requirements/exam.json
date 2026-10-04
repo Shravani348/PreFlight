@@ -1,0 +1,29 @@
+{
+  "application_type": "exam",
+  "requirements": [
+    {
+      "document_type": "registration_form",
+      "required": true
+    },
+    {
+      "document_type": "qualification_cert",
+      "required": true
+    },
+    {
+      "document_type": "identity_proof",
+      "required": true
+    },
+    {
+      "document_type": "photograph",
+      "required": true,
+      "allowed_formats": ["jpg", "jpeg"],
+      "max_size_kb": 100
+    },
+    {
+      "document_type": "signature",
+      "required": true,
+      "allowed_formats": ["jpg", "jpeg", "png"],
+      "max_size_kb": 50
+    }
+  ]
+}

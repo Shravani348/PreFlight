@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 import Logo from './Logo';
 import { useTheme } from '../context/ThemeContext';
@@ -8,7 +9,9 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 nav-bg">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Logo size="md" />
+        <Link to="/" className="inline-flex cursor-pointer hover:opacity-90 transition-opacity">
+          <Logo size="md" />
+        </Link>
 
         {/* Theme toggle */}
         <button

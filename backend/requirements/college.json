@@ -1,0 +1,27 @@
+{
+  "application_type": "college",
+  "requirements": [
+    {
+      "document_type": "application_form",
+      "required": true
+    },
+    {
+      "document_type": "marksheet",
+      "required": true
+    },
+    {
+      "document_type": "transfer_certificate",
+      "required": true
+    },
+    {
+      "document_type": "identity_proof",
+      "required": true
+    },
+    {
+      "document_type": "photograph",
+      "required": true,
+      "allowed_formats": ["jpg", "jpeg", "png"],
+      "max_size_kb": 300
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "application_type": "visa",
+  "requirements": [
+    {
+      "document_type": "visa_application_form",
+      "required": true
+    },
+    {
+      "document_type": "passport",
+      "required": true
+    },
+    {
+      "document_type": "travel_itinerary",
+      "required": true
+    },
+    {
+      "document_type": "bank_statement",
+      "required": true
+    },
+    {
+      "document_type": "photograph",
+      "required": true,
+      "allowed_formats": ["jpg", "jpeg"],
+      "max_size_kb": 300
+    }
+  ]
+}
