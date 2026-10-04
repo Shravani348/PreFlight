@@ -21,11 +21,11 @@ export default function Button({
     primary:
       'gradient-brand text-white glow-brand hover:opacity-90 active:scale-95 focus:ring-indigo-500',
     secondary:
-      'glass text-slate-200 border border-white/10 hover:bg-white/10 active:scale-95 focus:ring-indigo-500',
+      'glass text-primary border border-subtle hover:bg-white/10 active:scale-95 focus:ring-indigo-500',
     danger:
       'bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 active:scale-95 focus:ring-red-500',
     ghost:
-      'text-slate-400 hover:text-slate-200 hover:bg-white/5 active:scale-95 focus:ring-slate-500',
+      'text-secondary hover:text-primary hover:bg-white/5 active:scale-95 focus:ring-indigo-500',
   };
 
   const sizes = {

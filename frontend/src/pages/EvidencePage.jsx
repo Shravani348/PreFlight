@@ -12,16 +12,16 @@ function EvidenceCard({ item }) {
           <FileText size={20} className="text-indigo-400" aria-hidden />
         </div>
         <div className="flex-1">
-          <p className="font-semibold text-slate-200">{item.document}</p>
-          <p className="text-xs text-slate-500 mt-0.5">Page {item.page}</p>
-          <div className="mt-3 bg-white/3 border border-white/8 rounded-xl px-4 py-3">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{item.field}</p>
-            <p className="text-xl font-extrabold text-white">{item.value}</p>
+          <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{item.document}</p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>Page {item.page}</p>
+          <div className="mt-3 glass rounded-xl px-4 py-3">
+            <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--text-muted)' }}>{item.field}</p>
+            <p className="text-xl font-extrabold" style={{ color: 'var(--text-primary)' }}>{item.value}</p>
           </div>
           {confidencePct != null && (
             <div className="mt-2 flex items-center gap-2">
-              <span className="text-xs text-slate-500 font-medium">Confidence</span>
-              <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden max-w-32">
+              <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Confidence</span>
+              <div className="flex-1 h-1.5 rounded-full overflow-hidden max-w-32 border border-subtle" style={{ background: 'var(--bg-raised)' }}>
                 <div
                   className={`h-full rounded-full ${confidencePct >= 90 ? 'bg-emerald-400' : confidencePct >= 70 ? 'bg-amber-400' : 'bg-red-400'}`}
                   style={{ width: `${confidencePct}%` }}
@@ -48,7 +48,7 @@ export default function EvidencePage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-slate-500 mb-4">No evidence to display.</p>
+          <p className="mb-4" style={{ color: 'var(--text-muted)' }}>No evidence to display.</p>
           <Button variant="secondary" onClick={() => navigate(-1)}>Go Back</Button>
         </div>
       </div>
@@ -68,20 +68,20 @@ export default function EvidencePage() {
           <BookOpen size={20} className="text-indigo-400" aria-hidden />
           <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Evidence View</p>
         </div>
-        <h1 className="text-3xl font-extrabold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h1 className="text-3xl font-extrabold" style={{ fontFamily: "'Outfit', sans-serif", color: 'var(--text-primary)' }}>
           {check.name}
         </h1>
-        <p className="text-slate-400 mt-2">{check.description}</p>
+        <p className="mt-2" style={{ color: 'var(--text-secondary)' }}>{check.description}</p>
       </div>
 
       {/* Evidence cards */}
       {evidenceItems.length === 0 ? (
-        <div className="glass rounded-2xl p-8 text-center text-slate-500">
+        <div className="glass rounded-2xl p-8 text-center" style={{ color: 'var(--text-muted)' }}>
           No evidence records available for this check.
         </div>
       ) : (
         <div className="space-y-4" role="list" aria-label="Evidence items">
-          <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
+          <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
             {evidenceItems.length} evidence record{evidenceItems.length !== 1 ? 's' : ''}
           </p>
           {evidenceItems.map((item) => (
@@ -92,8 +92,8 @@ export default function EvidencePage() {
         </div>
       )}
 
-      {/* Warning about demo */}
-      <div className="mt-8 px-4 py-3 rounded-xl bg-white/3 border border-white/8 text-xs text-slate-500">
+      {/* Disclaimer */}
+      <div className="mt-8 px-4 py-3 rounded-xl glass text-xs" style={{ color: 'var(--text-muted)' }}>
         Evidence is extracted by the AI backend. Only values the backend has extracted with confidence are shown here.
       </div>
     </div>

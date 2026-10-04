@@ -34,42 +34,43 @@ function FileRow({ slot, file, onRemove }) {
 
   return (
     <div className={`glass rounded-xl p-4 flex items-center gap-4 transition-all
-      ${file ? (tooLarge ? 'border-red-500/30' : 'border-emerald-500/20') : 'border-white/5'}`}>
+      ${file ? (tooLarge ? 'border-red-500/30' : 'border-emerald-500/20') : 'border-subtle'}`}>
       <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
         ${file ? (tooLarge ? 'bg-red-500/15' : 'bg-emerald-500/10') : 'bg-white/5'}`}>
         {file
           ? tooLarge
             ? <AlertCircle size={20} className="text-red-400" aria-hidden />
             : <CheckCircle2 size={20} className="text-emerald-400" aria-hidden />
-          : <Icon size={20} className="text-slate-500" aria-hidden />
+          : <Icon size={20} style={{ color: 'var(--text-muted)' }} aria-hidden />
         }
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-semibold text-slate-200">{slot.label}</p>
+          <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{slot.label}</p>
           {slot.required && (
             <span className="text-[10px] font-bold text-red-400 uppercase">Required</span>
           )}
         </div>
         {file ? (
-          <p className={`text-xs truncate ${tooLarge ? 'text-red-400' : 'text-slate-400'}`}>
+          <p className="text-xs truncate" style={{ color: tooLarge ? '#f87171' : 'var(--text-secondary)' }}>
             {file.name} · {sizeKB} KB
             {tooLarge && ` · Exceeds ${MAX_SIZE_MB} MB limit`}
           </p>
         ) : (
-          <p className="text-xs text-slate-600">{slot.hint}</p>
+          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{slot.hint}</p>
         )}
       </div>
       {file ? (
         <button
-          onClick={() => onRemove(slot.id)}
+          onClick={(e) => { e.stopPropagation(); onRemove(slot.id); }}
           aria-label={`Remove ${slot.label}`}
-          className="text-slate-500 hover:text-red-400 transition-colors flex-shrink-0 cursor-pointer"
+          className="hover:text-red-400 transition-colors flex-shrink-0 cursor-pointer p-1"
+          style={{ color: 'var(--text-muted)' }}
         >
           <X size={18} aria-hidden />
         </button>
       ) : (
-        <span className="text-xs text-slate-600 flex-shrink-0">— Not uploaded</span>
+        <span className="text-xs flex-shrink-0" style={{ color: 'var(--text-muted)' }}>— Not uploaded</span>
       )}
     </div>
   );
@@ -173,11 +174,11 @@ export default function UploadPage() {
         <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">
           Step 1 — Upload Documents
         </p>
-        <h1 className="text-3xl font-extrabold text-white mb-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h1 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "'Outfit', sans-serif", color: 'var(--text-primary)' }}>
           Upload your documents
         </h1>
-        <p className="text-slate-400">
-          Upload the documents for your <span className="text-indigo-300 font-semibold capitalize">{state.applicationType}</span> application.
+        <p style={{ color: 'var(--text-secondary)' }}>
+          Upload the documents for your <span className="text-indigo-400 font-semibold capitalize">{state.applicationType}</span> application.
           Required items are marked.
         </p>
       </div>
@@ -188,11 +189,11 @@ export default function UploadPage() {
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         className={`glass rounded-2xl border-2 border-dashed p-8 text-center mb-6 transition-all
-          ${dragOver ? 'border-indigo-500/60 bg-indigo-500/5' : 'border-white/10'}`}
+          ${dragOver ? 'border-indigo-500/60 bg-indigo-500/5' : 'border-subtle'}`}
       >
-        <Upload size={36} className="mx-auto text-slate-500 mb-3" aria-hidden />
-        <p className="text-slate-300 font-semibold">Drag & drop files here</p>
-        <p className="text-sm text-slate-500 mt-1">PDF, JPEG, PNG · Max {MAX_SIZE_MB} MB per file</p>
+        <Upload size={36} className="mx-auto mb-3" style={{ color: 'var(--text-muted)' }} aria-hidden />
+        <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>Drag & drop files here</p>
+        <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>PDF, JPEG, PNG · Max {MAX_SIZE_MB} MB per file</p>
       </div>
 
       {/* Document slots */}
@@ -230,7 +231,7 @@ export default function UploadPage() {
 
       {/* Summary */}
       {hasFiles && (
-        <div className="mb-6 px-4 py-3 rounded-xl bg-white/3 border border-white/8 text-sm text-slate-400 flex flex-wrap gap-4">
+        <div className="mb-6 px-4 py-3 rounded-xl glass text-sm flex flex-wrap gap-4" style={{ color: 'var(--text-secondary)' }}>
           <span>✅ {Object.keys(slotFiles).length} file{Object.keys(slotFiles).length !== 1 ? 's' : ''} selected</span>
           {!requiredFilled && (
             <span className="text-amber-400">
@@ -253,7 +254,7 @@ export default function UploadPage() {
         <Rocket size={18} aria-hidden /> Run PreFlight
       </Button>
       {!requiredFilled && (
-        <p className="text-xs text-slate-600 text-center mt-3">
+        <p className="text-xs text-center mt-3" style={{ color: 'var(--text-muted)' }}>
           Please upload all required documents to continue.
         </p>
       )}

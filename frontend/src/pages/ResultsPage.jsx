@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  CheckCircle2, XCircle, AlertTriangle, ChevronDown, ChevronUp,
-  Download, RefreshCw, Eye, ArrowRight
+  CheckCircle2, AlertTriangle, ChevronDown, ChevronUp,
+  Download, RefreshCw, Eye
 } from 'lucide-react';
 import Button from '../components/Button';
 import StatusBadge from '../components/StatusBadge';
 import { usePreFlight } from '../context/PreFlightContext';
-import { downloadReport } from '../api/apiService';
+import { downloadReport, confirmField } from '../api/apiService';
 
 // ---------------------------------------------------------------------------
 // Readiness gauge
@@ -21,7 +21,7 @@ function ReadinessGauge({ score }) {
   return (
     <div className="relative inline-flex items-center justify-center">
       <svg width="130" height="130" className="-rotate-90" aria-hidden="true">
-        <circle cx="65" cy="65" r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
+        <circle cx="65" cy="65" r={radius} fill="none" stroke="var(--border-medium)" strokeWidth="10" />
         <circle
           cx="65" cy="65" r={radius} fill="none"
           stroke={color} strokeWidth="10"
@@ -31,8 +31,8 @@ function ReadinessGauge({ score }) {
         />
       </svg>
       <div className="absolute text-center">
-        <span className="text-3xl font-extrabold text-white">{score}%</span>
-        <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wide">Readiness</p>
+        <span className="text-3xl font-extrabold" style={{ color: 'var(--text-primary)' }}>{score}%</span>
+        <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Readiness</p>
       </div>
     </div>
   );
@@ -50,33 +50,33 @@ function IssueCard({ check, onViewEvidence }) {
       <button
         id={`issue-${check.id}`}
         onClick={() => setExpanded(e => !e)}
-        className="w-full flex items-start gap-4 p-5 text-left cursor-pointer hover:bg-white/3 transition-colors"
+        className="w-full flex items-start gap-4 p-5 text-left cursor-pointer hover:bg-white/5 transition-colors"
         aria-expanded={expanded}
         aria-controls={`issue-body-${check.id}`}
       >
         <StatusBadge status={check.status} showLabel={false} size="md" />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{check.category}</span>
+            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>{check.category}</span>
           </div>
-          <p className="font-semibold text-slate-200 mt-0.5">{check.name}</p>
-          <p className="text-sm text-slate-400 mt-0.5">{check.description}</p>
+          <p className="font-semibold mt-0.5" style={{ color: 'var(--text-primary)' }}>{check.name}</p>
+          <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>{check.description}</p>
         </div>
         <StatusBadge status={check.status} size="sm" />
-        {expanded ? <ChevronUp size={16} className="text-slate-500 flex-shrink-0 mt-1" aria-hidden /> : <ChevronDown size={16} className="text-slate-500 flex-shrink-0 mt-1" aria-hidden />}
+        {expanded ? <ChevronUp size={16} className="flex-shrink-0 mt-1" style={{ color: 'var(--text-muted)' }} aria-hidden /> : <ChevronDown size={16} className="flex-shrink-0 mt-1" style={{ color: 'var(--text-muted)' }} aria-hidden />}
       </button>
 
       {expanded && (
-        <div id={`issue-body-${check.id}`} className="px-5 pb-5 border-t border-white/5 pt-4 space-y-4">
+        <div id={`issue-body-${check.id}`} className="px-5 pb-5 border-t border-subtle pt-4 space-y-4">
           {/* Values */}
           {Object.keys(check.values).length > 0 && (
             <div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Extracted Values</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted)' }}>Extracted Values</p>
               <div className="flex flex-wrap gap-3">
                 {Object.entries(check.values).map(([doc, val]) => (
-                  <div key={doc} className="bg-white/4 rounded-lg px-3 py-2">
-                    <p className="text-[11px] text-slate-500 font-semibold">{doc}</p>
-                    <p className="text-sm font-bold text-slate-200">{val}</p>
+                  <div key={doc} className="glass rounded-lg px-3 py-2">
+                    <p className="text-[11px] font-semibold" style={{ color: 'var(--text-muted)' }}>{doc}</p>
+                    <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{val}</p>
                   </div>
                 ))}
               </div>
@@ -86,10 +86,10 @@ function IssueCard({ check, onViewEvidence }) {
           {/* Documents */}
           {check.documents_involved.length > 0 && (
             <div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Documents Involved</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--text-muted)' }}>Documents Involved</p>
               <div className="flex flex-wrap gap-2">
                 {check.documents_involved.map((doc) => (
-                  <span key={doc} className="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2 py-0.5 rounded-full font-medium">
+                  <span key={doc} className="text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-full font-medium">
                     {doc}
                   </span>
                 ))}
@@ -101,7 +101,7 @@ function IssueCard({ check, onViewEvidence }) {
           {check.why_it_matters && (
             <div className="bg-amber-500/5 border border-amber-500/15 rounded-xl px-4 py-3">
               <p className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">Why it matters</p>
-              <p className="text-sm text-slate-300">{check.why_it_matters}</p>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{check.why_it_matters}</p>
             </div>
           )}
 
@@ -109,7 +109,7 @@ function IssueCard({ check, onViewEvidence }) {
           {check.recommendation && (
             <div className="bg-indigo-500/5 border border-indigo-500/15 rounded-xl px-4 py-3">
               <p className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">Recommended Action</p>
-              <p className="text-sm text-slate-300">{check.recommendation}</p>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{check.recommendation}</p>
             </div>
           )}
 
@@ -131,6 +131,69 @@ function IssueCard({ check, onViewEvidence }) {
 }
 
 // ---------------------------------------------------------------------------
+// Confirmation card (low-confidence field)
+// ---------------------------------------------------------------------------
+function ConfirmationCard({ field, sessionId }) {
+  const [status, setStatus] = useState('pending'); // 'pending'|'confirmed'|'editing'|'done'
+  const [editValue, setEditValue] = useState(field.extracted_value);
+
+  async function handleConfirm() {
+    setStatus('confirmed');
+    await confirmField(sessionId, field.id, field.extracted_value, 'confirm');
+    setStatus('done');
+  }
+
+  async function handleSaveEdit() {
+    await confirmField(sessionId, field.id, editValue, 'edit');
+    setStatus('done');
+  }
+
+  const confidencePct = Math.round(field.confidence * 100);
+
+  return (
+    <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>{field.document} · Page {field.page} · {field.field}</p>
+          {status === 'editing' ? (
+            <input
+              id={`edit-field-${field.id}`}
+              value={editValue}
+              onChange={e => setEditValue(e.target.value)}
+              className="mt-1 glass rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-indigo-500 w-64"
+              style={{ color: 'var(--text-primary)' }}
+              aria-label={`Edit extracted value for ${field.field}`}
+            />
+          ) : (
+            <p className="text-lg font-bold mt-1" style={{ color: 'var(--text-primary)' }}>{field.extracted_value}</p>
+          )}
+          <p className="text-xs mt-1">
+            <span className={`font-bold ${confidencePct < 70 ? 'text-amber-400' : 'text-emerald-400'}`}>
+              Confidence: {confidencePct}%
+            </span>
+          </p>
+        </div>
+        {status === 'done' ? (
+          <span className="text-emerald-400 text-sm font-semibold flex items-center gap-1">
+            <CheckCircle2 size={14} aria-hidden /> Confirmed
+          </span>
+        ) : status === 'editing' ? (
+          <div className="flex gap-2">
+            <Button id={`save-edit-${field.id}`} variant="primary" size="sm" onClick={handleSaveEdit}>Save</Button>
+            <Button id={`cancel-edit-${field.id}`} variant="ghost" size="sm" onClick={() => setStatus('pending')}>Cancel</Button>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <Button id={`confirm-field-${field.id}`} variant="primary" size="sm" onClick={handleConfirm}>Confirm</Button>
+            <Button id={`edit-field-btn-${field.id}`} variant="secondary" size="sm" onClick={() => setStatus('editing')}>Edit</Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Main results page
 // ---------------------------------------------------------------------------
 export default function ResultsPage() {
@@ -143,7 +206,7 @@ export default function ResultsPage() {
   if (!result) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <p className="text-slate-500">No results yet. <button className="text-indigo-400 underline" onClick={() => navigate('/')}>Start over</button></p>
+        <p style={{ color: 'var(--text-muted)' }}>No results yet. <button className="text-indigo-400 underline cursor-pointer" onClick={() => navigate('/')}>Start over</button></p>
       </div>
     );
   }
@@ -190,7 +253,7 @@ export default function ResultsPage() {
             style={{ fontFamily: "'Outfit', sans-serif" }}>
           {isReady ? 'READY TO SUBMIT' : 'FIX REQUIRED'}
         </h1>
-        <p className="text-slate-400 text-sm mb-8">
+        <p className="text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
           {isReady
             ? 'Ready to submit based on the checks performed. This does not guarantee approval.'
             : 'Your application has issues that need to be resolved before submission.'}
@@ -202,22 +265,22 @@ export default function ResultsPage() {
           <div className="grid grid-cols-3 gap-4 text-center">
             <div className="glass rounded-xl p-4">
               <p className="text-2xl font-extrabold text-emerald-400">{result.summary.passed}</p>
-              <p className="text-xs text-slate-500 font-semibold mt-0.5">Passed</p>
+              <p className="text-xs font-semibold mt-0.5" style={{ color: 'var(--text-muted)' }}>Passed</p>
             </div>
             <div className="glass rounded-xl p-4">
               <p className="text-2xl font-extrabold text-amber-400">{result.summary.warnings}</p>
-              <p className="text-xs text-slate-500 font-semibold mt-0.5">Warning</p>
+              <p className="text-xs font-semibold mt-0.5" style={{ color: 'var(--text-muted)' }}>Warning</p>
             </div>
             <div className="glass rounded-xl p-4">
               <p className="text-2xl font-extrabold text-red-400">{result.summary.critical}</p>
-              <p className="text-xs text-slate-500 font-semibold mt-0.5">Critical</p>
+              <p className="text-xs font-semibold mt-0.5" style={{ color: 'var(--text-muted)' }}>Critical</p>
             </div>
           </div>
           <div className="glass rounded-xl p-4 text-center">
             <p className={`text-xl font-extrabold ${result.risk_level === 'LOW' ? 'text-emerald-400' : result.risk_level === 'MEDIUM' ? 'text-amber-400' : 'text-red-400'}`}>
               {result.risk_level}
             </p>
-            <p className="text-xs text-slate-500 font-semibold mt-0.5">Risk</p>
+            <p className="text-xs font-semibold mt-0.5" style={{ color: 'var(--text-muted)' }}>Risk</p>
           </div>
         </div>
       </div>
@@ -227,9 +290,9 @@ export default function ResultsPage() {
         <div className="glass rounded-2xl p-6 mb-8 border-amber-500/25">
           <div className="flex items-center gap-2 mb-4">
             <AlertTriangle size={18} className="text-amber-400" aria-hidden />
-            <h2 className="text-lg font-bold text-white">Please verify these fields</h2>
+            <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>Please verify these fields</h2>
           </div>
-          <p className="text-sm text-slate-400 mb-4">
+          <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
             The AI extracted the following with low confidence. Please confirm or correct them.
           </p>
           <div className="space-y-3">
@@ -243,7 +306,7 @@ export default function ResultsPage() {
       {/* ── Fix plan ── */}
       {result.fix_plan.length > 0 && (
         <section className="mb-8" aria-labelledby="fix-plan-heading">
-          <h2 id="fix-plan-heading" className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <h2 id="fix-plan-heading" className="text-xl font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <span aria-hidden>🛠️</span> Your Fix Plan
           </h2>
           <div className="space-y-3">
@@ -254,11 +317,11 @@ export default function ResultsPage() {
                   <span className="text-xl flex-shrink-0 mt-0.5" aria-hidden>{emoji}</span>
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Priority {item.priority}</span>
+                      <span className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Priority {item.priority}</span>
                       <StatusBadge status={item.severity} size="sm" />
                     </div>
-                    <p className="font-semibold text-slate-200">{item.title}</p>
-                    <p className="text-sm text-slate-400 mt-1">{item.action}</p>
+                    <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{item.title}</p>
+                    <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>{item.action}</p>
                   </div>
                 </div>
               );
@@ -270,7 +333,7 @@ export default function ResultsPage() {
       {/* ── Issues ── */}
       {issues.length > 0 && (
         <section className="mb-8" aria-labelledby="issues-heading">
-          <h2 id="issues-heading" className="text-xl font-bold text-white mb-4">
+          <h2 id="issues-heading" className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
             Issues ({issues.length})
           </h2>
           <div className="space-y-3">
@@ -284,7 +347,7 @@ export default function ResultsPage() {
       {/* ── Passed checks ── */}
       {passed.length > 0 && (
         <section className="mb-8" aria-labelledby="passed-heading">
-          <h2 id="passed-heading" className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <h2 id="passed-heading" className="text-xl font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <CheckCircle2 size={20} className="text-emerald-400" aria-hidden /> Passed Checks ({passed.length})
           </h2>
           <div className="space-y-2">
@@ -292,8 +355,8 @@ export default function ResultsPage() {
               <div key={check.id} className="glass rounded-xl px-4 py-3 flex items-center gap-3">
                 <CheckCircle2 size={16} className="text-emerald-400 flex-shrink-0" aria-hidden />
                 <div>
-                  <span className="text-xs text-slate-500 font-semibold">{check.category} · </span>
-                  <span className="text-sm text-slate-300 font-medium">{check.name}</span>
+                  <span className="text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>{check.category} · </span>
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{check.name}</span>
                 </div>
               </div>
             ))}
@@ -302,7 +365,7 @@ export default function ResultsPage() {
       )}
 
       {/* ── Actions ── */}
-      <div className="flex flex-wrap gap-3 pt-4 border-t border-white/5">
+      <div className="flex flex-wrap gap-3 pt-4 border-t border-subtle">
         {!isReady && (
           <Button id="recheck-btn" variant="primary" size="lg" onClick={handleRecheck}>
             <RefreshCw size={16} aria-hidden /> Run PreFlight Again
@@ -314,70 +377,6 @@ export default function ResultsPage() {
         <Button id="start-over-btn" variant="ghost" size="lg" onClick={() => { dispatch({ type: 'RESET' }); navigate('/'); }}>
           Start Over
         </Button>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Confirmation card (low-confidence field)
-// ---------------------------------------------------------------------------
-import { confirmField } from '../api/apiService';
-
-function ConfirmationCard({ field, sessionId }) {
-  const [status, setStatus] = useState('pending'); // 'pending'|'confirmed'|'editing'|'done'
-  const [editValue, setEditValue] = useState(field.extracted_value);
-
-  async function handleConfirm() {
-    setStatus('confirmed');
-    await confirmField(sessionId, field.id, field.extracted_value, 'confirm');
-    setStatus('done');
-  }
-
-  async function handleSaveEdit() {
-    await confirmField(sessionId, field.id, editValue, 'edit');
-    setStatus('done');
-  }
-
-  const confidencePct = Math.round(field.confidence * 100);
-
-  return (
-    <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <p className="text-xs text-slate-500 font-semibold">{field.document} · Page {field.page} · {field.field}</p>
-          {status === 'editing' ? (
-            <input
-              id={`edit-field-${field.id}`}
-              value={editValue}
-              onChange={e => setEditValue(e.target.value)}
-              className="mt-1 bg-white/5 border border-white/15 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500 w-64"
-              aria-label={`Edit extracted value for ${field.field}`}
-            />
-          ) : (
-            <p className="text-lg font-bold text-white mt-1">{field.extracted_value}</p>
-          )}
-          <p className="text-xs mt-1">
-            <span className={`font-bold ${confidencePct < 70 ? 'text-amber-400' : 'text-emerald-400'}`}>
-              Confidence: {confidencePct}%
-            </span>
-          </p>
-        </div>
-        {status === 'done' ? (
-          <span className="text-emerald-400 text-sm font-semibold flex items-center gap-1">
-            <CheckCircle2 size={14} aria-hidden /> Confirmed
-          </span>
-        ) : status === 'editing' ? (
-          <div className="flex gap-2">
-            <Button id={`save-edit-${field.id}`} variant="primary" size="sm" onClick={handleSaveEdit}>Save</Button>
-            <Button id={`cancel-edit-${field.id}`} variant="ghost" size="sm" onClick={() => setStatus('pending')}>Cancel</Button>
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <Button id={`confirm-field-${field.id}`} variant="primary" size="sm" onClick={handleConfirm}>Confirm</Button>
-            <Button id={`edit-field-btn-${field.id}`} variant="secondary" size="sm" onClick={() => setStatus('editing')}>Edit</Button>
-          </div>
-        )}
       </div>
     </div>
   );
