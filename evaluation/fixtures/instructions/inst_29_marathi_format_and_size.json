@@ -1,0 +1,16 @@
+{
+  "case_id": "inst_29_marathi_format_and_size",
+  "description": "Prescribed PDF upload format and 5 MB maximum size limit in Marathi",
+  "instruction_text": "सर्व कागदपत्रे फक्त PDF स्वरूपात असावीत आणि कमाल फाइल आकार 5 MB असावा.",
+  "expected_requirement_types": [
+    "file_format",
+    "file_size"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "max_file_size_bytes": 5242880
+  },
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

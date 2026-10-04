@@ -1,0 +1,17 @@
+{
+  "case_id": "inst_27_marathi_photo_mandate",
+  "description": "Recent passport size photograph requirement in Marathi",
+  "instruction_text": "उमेदवाराचा अलीकडील पासपोर्ट आकाराचा फोटो अपलोड करावा.",
+  "expected_requirement_types": [
+    "photograph"
+  ],
+  "expected_document_types": [
+    "photograph"
+  ],
+  "expected_constraints": {
+    "dimensions": "passport size"
+  },
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

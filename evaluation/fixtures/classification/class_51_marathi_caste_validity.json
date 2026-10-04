@@ -1,0 +1,14 @@
+{
+  "case_id": "class_51_marathi_caste_validity",
+  "description": "Marathi district caste certificate scrutiny committee validity record",
+  "file_name": "marathi_caste_validity.pdf",
+  "text_content": "महाराष्ट्र शासन जिल्हा जात प्रमाणपत्र पडताळणी समिती\nजात वैधता प्रमाणपत्र\nजात पडताळणी पूर्ण झाली असून अर्जदार इतर मागासवर्गीय प्रवर्गात येतो.",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "caste_certificate",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

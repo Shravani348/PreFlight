@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_28_marathi_eligibility",
+  "description": "Minimum qualifying score eligibility threshold in Marathi",
+  "instruction_text": "अर्जदारास मागील वर्षाच्या परीक्षेत किमान 60% गुण असणे बंधनकारक आहे.",
+  "expected_requirement_types": [
+    "eligibility"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "minimum_percentage": 60.0
+  },
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

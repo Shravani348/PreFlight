@@ -273,3 +273,76 @@ Based on concrete benchmark evidence:
    Introduce a deterministic Indic-to-Latin transliteration preprocessor (e.g., IndicSoundex or rule-based Devanagari-to-Latin character transliteration) before name matching.
 4. **Connect Live Vision / OCR Extraction Pipeline:**
    Deploy a Vision OCR provider to extract structured text from camera photos and scanned image PDFs before passing them to the downstream intelligence pipeline.
+
+---
+
+## 12. Task 19 Evaluation: Multilingual Classification & Instruction Signals
+
+### 1. Executive Summary & Benchmark Progression
+
+Task 18 resolved the Devanagari Unicode combining mark (matra) corruption in `NameNormalizer`.
+Task 19 introduced carefully curated, deterministic Hindi and Marathi signal patterns for document classification and instruction requirement extraction.
+
+#### Benchmark Comparison: Before vs. After Task 19
+
+| Metric | Before Task 19 (Task 17 Baseline) | After Task 19 (Multilingual Signals) | Absolute Change | Impact & Analysis |
+| :--- | :---: | :---: | :---: | :--- |
+| **Classification Overall Accuracy** | **0.7727** (34/44) | **0.9231** (48/52) | **+15.04%** | Pure Hindi and Marathi documents now classify correctly |
+| **Classification Overall F1 (Macro)**| **0.7857** | **0.9138** | **+0.1281** | Balanced category performance across languages |
+| **Hindi Classification Accuracy** | **0.0000** (0/4) | **1.0000** (8/8) | **+100.0%** | Pure Hindi income, caste, marksheet, aadhaar, app forms recognized |
+| **Marathi Classification Accuracy** | **0.0000** (0/4) | **1.0000** (8/8) | **+100.0%** | Pure Marathi *उत्पन्न प्रमाणपत्र*, *जात प्रमाणपत्र*, *गुणपत्रिका*, *अर्ज* recognized |
+| **English Classification Accuracy** | 0.8710 (27/31) | 0.8710 (27/31) | **0.00%** | Zero regression on existing English classification |
+| **Bilingual Classification Accuracy**| 1.0000 (5/5) | 1.0000 (5/5) | **0.00%** | Maintained 100% accuracy on mixed-language documents |
+| **Instruction Extraction Precision** | **1.0000** | **1.0000** | **0.00%** | Zero fabricated requirements across all languages |
+| **Instruction Extraction Recall** | **0.6957** | **0.9375** | **+24.18%** | Extracted Indic mandatory docs, photo, format, size, eligibility |
+| **Instruction Extraction F1** | **0.8205** | **0.9677** | **+0.1472** | High-precision deterministic requirement parsing |
+| **Hindi Instruction Recall** | **0.0000** | **1.0000** (6/6) | **+100.0%** | Extracted Hindi certificate mandates, formats, and percentages |
+| **Marathi Instruction Recall** | **0.0000** | **1.0000** (6/6) | **+100.0%** | Extracted Marathi certificate mandates, sizes, and photo guidelines |
+| **Matching False Matches (FP)** | **0** | **0** | **0 (Preserved)**| Task 16 family-member safety invariant strictly preserved |
+
+*(Note: Test dataset expanded to 52 classification cases and 29 instruction cases to ensure representative evaluation coverage).*
+
+---
+
+### 2. Architectural Additions & Engineering Fixes
+
+1. **Indic Unicode Word Boundary Handling in `DocumentClassifier`:**
+   In standard Python `re`, `\b` fails on Devanagari words ending in combining marks (`\u0900-\u097F`, e.g. *गुणपत्रिका* or *अंकतालिका*) because category `M` (`Mc`/`Mn`) characters are not categorized as `\w`.
+   `DocumentClassifier._matches_pattern` was updated to:
+   ```python
+   regex = rf"(?<![\w\u0900-\u097f]){re.escape(pattern)}(?![\w\u0900-\u097f])"
+   ```
+   This accurately detects word boundaries in both Latin and Devanagari scripts without dropping combining characters.
+
+2. **Conservative Multilingual Vocabulary:**
+   Added high-confidence, non-ambiguous compound signals in `ai/classification/classification_signals.py`:
+   - **Income Certificate:** Hindi *आय प्रमाण पत्र*, *आय प्रमाणपत्र*, *वार्षिक आय*; Marathi *उत्पन्न प्रमाणपत्र*, *वार्षिक उत्पन्न*.
+   - **Caste Certificate:** Hindi *जाति प्रमाण पत्र*, *अनुसूचित जाति*; Marathi *जात प्रमाणपत्र*, *जात पडताळणी*, *जात वैधता*.
+   - **Marksheet:** Hindi *अंकतालिका*, *अंक प्रमाणपत्र*; Marathi *गुणपत्रिका*, *गुणपत्रक*, *टक्केवारी*.
+   - **Application Form:** Hindi *आवेदन पत्र*, *छात्रवृत्ति आवेदन*; Marathi *शिष्यवृत्ती अर्ज*, *अर्ज क्रमांक*.
+   - **Identity Document:** Hindi/Marathi *भारतीय विशिष्ट पहचान प्राधिकरण*, *पहचान पत्र*, *ओळखपत्र*, *निवडणूक ओळखपत्र*.
+
+3. **Multilingual Instruction Extractor Enhancements:**
+   - **Mandatory Documents:** Mapped Devanagari certificate terminology in `DOCUMENT_KEYWORDS`.
+   - **File Formats:** Supported explicit format statements in Hindi (*केवल PDF*, *प्रारूप*) and Marathi (*फक्त PDF*, *स्वरूप*), plus transliterated tokens (*पीडीएफ*, *जेपीजी*, *पीएनजी*).
+   - **File Sizes:** Supported Devanagari size indicators (*अधिकतम फ़ाइल आकार*, *कमाल फाइल आकार*, *एमबी*, *केबी*) reusing existing byte conversion multipliers.
+   - **Photograph Specifications:** Recognized dimensions (*पासपोर्ट आकार*) and background color (*सफेद पृष्ठभूमि*, *पांढरी पार्श्वभूमी*).
+   - **Eligibility Constraints:** Extracted numeric percentage constraints (*न्यूनतम 60 प्रतिशत*, *किमान 60%*) without evaluating applicant satisfaction.
+   - **Unknown Document Safety:** Unmapped certificates (*बोनाफाइड प्रमाणपत्र*) are preserved as `DocumentType.UNKNOWN` with constraints.
+
+---
+
+### 3. Remaining Limitations & Multilingual Weaknesses
+
+While simple, structured Indic administrative text is now well-supported by the deterministic layer, several real-world bottlenecks remain:
+
+1. **Cross-Script Matching Barrier (Latin vs. Devanagari):**
+   Names in English (`"Priti Ahire"`) and Marathi (`"प्रीती अहिरे"`) still yield `0.0000` similarity. Cross-script matching requires an Indic-to-Latin transliteration bridge (e.g. ISO 15919 or IndicSoundex).
+2. **Ambiguous Indic Vocabulary:**
+   Generic single words like *नाव*, *नाम*, *दिनांक*, *तारीख* intentionally do not trigger confident classification without secondary corroborating evidence.
+3. **Complex Free-form Instructions:**
+   Unusual syntax, convoluted legal caveats, or multi-clause sentence structures that deviate from administrative templates cannot be fully parsed without an LLM/NLP semantic layer.
+4. **Scanned / Camera Images Without Native Text:**
+   Smartphone photo submissions without machine-readable text continue to require a Vision OCR provider.
+
+> **Evaluation Caveat:** These results evaluate deterministic baseline signals on synthetic, anonymized development fixtures. They demonstrate framework correctness and baseline logic, NOT production accuracy on degraded, handwritten, or live government records.

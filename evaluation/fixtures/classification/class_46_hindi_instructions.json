@@ -1,0 +1,14 @@
+{
+  "case_id": "class_46_hindi_instructions",
+  "description": "Hindi scheme guidelines with mandatory document upload directions",
+  "file_name": "hindi_guidelines.pdf",
+  "text_content": "छात्रवृत्ति योजना दिशानिर्देश 2026\nअभ्यर्थियों के लिए निर्देश\nआवश्यक दस्तावेज\nआवेदन कैसे करें: ऑनलाइन पोर्टल पर विवरण भरें",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "instructions",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

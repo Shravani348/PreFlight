@@ -1,0 +1,14 @@
+{
+  "case_id": "class_50_marathi_instructions",
+  "description": "Marathi scholarship portal guidelines and mandatory candidate instructions",
+  "file_name": "marathi_instructions.pdf",
+  "text_content": "महाराष्ट्र शासन उच्च व तंत्रशिक्षण विभाग\nमार्गदर्शक सूचना\nउमेदवारांसाठी सूचना\nआवश्यक कागदपत्रे: जात प्रमाणपत्र व उत्पन्न प्रमाणपत्र सादर करावे",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "instructions",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

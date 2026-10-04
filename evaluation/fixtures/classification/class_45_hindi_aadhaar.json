@@ -1,0 +1,14 @@
+{
+  "case_id": "class_45_hindi_aadhaar",
+  "description": "Hindi Aadhaar identity card issued by UIDAI with enrollment metadata",
+  "file_name": "hindi_aadhaar.pdf",
+  "text_content": "भारत सरकार\nभारतीय विशिष्ट पहचान प्राधिकरण\nपहचान पत्र\nजन्म तिथि: 12/04/2004\nनामांकन संख्या: 9876/5432",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "aadhaar_or_identity",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

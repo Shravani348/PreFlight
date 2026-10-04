@@ -1,0 +1,14 @@
+{
+  "case_id": "class_49_marathi_aadhaar",
+  "description": "Marathi election identity card (निवडणूक ओळखपत्र)",
+  "file_name": "marathi_voter_id.pdf",
+  "text_content": "भारत निवडणूक आयोग\nनिवडणूक ओळखपत्र\nमतदाता पहचान पत्र\nजन्म तारीख: 15/08/2004\nनोंदणी क्रमांक: ECI-MH-4455",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "aadhaar_or_identity",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

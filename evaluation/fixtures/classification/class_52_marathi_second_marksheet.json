@@ -1,0 +1,14 @@
+{
+  "case_id": "class_52_marathi_second_marksheet",
+  "description": "Marathi university semester statement of marks (गुणपत्रक)",
+  "file_name": "marathi_grade_sheet.pdf",
+  "text_content": "पुणे विद्यापीठ परीक्षा विभाग\nगुणपत्रक\nएकूण गुण: 600\nप्राप्त गुण: 510\nटक्केवारी: 85.00%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

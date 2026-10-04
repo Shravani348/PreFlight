@@ -278,3 +278,154 @@ def test_unsupported_or_invalid_input_handling() -> None:
 
     with pytest.raises(DocumentProcessingError):
         classifier.classify(None)  # type: ignore[arg-type]
+
+
+# ==============================================================================
+# MULTILINGUAL DETERMINISTIC CLASSIFICATION TESTS (Hindi, Marathi, Bilingual)
+# ==============================================================================
+
+def test_hindi_income_certificate_classification() -> None:
+    """Pure Hindi income certificate with clear revenue authority markers."""
+    text = "राजस्व विभाग\nतहसीलदार कार्यालय\nआय प्रमाण पत्र\nप्रमाणित किया जाता है कि कुल वार्षिक आय रु. 1,40,000 है।"
+    doc = _make_doc(file_name="hindi_income.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.INCOME_CERTIFICATE
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+    assert len(res.evidence) >= 1
+    assert any("आय प्रमाण पत्र" in (e.snippet or "") for e in res.evidence)
+
+
+def test_hindi_caste_certificate_classification() -> None:
+    """Pure Hindi caste certificate with reserved category markers."""
+    text = "सक्षम प्राधिकारी कार्यालय\nजाति प्रमाण पत्र\nप्रमाणित किया जाता है कि आवेदक अनुसूचित जाति वर्ग से संबंधित है।"
+    doc = _make_doc(file_name="hindi_caste.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.CASTE_CERTIFICATE
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+    assert len(res.evidence) >= 1
+    assert any("जाति प्रमाण पत्र" in (e.snippet or "") for e in res.evidence)
+
+
+def test_hindi_marksheet_classification() -> None:
+    """Pure Hindi academic board marksheet with score breakdown."""
+    text = "माध्यमिक शिक्षा परिषद\nअंकतालिका\nपरीक्षार्थी का नाम: अमित कुमार\nप्राप्तांक: 430/500\nप्रतिशत: 86.0%"
+    doc = _make_doc(file_name="hindi_marksheet.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.MARKSHEET
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+    assert len(res.evidence) >= 1
+    assert any("अंकतालिका" in (e.snippet or "") for e in res.evidence)
+
+
+def test_hindi_application_form_classification() -> None:
+    """Pure Hindi scholarship application submission form."""
+    text = "छात्रवृत्ति आवेदन पत्र\nआवेदन संख्या: HIN-2026-101\nआवेदक विवरण: अमित कुमार\nपिता का नाम: राजेश कुमार"
+    doc = _make_doc(file_name="hindi_app.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.APPLICATION_FORM
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+
+
+def test_marathi_income_certificate_classification() -> None:
+    """Pure Marathi income certificate with revenue department markers."""
+    text = "महाराष्ट्र शासन महसूल विभाग\nतहसीलदार कार्यालय\nउत्पन्न प्रमाणपत्र\nप्रमाणित करण्यात येते की कुटुंबाचे वार्षिक उत्पन्न रु. 1,50,000 आहे."
+    doc = _make_doc(file_name="marathi_income.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.INCOME_CERTIFICATE
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+    assert len(res.evidence) >= 1
+    assert any("उत्पन्न प्रमाणपत्र" in (e.snippet or "") for e in res.evidence)
+
+
+def test_marathi_caste_certificate_classification() -> None:
+    """Pure Marathi caste validity certificate."""
+    text = "सक्षम प्राधिकारी उपविभागीय अधिकारी\nजात प्रमाणपत्र\nप्रमाणित करण्यात येते की अर्जदार अनुसूचित जाती प्रवर्गातील आहे."
+    doc = _make_doc(file_name="marathi_caste.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.CASTE_CERTIFICATE
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+    assert len(res.evidence) >= 1
+    assert any("जात प्रमाणपत्र" in (e.snippet or "") for e in res.evidence)
+
+
+def test_marathi_marksheet_classification() -> None:
+    """Pure Marathi state board statement of marks (गुणपत्रिका)."""
+    text = "महाराष्ट्र राज्य माध्यमिक व उच्च माध्यमिक शिक्षण मंडळ\nगुणपत्रिका\nविद्यार्थ्याचे नाव: स्नेहा देशमुख\nप्राप्त गुण: 475/500\nटक्केवारी: 95.00%"
+    doc = _make_doc(file_name="marathi_marksheet.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.MARKSHEET
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+    assert len(res.evidence) >= 1
+    assert any("गुणपत्रिका" in (e.snippet or "") for e in res.evidence)
+
+
+def test_marathi_application_form_classification() -> None:
+    """Pure Marathi scholarship portal application form."""
+    text = "महाराष्ट्र राज्य शिष्यवृत्ती अर्ज\nअर्ज क्रमांक: MAH-2026-404\nअर्जदार तपशील\nविद्यार्थ्याचे नाव: स्नेहा देशमुख"
+    doc = _make_doc(file_name="marathi_app.pdf", text=text)
+    classifier = DocumentClassifier()
+    res = classifier.classify(doc)
+
+    assert res.document_type == DocumentType.APPLICATION_FORM
+    assert res.confidence >= 0.75
+    assert res.needs_verification is False
+
+
+def test_bilingual_classification_robustness() -> None:
+    """Bilingual English and Indic documents classify accurately with high confidence."""
+    text_hin = "GOVERNMENT OF MAHARASHTRA / महाराष्ट्र शासन\nINCOME CERTIFICATE / आय प्रमाण पत्र\nAnnual Family Income: Rs. 1,60,000"
+    doc_hin = _make_doc(file_name="bilingual_income.pdf", text=text_hin)
+    classifier = DocumentClassifier()
+    res_hin = classifier.classify(doc_hin)
+
+    assert res_hin.document_type == DocumentType.INCOME_CERTIFICATE
+    assert res_hin.confidence >= 0.80
+    assert res_hin.needs_verification is False
+
+    text_mar = "STATEMENT OF MARKS / गुणपत्रिका\nMarks Obtained: 480/500\nPercentage: 96.00%"
+    doc_mar = _make_doc(file_name="bilingual_marks.pdf", text=text_mar)
+    res_mar = classifier.classify(doc_mar)
+
+    assert res_mar.document_type == DocumentType.MARKSHEET
+    assert res_mar.confidence >= 0.80
+    assert res_mar.needs_verification is False
+
+
+def test_ambiguous_indic_signals_handled_conservatively() -> None:
+    """Ambiguous or insufficient Indic text should remain UNKNOWN or require verification."""
+    # Text with only generic words like date/name without document type markers
+    text_weak = "विद्यार्थ्याचे नाव: अमित पाटील\nदिनांक: 15/08/2024\nपत्ता: पुणे महाराष्ट्र"
+    doc_weak = _make_doc(file_name="weak_marathi.pdf", text=text_weak)
+    classifier = DocumentClassifier()
+    res_weak = classifier.classify(doc_weak)
+
+    # Must NOT guess a document type without evidence
+    assert res_weak.document_type == DocumentType.UNKNOWN
+    assert res_weak.needs_verification is True
+
+    # Conflicting strong signals: income certificate and marksheet equally claimed
+    text_conflict = "आय प्रमाण पत्र\nवार्षिक आय रु. 1,00,000\nअंकतालिका\nप्राप्तांक: 450/500"
+    doc_conflict = _make_doc(file_name="conflict_indic.pdf", text=text_conflict)
+    res_conflict = classifier.classify(doc_conflict)
+    assert res_conflict.needs_verification is True

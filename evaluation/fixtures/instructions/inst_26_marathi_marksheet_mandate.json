@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_26_marathi_marksheet_mandate",
+  "description": "Mandatory secondary board statement of marks submission in Marathi",
+  "instruction_text": "माध्यमिक शालांत परीक्षेची गुणपत्रिका अपलोड करणे आवश्यक आहे.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "marksheet"
+  ],
+  "expected_constraints": {},
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

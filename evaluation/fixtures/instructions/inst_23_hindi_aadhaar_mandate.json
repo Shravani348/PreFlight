@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_23_hindi_aadhaar_mandate",
+  "description": "Mandatory Aadhaar identity document instruction in pure Hindi",
+  "instruction_text": "आवेदक का आधार कार्ड संलग्न करना अनिवार्य है।",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "aadhaar_or_identity"
+  ],
+  "expected_constraints": {},
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

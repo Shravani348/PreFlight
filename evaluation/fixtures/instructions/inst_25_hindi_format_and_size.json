@@ -1,0 +1,16 @@
+{
+  "case_id": "inst_25_hindi_format_and_size",
+  "description": "Explicit PDF format and 2 MB file size specification in pure Hindi",
+  "instruction_text": "दस्तावेज केवल PDF प्रारूप में अपलोड करें और अधिकतम फ़ाइल आकार 2 MB होना चाहिए।",
+  "expected_requirement_types": [
+    "file_format",
+    "file_size"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "max_file_size_bytes": 2097152
+  },
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

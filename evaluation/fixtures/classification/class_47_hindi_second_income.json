@@ -1,0 +1,14 @@
+{
+  "case_id": "class_47_hindi_second_income",
+  "description": "Hindi Tehsildar revenue office annual family income certificate",
+  "file_name": "hindi_income_tahsildar.pdf",
+  "text_content": "कार्यालय तहसीलदार\nवार्षिक आय प्रमाण पत्र\nकुल वार्षिक आय: रु. 85,000\nराजस्व विभाग उत्तर प्रदेश",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

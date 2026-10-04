@@ -1,0 +1,14 @@
+{
+  "case_id": "class_48_hindi_second_marksheet",
+  "description": "Hindi secondary education board अंक प्रमाणपत्र with aggregate score",
+  "file_name": "hindi_marks_cert.pdf",
+  "text_content": "माध्यमिक शिक्षा परिषद\nअंक प्रमाणपत्र\nकुल अंक: 500\nप्राप्तांक: 410\nप्रतिशत: 82.0%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

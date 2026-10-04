@@ -378,3 +378,152 @@ def test_synthetic_vision_model_path() -> None:
     assert reqs[0].document_type_requested == DocumentType.INCOME_CERTIFICATE
     assert reqs[0].accepted_formats == ["pdf"]
     assert reqs[0].max_file_size_bytes == 2097152
+
+
+# ==============================================================================
+# MULTILINGUAL INSTRUCTION EXTRACTION TESTS (Hindi, Marathi, Indic Patterns)
+# ==============================================================================
+
+def test_hindi_required_documents_extraction() -> None:
+    """Hindi document requirements for income certificate, marksheet, and caste certificate."""
+    extractor = InstructionExtractor()
+    text = (
+        "आवश्यक दस्तावेज:\n"
+        "सक्षम प्राधिकारी द्वारा जारी आय प्रमाण पत्र अपलोड करना अनिवार्य है।\n"
+        "कक्षा 12वीं की अंकतालिका संलग्न करना आवश्यक है।\n"
+        "जाति प्रमाण पत्र लागू होने पर प्रस्तुत करें।"
+    )
+    reqs = extractor.extract_instructions(text)
+    assert len(reqs) == 3
+
+    income_req = next(r for r in reqs if r.document_type_requested == DocumentType.INCOME_CERTIFICATE)
+    assert income_req.requirement_type == "required_document"
+    assert income_req.is_required is True
+
+    marks_req = next(r for r in reqs if r.document_type_requested == DocumentType.MARKSHEET)
+    assert marks_req.requirement_type == "required_document"
+
+    caste_req = next(r for r in reqs if r.document_type_requested == DocumentType.CASTE_CERTIFICATE)
+    assert caste_req.requirement_type == "required_document"
+    assert caste_req.constraints.get("conditional") is True
+
+
+def test_marathi_required_documents_extraction() -> None:
+    """Marathi document requirements for income certificate, marksheet, and caste certificate."""
+    extractor = InstructionExtractor()
+    text = (
+        "आवश्यक कागदपत्रे:\n"
+        "तहसीलदार कार्यालयाने दिलेले उत्पन्न प्रमाणपत्र सादर करणे बंधनकारक आहे.\n"
+        "महाराष्ट्र राज्य माध्यमिक मंडळाची गुणपत्रिका जोडणे आवश्यक आहे.\n"
+        "सक्षम प्राधिकरणाचे जात प्रमाणपत्र लागू असल्यास अपलोड करावे."
+    )
+    reqs = extractor.extract_instructions(text)
+    assert len(reqs) == 3
+
+    income_req = next(r for r in reqs if r.document_type_requested == DocumentType.INCOME_CERTIFICATE)
+    assert income_req.requirement_type == "required_document"
+
+    marks_req = next(r for r in reqs if r.document_type_requested == DocumentType.MARKSHEET)
+    assert marks_req.requirement_type == "required_document"
+
+    caste_req = next(r for r in reqs if r.document_type_requested == DocumentType.CASTE_CERTIFICATE)
+    assert caste_req.requirement_type == "required_document"
+    assert caste_req.constraints.get("conditional") is True
+
+
+def test_hindi_photo_requirement() -> None:
+    """Hindi photograph requirement with background constraint."""
+    extractor = InstructionExtractor()
+    text = "सफेद पृष्ठभूमि वाला पासपोर्ट आकार का फोटो अपलोड करें।"
+    reqs = extractor.extract_instructions(text)
+
+    assert len(reqs) == 1
+    req = reqs[0]
+    assert req.requirement_type == "photograph"
+    assert req.document_type_requested == DocumentType.PHOTOGRAPH
+    assert req.constraints.get("dimensions") == "passport size"
+    assert req.constraints.get("background") == "white"
+
+
+def test_marathi_photo_requirement() -> None:
+    """Marathi photograph requirement with dimensions."""
+    extractor = InstructionExtractor()
+    text = "उमेदवाराने स्वतःचा पासपोर्ट आकाराचा फोटो अपलोड करावा."
+    reqs = extractor.extract_instructions(text)
+
+    assert len(reqs) == 1
+    req = reqs[0]
+    assert req.requirement_type == "photograph"
+    assert req.document_type_requested == DocumentType.PHOTOGRAPH
+    assert req.constraints.get("dimensions") == "passport size"
+
+
+def test_hindi_and_marathi_file_format_extraction() -> None:
+    """Explicit file format extraction from Hindi and Marathi statements."""
+    extractor = InstructionExtractor()
+
+    text_hin = "दस्तावेज केवल PDF प्रारूप में अपलोड करें।"
+    reqs_hin = extractor.extract_instructions(text_hin)
+    assert any("pdf" in r.accepted_formats for r in reqs_hin)
+
+    text_mar = "कागदपत्रे फक्त PDF स्वरूपात अपलोड करावीत."
+    reqs_mar = extractor.extract_instructions(text_mar)
+    assert any("pdf" in r.accepted_formats for r in reqs_mar)
+
+    # Devanagari format transliterations
+    assert parse_formats("फाइल जेपीजी किंवा पीएनजी स्वरूपात असावी.") == ["jpg", "png"]
+    assert parse_formats("केवल पीडीएफ फाइल स्वीकार्य है") == ["pdf"]
+
+
+def test_hindi_and_marathi_file_size_extraction() -> None:
+    """Explicit file size extraction reusing existing parse_file_size logic."""
+    extractor = InstructionExtractor()
+
+    text_hin = "अधिकतम फ़ाइल आकार 2 MB होना चाहिए।"
+    reqs_hin = extractor.extract_instructions(text_hin)
+    assert len(reqs_hin) == 1
+    assert reqs_hin[0].requirement_type == "file_size"
+    assert reqs_hin[0].max_file_size_bytes == 2 * 1024 * 1024
+
+    text_mar = "कमाल फाइल आकार 5 MB असावा."
+    reqs_mar = extractor.extract_instructions(text_mar)
+    assert len(reqs_mar) == 1
+    assert reqs_mar[0].requirement_type == "file_size"
+    assert reqs_mar[0].max_file_size_bytes == 5 * 1024 * 1024
+
+
+def test_hindi_and_marathi_eligibility_constraints() -> None:
+    """Eligibility percentage constraints extracted but not evaluated."""
+    extractor = InstructionExtractor()
+
+    text_hin = "आवेदक को अर्हक परीक्षा में न्यूनतम 60 प्रतिशत अंक प्राप्त होने चाहिए।"
+    reqs_hin = extractor.extract_instructions(text_hin)
+    assert len(reqs_hin) == 1
+    assert reqs_hin[0].requirement_type == "eligibility"
+    assert reqs_hin[0].constraints.get("minimum_percentage") == 60.0
+
+    text_mar = "उमेदवारास अर्हता परीक्षेत किमान 60% गुण असणे आवश्यक आहे."
+    reqs_mar = extractor.extract_instructions(text_mar)
+    assert len(reqs_mar) == 1
+    assert reqs_mar[0].requirement_type == "eligibility"
+    assert reqs_mar[0].constraints.get("minimum_percentage") == 60.0
+
+
+def test_indic_unknown_document_extraction() -> None:
+    """Unmapped Indic certificate is preserved with DocumentType.UNKNOWN."""
+    extractor = InstructionExtractor()
+    text = "बोनाफाइड प्रमाणपत्र सादर करणे आवश्यक आहे."
+    reqs = extractor.extract_instructions(text)
+
+    assert len(reqs) == 1
+    assert reqs[0].requirement_type == "required_document"
+    assert reqs[0].document_type_requested == DocumentType.UNKNOWN
+    assert "बोनाफाइड प्रमाणपत्र" in reqs[0].constraints.get("document_name", "")
+
+
+def test_generic_indic_text_without_requirements() -> None:
+    """Generic or advisory Indic text should NOT produce fabricated requirements."""
+    extractor = InstructionExtractor()
+    text = "सर्व उमेदवारांनी अर्जातील माहिती काळजीपूर्वक वाचावी आणि मार्गदर्शन घ्यावे."
+    reqs = extractor.extract_instructions(text)
+    assert len(reqs) == 0

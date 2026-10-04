@@ -205,8 +205,8 @@ class DocumentClassifier:
         """Check if signal pattern appears in text with word boundary considerations."""
         if " " in pattern:
             return pattern in text
-        # Single-word boundary check to avoid false partial substring matches
-        regex = rf"\b{re.escape(pattern)}\b"
+        # Word boundary check supporting both ASCII and Indic script characters (including combining marks)
+        regex = rf"(?<![\w\u0900-\u097f]){re.escape(pattern)}(?![\w\u0900-\u097f])"
         return bool(re.search(regex, text))
 
     def _extract_snippet(self, page_text: str, pattern: str) -> str:

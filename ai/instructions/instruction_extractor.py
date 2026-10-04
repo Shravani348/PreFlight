@@ -15,27 +15,75 @@ from ai.schemas.instructions import InstructionRequirement
 DOCUMENT_KEYWORDS = [
     (
         DocumentType.AADHAAR_OR_IDENTITY,
-        [r"\baadhaar\b", r"\baadhar\b", r"\bidentity\s+proof\b", r"\buidai\b", r"\bid\s+proof\b"],
+        [
+            r"\baadhaar\b",
+            r"\baadhar\b",
+            r"\bidentity\s+proof\b",
+            r"\buidai\b",
+            r"\bid\s+proof\b",
+            r"(?<![\w\u0900-\u097f])आधार\s*(?:कार्ड)?(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])पहचान\s*पत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])ओळखपत्र(?![\w\u0900-\u097f])",
+        ],
     ),
     (
         DocumentType.MARKSHEET,
-        [r"\bmarksheet\b", r"\bmark\s+sheet\b", r"\bgrade\s+card\b", r"\bacademic\s+transcript\b"],
+        [
+            r"\bmarksheet\b",
+            r"\bmark\s+sheet\b",
+            r"\bgrade\s+card\b",
+            r"\bacademic\s+transcript\b",
+            r"(?<![\w\u0900-\u097f])अंकतालिका(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])अंक\s*पत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])गुणपत्रिका(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])गुणपत्रक(?![\w\u0900-\u097f])",
+        ],
     ),
     (
         DocumentType.INCOME_CERTIFICATE,
-        [r"\bincome\s+certificate\b", r"\bfamily\s+income\b"],
+        [
+            r"\bincome\s+certificate\b",
+            r"\bfamily\s+income\b",
+            r"(?<![\w\u0900-\u097f])आय\s*प्रमाण\s*पत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])आय\s*प्रमाणपत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])उत्पन्न\s*प्रमाणपत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])उत्पन्न\s*प्रमाण\s*पत्र(?![\w\u0900-\u097f])",
+        ],
     ),
     (
         DocumentType.CASTE_CERTIFICATE,
-        [r"\bcaste\s+certificate\b", r"\bcommunity\s+certificate\b", r"\bcategory\s+certificate\b"],
+        [
+            r"\bcaste\s+certificate\b",
+            r"\bcommunity\s+certificate\b",
+            r"\bcategory\s+certificate\b",
+            r"(?<![\w\u0900-\u097f])जाति\s*प्रमाण\s*पत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])जाति\s*प्रमाणपत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])जात\s*प्रमाणपत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])जात\s*प्रमाण\s*पत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])जात\s*पडताळणी(?![\w\u0900-\u097f])",
+        ],
     ),
     (
         DocumentType.PHOTOGRAPH,
-        [r"\bphotograph\b", r"\bpassport[- ]size\s+photo(?:graph)?\b", r"\bphoto\b"],
+        [
+            r"\bphotograph\b",
+            r"\bpassport[- ]size\s+photo(?:graph)?\b",
+            r"\bphoto\b",
+            r"(?<![\w\u0900-\u097f])पासपोर्ट\s*(?:साइज|आकार(?:ाचा| का)?)\s*(?:फोटो|छायाचित्र)(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])पासपोर्ट\s*फोटो(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])छायाचित्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])फोटोग्राफ(?![\w\u0900-\u097f])",
+        ],
     ),
     (
         DocumentType.APPLICATION_FORM,
-        [r"\bapplication\s+form\b", r"\bprinted\s+application\b"],
+        [
+            r"\bapplication\s+form\b",
+            r"\bprinted\s+application\b",
+            r"(?<![\w\u0900-\u097f])आवेदन\s*पत्र(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])शिष्यवृत्ती\s*अर्ज(?![\w\u0900-\u097f])",
+            r"(?<![\w\u0900-\u097f])अर्ज\s*फॉर्म(?![\w\u0900-\u097f])",
+        ],
     ),
 ]
 
@@ -47,6 +95,12 @@ def parse_file_size(size_str: Optional[str]) -> Optional[int]:
 
     match = re.search(r"(\d+(?:\.\d+)?)\s*(B|KB|MB|GB)\b", size_str, re.IGNORECASE)
     if not match:
+        dev_match = re.search(r"(\d+(?:\.\d+)?)\s*(केबी|एमबी|जीबी)", size_str, re.IGNORECASE)
+        if dev_match:
+            val = float(dev_match.group(1))
+            unit_dev = dev_match.group(2)
+            dev_mult = {"केबी": 1024, "एमबी": 1024 * 1024, "जीबी": 1024 * 1024 * 1024}
+            return int(val * dev_mult.get(unit_dev, 1))
         return None
 
     val = float(match.group(1))
@@ -73,6 +127,17 @@ def parse_formats(text: Optional[str]) -> List[str]:
         lowered = tok.lower()
         if lowered not in formats:
             formats.append(lowered)
+
+    devanagari_formats = [
+        (r"(?<![\w\u0900-\u097f])पीडीएफ(?![\w\u0900-\u097f])", "pdf"),
+        (r"(?<![\w\u0900-\u097f])जेपीजी(?![\w\u0900-\u097f])", "jpg"),
+        (r"(?<![\w\u0900-\u097f])जेपीईजी(?![\w\u0900-\u097f])", "jpeg"),
+        (r"(?<![\w\u0900-\u097f])पीएनजी(?![\w\u0900-\u097f])", "png"),
+    ]
+    for pat, fmt in devanagari_formats:
+        if re.search(pat, text, re.IGNORECASE) and fmt not in formats:
+            formats.append(fmt)
+
     return formats
 
 
@@ -83,7 +148,7 @@ def generate_requirement_id(
 ) -> str:
     """Generate a deterministic requirement ID from content tokens."""
     doc_str = document_type.value if (document_type and hasattr(document_type, "value")) else "general"
-    clean_content = re.sub(r"[^\w\s]", "", key_content.lower()).strip()
+    clean_content = re.sub(r"[^\w\s\u0900-\u097f]", "", key_content.lower()).strip()
     slug_tokens = clean_content.split()[:4]
     slug = "_".join(slug_tokens) if slug_tokens else "req"
     content_hash = hashlib.sha256(clean_content.encode("utf-8")).hexdigest()[:8]
@@ -130,12 +195,12 @@ class InstructionExtractor:
 
         # 1. Eligibility Check (e.g. minimum percentage requirement)
         eligibility_match = re.search(
-            r"(?:at\s+least|minimum|min(?:imum)?\s+of|secured)\s*(\d+(?:\.\d+)?)\s*%",
+            r"(?:at\s+least|minimum|min(?:imum)?\s+of|secured|न्यूनतम|कम\s+से\s+कम|किमान)\s*(\d+(?:\.\d+)?)\s*(?:%|प्रतिशत|टक्के)|(\d+(?:\.\d+)?)\s*(?:%|प्रतिशत|टक्के)\s*(?:गुण|marks|अंक)?\s*(?:न्यूनतम|कम\s+से\s+कम|किमान)",
             line,
             re.IGNORECASE,
         )
         if eligibility_match:
-            min_pct = float(eligibility_match.group(1))
+            min_pct = float(eligibility_match.group(1) or eligibility_match.group(2))
             req_id = generate_requirement_id("eligibility", None, line)
             evidence = [Evidence(source_document=source_document, page_number=page_number, snippet=line)]
             found.append(
@@ -168,7 +233,7 @@ class InstructionExtractor:
             # Conditionality
             is_conditional = bool(
                 re.search(
-                    r"\b(?:for applicable categories|if applicable|where applicable|reserved category|optional)\b",
+                    r"\b(?:for applicable categories|if applicable|where applicable|reserved category|optional)\b|लागू\s+होने\s+पर|लागू\s+असल्यास|आवश्यकतानुसार|आरक्षित\s+प्रवर्ग|आरक्षित\s+वर्ग",
                     line,
                     re.IGNORECASE,
                 )
@@ -179,11 +244,11 @@ class InstructionExtractor:
 
             # Photograph specific constraints
             if matched_doc_type == DocumentType.PHOTOGRAPH:
-                if re.search(r"passport[- ]size", line, re.IGNORECASE):
+                if re.search(r"passport[- ]size|पासपोर्ट\s*(?:साइज|आकार(?:ाचा| का)?)", line, re.IGNORECASE):
                     constraints["dimensions"] = "passport size"
-                if re.search(r"white\s+background", line, re.IGNORECASE):
+                if re.search(r"white\s+background|सफेद\s*पृष्ठभूमि|पांढरी\s*पार्श्वभूमी", line, re.IGNORECASE):
                     constraints["background"] = "white"
-                elif re.search(r"light\s+background", line, re.IGNORECASE):
+                elif re.search(r"light\s+background|हल्की\s*पृष्ठभूमि|फिकट\s*पार्श्वभूमी", line, re.IGNORECASE):
                     constraints["background"] = "light"
 
             req_id = generate_requirement_id(req_type, matched_doc_type, line)
@@ -205,7 +270,7 @@ class InstructionExtractor:
 
         # 3. Unknown Document Check (e.g. "Bonafide certificate is required")
         unknown_match = re.search(
-            r"\b([a-zA-Z]+(?:\s+[a-zA-Z]+)?\s+certificate)\b\s*(?:is mandatory|must be uploaded|must be submitted|is required)",
+            r"\b([a-zA-Z\u0900-\u097f]+(?:\s+[a-zA-Z\u0900-\u097f]+)?\s+(?:certificate|प्रमाणपत्र|प्रमाण पत्र))\b\s*(?:is mandatory|must be uploaded|must be submitted|is required|अपलोड करना अनिवार्य है|सादर करणे आवश्यक आहे|सादर करणे बंधनकारक आहे)",
             line,
             re.IGNORECASE,
         )
@@ -228,7 +293,11 @@ class InstructionExtractor:
             return found
 
         # 4. Standalone File Format Statement (e.g. "Documents must be uploaded in PDF format.")
-        if line_formats and re.search(r"\b(?:format|documents?|files?)\b", line, re.IGNORECASE):
+        if line_formats and re.search(
+            r"\b(?:format|documents?|files?)\b|प्रारूप|स्वरूप|दस्तावेज|दस्तावेज़|कागदपत्रे|फाइल|फ़ाइल|फक्त|केवल",
+            line,
+            re.IGNORECASE,
+        ):
             req_id = generate_requirement_id("file_format", None, line)
             evidence = [Evidence(source_document=source_document, page_number=page_number, snippet=line)]
             found.append(
@@ -245,7 +314,11 @@ class InstructionExtractor:
             )
 
         # 5. Standalone File Size Statement (e.g. "Maximum file size is 2 MB.")
-        if line_size and re.search(r"\b(?:size|limit|maximum|max)\b", line, re.IGNORECASE):
+        if line_size and re.search(
+            r"\b(?:size|limit|maximum|max)\b|अधिकतम|कमाल|मर्यादा|आकार",
+            line,
+            re.IGNORECASE,
+        ):
             req_id = generate_requirement_id("file_size", None, line)
             evidence = [Evidence(source_document=source_document, page_number=page_number, snippet=line)]
             found.append(

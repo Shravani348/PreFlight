@@ -27,6 +27,18 @@ CLASSIFICATION_SIGNALS: Dict[DocumentType, List[Signal]] = {
         Signal("scholarship", 1.0),
         Signal("student details", 1.5),
         Signal("candidate signature", 1.5),
+        # Hindi signals
+        Signal("आवेदन पत्र", 3.5),
+        Signal("छात्रवृत्ति आवेदन", 3.0),
+        Signal("आवेदन संख्या", 2.5),
+        Signal("आवेदक विवरण", 2.0),
+        Signal("प्रार्थना पत्र", 2.5),
+        # Marathi signals
+        Signal("शिष्यवृत्ती अर्ज", 3.0),
+        Signal("अर्ज क्रमांक", 2.5),
+        Signal("अर्ज फॉर्म", 2.5),
+        Signal("अर्जदार तपशील", 2.0),
+        Signal("अर्जपत्र", 2.5),
     ],
     DocumentType.AADHAAR_OR_IDENTITY: [
         Signal("unique identification authority of india", 3.5),
@@ -42,6 +54,17 @@ CLASSIFICATION_SIGNALS: Dict[DocumentType, List[Signal]] = {
         Signal("help@uidai.gov.in", 3.0),
         Signal("male", 0.5),
         Signal("female", 0.5),
+        # Hindi & Marathi identity signals
+        Signal("भारतीय विशिष्ट पहचान प्राधिकरण", 3.5),
+        Signal("आधार कार्ड", 3.0),
+        Signal("पहचान पत्र", 3.0),
+        Signal("ओळखपत्र", 3.0),
+        Signal("मतदाता पहचान पत्र", 3.0),
+        Signal("निवडणूक ओळखपत्र", 3.0),
+        Signal("जन्म तारीख", 1.5),
+        Signal("जन्म तिथि", 1.5),
+        Signal("नामांकन संख्या", 2.0),
+        Signal("नोंदणी क्रमांक", 2.0),
     ],
     DocumentType.MARKSHEET: [
         Signal("statement of marks", 3.5),
@@ -61,6 +84,20 @@ CLASSIFICATION_SIGNALS: Dict[DocumentType, List[Signal]] = {
         Signal("examination", 1.0),
         Signal("subjects", 1.0),
         Signal("maximum marks", 1.5),
+        # Hindi marksheet signals
+        Signal("अंकतालिका", 3.5),
+        Signal("अंक पत्र", 3.0),
+        Signal("अंक प्रमाणपत्र", 3.5),
+        Signal("प्राप्तांक", 2.0),
+        Signal("कुल अंक", 2.0),
+        Signal("माध्यमिक शिक्षा परिषद", 2.5),
+        # Marathi marksheet signals
+        Signal("गुणपत्रिका", 3.5),
+        Signal("गुणपत्रक", 3.0),
+        Signal("प्राप्त गुण", 2.0),
+        Signal("एकूण गुण", 2.0),
+        Signal("टक्केवारी", 2.0),
+        Signal("माध्यमिक व उच्च माध्यमिक शिक्षण मंडळ", 2.5),
     ],
     DocumentType.INCOME_CERTIFICATE: [
         Signal("income certificate", 3.5),
@@ -76,6 +113,19 @@ CLASSIFICATION_SIGNALS: Dict[DocumentType, List[Signal]] = {
         Signal("gross annual income", 2.5),
         Signal("income from all sources", 3.0),
         Signal("financial year", 1.0),
+        # Hindi income signals
+        Signal("आय प्रमाण पत्र", 3.5),
+        Signal("आय प्रमाणपत्र", 3.5),
+        Signal("वार्षिक आय", 3.0),
+        Signal("कुल वार्षिक आय", 3.5),
+        Signal("तहसीलदार", 2.5),
+        Signal("राजस्व विभाग", 2.0),
+        # Marathi income signals
+        Signal("उत्पन्न प्रमाणपत्र", 3.5),
+        Signal("उत्पन्न प्रमाण पत्र", 3.5),
+        Signal("वार्षिक उत्पन्न", 3.0),
+        Signal("कुटुंबाचे वार्षिक उत्पन्न", 3.5),
+        Signal("महसूल विभाग", 2.0),
     ],
     DocumentType.CASTE_CERTIFICATE: [
         Signal("caste certificate", 3.5),
@@ -92,6 +142,22 @@ CLASSIFICATION_SIGNALS: Dict[DocumentType, List[Signal]] = {
         Signal("obc", 1.5),
         Signal("sebc", 1.5),
         Signal("vjnt", 1.5),
+        # Hindi caste signals
+        Signal("जाति प्रमाण पत्र", 3.5),
+        Signal("जाति प्रमाणपत्र", 3.5),
+        Signal("अनुसूचित जाति", 3.0),
+        Signal("अनुसूचित जनजाति", 3.0),
+        Signal("अन्य पिछड़ा वर्ग", 3.0),
+        # Marathi caste signals
+        Signal("जात प्रमाणपत्र", 3.5),
+        Signal("जात प्रमाण पत्र", 3.5),
+        Signal("जात वैधता", 3.5),
+        Signal("जात पडताळणी", 3.0),
+        Signal("अनुसूचित जाती", 3.0),
+        Signal("अनुसूचित जमाती", 3.0),
+        Signal("इतर मागासवर्ग", 3.0),
+        Signal("इतर मागासवर्गीय", 3.0),
+        Signal("सक्षम प्राधिकारी", 2.0),
     ],
     DocumentType.INSTRUCTIONS: [
         Signal("general instructions", 3.5),
@@ -107,6 +173,19 @@ CLASSIFICATION_SIGNALS: Dict[DocumentType, List[Signal]] = {
         Signal("terms and conditions", 2.0),
         Signal("mandatory requirements", 2.0),
         Signal("application procedure", 2.0),
+        # Hindi instruction signals
+        Signal("आवश्यक दस्तावेज", 3.0),
+        Signal("आवश्यक दस्तावेज़", 3.0),
+        Signal("दिशानिर्देश", 3.0),
+        Signal("अभ्यर्थियों के लिए निर्देश", 3.5),
+        Signal("आवेदन कैसे करें", 2.5),
+        Signal("पात्रता मानदंड", 2.5),
+        # Marathi instruction signals
+        Signal("आवश्यक कागदपत्रे", 3.0),
+        Signal("मार्गदर्शक सूचना", 3.5),
+        Signal("उमेदवारांसाठी सूचना", 3.5),
+        Signal("अर्ज कसा करावा", 2.5),
+        Signal("पात्रता निकष", 2.5),
     ],
 }
 

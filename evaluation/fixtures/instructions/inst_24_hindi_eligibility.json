@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_24_hindi_eligibility",
+  "description": "Minimum academic score eligibility criteria in pure Hindi",
+  "instruction_text": "छात्रवृत्ति हेतु अर्हक परीक्षा में न्यूनतम 60 प्रतिशत अंक अनिवार्य हैं।",
+  "expected_requirement_types": [
+    "eligibility"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "minimum_percentage": 60.0
+  },
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}
