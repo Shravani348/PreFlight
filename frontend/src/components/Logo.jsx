@@ -1,30 +1,28 @@
-import PreFlightIcon from './PreFlightIcon';
+import { useTheme } from '../context/ThemeContext';
+import logoDark from '../assets/logo-dark-transparent.png';
+import logoLight from '../assets/logo-light-transparent.png';
 
-export default function Logo({ size = 'md' }) {
-  const sizes = {
-    sm: { iconPx: 28, text: 'text-xl' },
-    md: { iconPx: 36, text: 'text-2xl' },
-    lg: { iconPx: 56, text: 'text-5xl' },
+export default function Logo({ size = 'md', className = '' }) {
+  const { theme } = useTheme();
+
+  const heights = {
+    sm: 'h-7 sm:h-8',
+    md: 'h-9 sm:h-10',
+    lg: 'h-16 sm:h-20',
   };
-  const s = sizes[size] || sizes.md;
+
+  const hClass = heights[size] || heights.md;
+  const currentLogo = theme === 'light' ? logoLight : logoDark;
 
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex-shrink-0 drop-shadow-lg">
-        <PreFlightIcon size={s.iconPx} />
-      </div>
-      <span
-        className={`font-extrabold tracking-tight ${s.text}`}
-        style={{
-          fontFamily: "'Outfit', sans-serif",
-          background: 'linear-gradient(135deg, #7B6FF0 0%, #A89EF8 50%, #C4BBFF 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-        }}
-      >
-        PreFlight
-      </span>
+    <div className={`inline-flex items-center select-none ${className}`}>
+      <img
+        src={currentLogo}
+        alt="PreFlight Logo"
+        className={`${hClass} w-auto max-w-full object-contain drop-shadow-sm transition-opacity duration-200`}
+        style={{ aspectRatio: '1024 / 341' }}
+        loading="eager"
+      />
     </div>
   );
 }

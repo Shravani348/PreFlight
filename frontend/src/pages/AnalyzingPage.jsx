@@ -38,10 +38,15 @@ export default function AnalyzingPage() {
   useEffect(() => {
     async function kickOff() {
       try {
-        const { job_id } = await startAnalysis(state.sessionId, state.applicationType);
+        const { job_id } = await startAnalysis(
+          state.sessionId,
+          state.applicationType,
+          state.uploadedFiles,
+          state.isRecheck
+        );
         dispatch({ type: 'SET_JOB', payload: { jobId: job_id } });
-      } catch {
-        // In demo mode we still proceed
+      } catch (err) {
+        console.error('kickOff error:', err);
       }
     }
     kickOff();
@@ -73,7 +78,12 @@ export default function AnalyzingPage() {
   useEffect(() => {
     if (!done) return;
     async function fetchResult() {
-      const result = await getAnalysisResult(state.jobId, state.isRecheck);
+      const result = await getAnalysisResult(
+        state.jobId,
+        state.isRecheck,
+        state.applicationType,
+        state.uploadedFiles
+      );
       dispatch({ type: 'SET_RESULT', payload: result });
       // Short pause so "100%" is visible
       await new Promise(r => setTimeout(r, 600));
