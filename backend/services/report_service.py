@@ -10,7 +10,9 @@ def mask_sensitive_data(text: str) -> str:
     text = re.sub(r'\b\d{4}[\s-]?\d{4}[\s-]?(\d{4})\b', r'XXXX-XXXX-\1', text)
     # Mask PAN (5 letters, 4 numbers, 1 letter)
     text = re.sub(r'\b[A-Z]{5}\d{4}[A-Z]\b', r'XXXXX0000X', text)
-    return text
+    # The built-in PDF font is latin-1 only; replace other scripts (e.g. Devanagari)
+    # rather than letting report generation fail.
+    return text.encode("latin-1", "replace").decode("latin-1")
 
 def generate_pdf_report(response: AnalyzeResponse) -> bytes:
     pdf = FPDF()

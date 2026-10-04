@@ -68,3 +68,6 @@ class AnalyzeResponse(BaseModel):
     issues: List[Issue]
     fix_plan: List[FixPlanStep]
     report_id: Optional[str] = None
+    # Structured AI document-intelligence output (only set by /analyze-upload).
+    # Informational evidence for display; never used to decide status/risk.
+    ai_analysis: Optional[dict] = None

@@ -9,8 +9,9 @@ export const DEMO_MODE = false;
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
-// In-memory store for latest analysis result during session
+// In-memory store for latest analysis result and upload form data during session
 let cachedAnalysisResult = null;
+let cachedFormData = null;
 
 // ---------------------------------------------------------------------------
 // Helper for API calls
@@ -285,6 +286,7 @@ function normalizeBackendResponse(backendRes, sessionId, isRecheck) {
     fix_plan: mappedFixPlan,
     low_confidence_fields: lowConfidenceFields,
     evidence: evidenceList,
+    ai_analysis: backendRes.ai_analysis || null,
   };
 }
 
@@ -292,16 +294,38 @@ function normalizeBackendResponse(backendRes, sessionId, isRecheck) {
 // Upload documents
 // ---------------------------------------------------------------------------
 export async function uploadDocuments(formData) {
+  cachedFormData = formData;
   const sessionId = 'session-' + Date.now();
   return { session_id: sessionId, files: [] };
 }
 
 // ---------------------------------------------------------------------------
-// Start analysis (calls backend POST /analyze or POST /recheck)
+// Start analysis (calls backend POST /analyze-upload, /analyze or /recheck)
 // ---------------------------------------------------------------------------
 export async function startAnalysis(sessionId, applicationType, uploadedFiles = [], isRecheck = false) {
+  // If actual files were uploaded and application type is scholarship, attempt multipart /analyze-upload first
+  if (!isRecheck && cachedFormData && (applicationType === 'scholarship' || !applicationType)) {
+    try {
+      const res = await fetch(`${BASE_URL}/analyze-upload`, {
+        method: 'POST',
+        body: cachedFormData,
+      });
+      if (res.ok) {
+        const backendRes = await res.json();
+        const normalized = normalizeBackendResponse(backendRes, sessionId, isRecheck);
+        cachedAnalysisResult = normalized;
+        return {
+          job_id: backendRes.report_id || `job-${Date.now()}`,
+          result: normalized,
+        };
+      }
+    } catch (err) {
+      console.warn('Backend /analyze-upload failed, falling back to JSON /analyze:', err.message);
+    }
+  }
+
   const endpoint = isRecheck ? '/recheck' : '/analyze';
-  const documents = buildDocumentPayload(uploadedFiles, isRecheck);
+  const documents = buildDocumentPayload(uploadedFiles, isRecheck, applicationType);
 
   try {
     const backendRes = await apiFetch(endpoint, {
@@ -342,7 +366,7 @@ export async function getAnalysisResult(jobId, isRecheck = false, applicationTyp
 // ---------------------------------------------------------------------------
 // Confirm or edit low-confidence field
 // ---------------------------------------------------------------------------
-export async function confirmField(sessionId, fieldId, confirmedValue, action) {
+export async function confirmField(_sessionId, _fieldId, _confirmedValue, _action) {
   return { ok: true };
 }
 

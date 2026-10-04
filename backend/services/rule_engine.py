@@ -108,6 +108,12 @@ def compare_names(name1: str, name2: str) -> str:
         
     parts1 = norm1.split()
     parts2 = norm2.split()
+
+    # A name whose tokens are a strict subset of the other's (e.g. father vs. student)
+    # must never be treated as a confident match.
+    set1, set2 = set(parts1), set(parts2)
+    if set1 != set2 and (set1 < set2 or set2 < set1):
+        return "NEEDS_VERIFICATION"
     
     if len(parts1) == len(parts2):
         match_count = 0

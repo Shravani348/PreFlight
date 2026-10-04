@@ -35,6 +35,38 @@ RECOMMENDATION_TEMPLATES = {
     "LOW_AI_CONFIDENCE": {
         "why_it_matters": "The AI could not confidently extract data from this document, increasing the risk of errors.",
         "recommended_action": "Manually verify the extracted fields against the original document."
+    },
+    "DOB_NEEDS_VERIFICATION": {
+        "why_it_matters": "The dates of birth are similar but not confidently identical.",
+        "recommended_action": "Manually verify the date of birth against the official identity document."
+    },
+    "PARENT_NAME_MISMATCH": {
+        "why_it_matters": "A parent's name differs across documents and may cause verification problems.",
+        "recommended_action": "Check the parent's name on each document and correct the inconsistent one."
+    },
+    "PARENT_NAME_NEEDS_VERIFICATION": {
+        "why_it_matters": "A parent's name is similar but not confidently identical across documents.",
+        "recommended_action": "Manually verify the parent's name before submission."
+    },
+    "ADDRESS_MISMATCH": {
+        "why_it_matters": "Different addresses across documents may need supporting proof.",
+        "recommended_action": "Confirm the correct address and be ready to explain or document any change."
+    },
+    "ADDRESS_NEEDS_VERIFICATION": {
+        "why_it_matters": "The addresses are similar but not confidently identical.",
+        "recommended_action": "Manually verify the address on each document."
+    },
+    "DOCUMENT_TYPE_MISMATCH": {
+        "why_it_matters": "The uploaded file does not look like the document type it was uploaded as.",
+        "recommended_action": "Check that the correct document was uploaded in each slot."
+    },
+    "UNREADABLE_DOCUMENT": {
+        "why_it_matters": "The file could not be opened or read, so it cannot be checked.",
+        "recommended_action": "Re-scan or re-export the document and upload it again."
+    },
+    "UNSUPPORTED_FILE_TYPE": {
+        "why_it_matters": "Only PDF, JPG, JPEG and PNG files can be checked.",
+        "recommended_action": "Convert the file to PDF, JPG or PNG and upload it again."
     }
 }
 

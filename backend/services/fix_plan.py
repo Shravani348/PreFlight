@@ -16,7 +16,15 @@ TITLES = {
     "NAME_NEEDS_VERIFICATION": "Verify Name Variation",
     "INVALID_FORMAT": "Fix Invalid File Format",
     "FILE_TOO_LARGE": "Reduce File Size",
-    "LOW_AI_CONFIDENCE": "Verify Low Confidence Extraction"
+    "LOW_AI_CONFIDENCE": "Verify Low Confidence Extraction",
+    "DOB_NEEDS_VERIFICATION": "Verify Date of Birth",
+    "PARENT_NAME_MISMATCH": "Fix Parent Name Mismatch",
+    "PARENT_NAME_NEEDS_VERIFICATION": "Verify Parent Name",
+    "ADDRESS_MISMATCH": "Fix Address Mismatch",
+    "ADDRESS_NEEDS_VERIFICATION": "Verify Address",
+    "DOCUMENT_TYPE_MISMATCH": "Check Uploaded Document Type",
+    "UNREADABLE_DOCUMENT": "Re-upload Unreadable Document",
+    "UNSUPPORTED_FILE_TYPE": "Use a Supported File Type"
 }
 
 def generate_fix_plan(issues: List[Issue]) -> List[FixPlanStep]:

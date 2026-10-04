@@ -1,12 +1,19 @@
-from fastapi import FastAPI, HTTPException
-from backend.models.schemas import AnalyzeRequest, AnalyzeResponse, Summary
+from typing import List, Optional
+from fastapi import FastAPI, HTTPException, Request
+from starlette.datastructures import UploadFile
+from backend.models.schemas import AnalyzeRequest, AnalyzeResponse, Issue, Summary
 from backend.services.requirement_service import get_requirements
 from backend.services.rule_engine import validate_documents
 from backend.services.risk_engine import calculate_risk
 from backend.services.fix_plan import generate_fix_plan
 from backend.services.ai_adapter import adapt_ai_output
+from backend.services.ai_service import UploadedDocument
+from backend.services.upload_service import UnknownSlotError, analyze_uploads
 
 app = FastAPI(title="PreFlight Backend")
+
+# Application types for which the AI document-intelligence module is implemented.
+AI_SUPPORTED_APPLICATION_TYPES = {"scholarship"}
 
 @app.get("/health")
 def health_check():
@@ -15,7 +22,11 @@ def health_check():
         "service": "PreFlight Backend"
     }
 
-def run_analysis_pipeline(request: AnalyzeRequest) -> AnalyzeResponse:
+def run_analysis_pipeline(
+    request: AnalyzeRequest,
+    extra_issues: Optional[List[Issue]] = None,
+    ai_analysis: Optional[dict] = None,
+) -> AnalyzeResponse:
     try:
         app_reqs = get_requirements(request.application_type)
     except ValueError as e:
@@ -26,6 +37,7 @@ def run_analysis_pipeline(request: AnalyzeRequest) -> AnalyzeResponse:
     ai_issues = adapt_ai_output(request.documents)
     issues = validate_documents(req_docs, request.documents)
     issues.extend(ai_issues)
+    issues.extend(extra_issues or [])
     
     risk_assessment = calculate_risk(issues)
     fix_plan = generate_fix_plan(issues)
@@ -52,7 +64,8 @@ def run_analysis_pipeline(request: AnalyzeRequest) -> AnalyzeResponse:
         message=message,
         summary=summary,
         issues=issues,
-        fix_plan=fix_plan
+        fix_plan=fix_plan,
+        ai_analysis=ai_analysis
     )
 
 import uuid
@@ -68,6 +81,50 @@ def analyze(request: AnalyzeRequest):
     report_id = str(uuid.uuid4())
     pdf_bytes = generate_pdf_report(response)
     REPORTS_DB[report_id] = pdf_bytes
+    response.report_id = report_id
+    return response
+
+@app.post("/analyze-upload", response_model=AnalyzeResponse)
+async def analyze_upload(request: Request):
+    """Multipart upload: files -> AI document intelligence -> Rule Engine -> result.
+
+    Form fields: ``application_type`` plus one file per document slot, where the
+    field name is the slot id (e.g. ``aadhaar``, ``marksheet``, ``income_cert``,
+    ``photo``, ``caste_cert``, ``application_form``, ``instructions``).
+    Also serves rechecks: the client simply uploads the corrected files again.
+    """
+    form = await request.form()
+    application_type = str(form.get("application_type") or "scholarship")
+    if application_type not in AI_SUPPORTED_APPLICATION_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Document intelligence is not available for '{application_type}' applications yet. "
+                   f"Supported: {', '.join(sorted(AI_SUPPORTED_APPLICATION_TYPES))}",
+        )
+
+    uploads: List[UploadedDocument] = []
+    for slot, value in form.multi_items():
+        if isinstance(value, UploadFile):
+            uploads.append(UploadedDocument(
+                slot=slot,
+                filename=value.filename or "upload",
+                content=await value.read(),
+            ))
+    if not uploads:
+        raise HTTPException(status_code=400, detail="No files were uploaded.")
+
+    try:
+        documents, extra_issues, ai_analysis = analyze_uploads(uploads)
+    except UnknownSlotError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    response = run_analysis_pipeline(
+        AnalyzeRequest(application_type=application_type, documents=documents),
+        extra_issues=extra_issues,
+        ai_analysis=ai_analysis,
+    )
+    report_id = str(uuid.uuid4())
+    REPORTS_DB[report_id] = generate_pdf_report(response)
     response.report_id = report_id
     return response
 
