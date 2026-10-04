@@ -1,0 +1,12 @@
+{
+  "case_id": "match_47_latin_vs_devanagari_mismatch",
+  "description": "Unrelated applicant name across Latin and Devanagari scripts",
+  "field_name": "name",
+  "value_a": "Priti Ahire",
+  "value_b": "राहुल शर्मा",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

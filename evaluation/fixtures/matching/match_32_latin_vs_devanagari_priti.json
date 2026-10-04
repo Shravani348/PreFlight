@@ -1,12 +1,12 @@
 {
   "case_id": "match_32_latin_vs_devanagari_priti",
-  "description": "Latin script application name vs Devanagari identity record without transliteration",
+  "description": "Latin script application name vs Devanagari identity record with cross-script transliteration",
   "field_name": "name",
   "value_a": "Priti Ahire",
   "value_b": "प्रीती अहिरे",
-  "expected_status": "verification_required",
-  "expected_needs_verification": true,
+  "expected_status": "match",
+  "expected_needs_verification": false,
   "language": "bilingual",
   "document_condition": "clean",
-  "difficulty": "hard"
+  "difficulty": "medium"
 }

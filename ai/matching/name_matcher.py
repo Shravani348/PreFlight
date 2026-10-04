@@ -4,6 +4,7 @@ from itertools import permutations
 from typing import Any, Callable, List, Optional, Set, Union
 from rapidfuzz import fuzz
 
+from ai.matching.transliteration import is_cross_script, transliterate_devanagari_to_latin
 from ai.normalization.name_normalizer import normalize_name
 from ai.schemas.comparison import ComparisonFinding, MatchStatus
 
@@ -99,8 +100,18 @@ class NameMatcher:
         if s_a == s_b:
             return 1.0
 
-        tokens_a = s_a.split()
-        tokens_b = s_b.split()
+        if is_cross_script(s_a, s_b):
+            c_a = transliterate_devanagari_to_latin(s_a)
+            c_b = transliterate_devanagari_to_latin(s_b)
+        else:
+            c_a = s_a
+            c_b = s_b
+
+        if c_a == c_b:
+            return 1.0
+
+        tokens_a = c_a.split()
+        tokens_b = c_b.split()
 
         # Token permutation (reordered tokens)
         if sorted(tokens_a) == sorted(tokens_b):
@@ -111,10 +122,10 @@ class NameMatcher:
         set_a = set(tokens_a)
         set_b = set(tokens_b)
         if (set_a < set_b or set_b < set_a) and len(set_a) != len(set_b):
-            raw_score = fuzz.token_sort_ratio(s_a, s_b)
+            raw_score = fuzz.token_sort_ratio(c_a, c_b)
             return round(float(raw_score / 100.0), 4)
 
-        raw_score = self._scorer(s_a, s_b)
+        raw_score = self._scorer(c_a, c_b)
         normalized_score = raw_score / 100.0 if raw_score > 1.0 else raw_score
         return round(float(normalized_score), 4)
 
@@ -169,7 +180,7 @@ class NameMatcher:
                 explanation=f"Comparison could not be completed because {field_label.lower()} is empty.",
             )
 
-        # 2. Exact match after normalization
+        # 2. Exact match after normalization (same script)
         if norm_a == norm_b:
             return ComparisonFinding(
                 field_name=field_name,
@@ -185,13 +196,42 @@ class NameMatcher:
                 explanation=f"{field_label} matches exactly after normalization.",
             )
 
-        tokens_a = norm_a.split()
-        tokens_b = norm_b.split()
+        # Cross-script transliteration check
+        cross_script = is_cross_script(norm_a, norm_b)
+        if cross_script:
+            comp_a = transliterate_devanagari_to_latin(norm_a)
+            comp_b = transliterate_devanagari_to_latin(norm_b)
+        else:
+            comp_a = norm_a
+            comp_b = norm_b
+
+        if cross_script and comp_a == comp_b:
+            return ComparisonFinding(
+                field_name=field_name,
+                source_document=source_document,
+                comparison_document=comparison_document,
+                source_value=source_value if source_value is not None else name_a,
+                comparison_value=comparison_value if comparison_value is not None else name_b,
+                normalized_source_value=norm_a,
+                normalized_comparison_value=norm_b,
+                similarity_score=1.0,
+                status=MatchStatus.MATCH,
+                needs_verification=False,
+                explanation=f"{field_label} matches exactly after cross-script transliteration and normalization.",
+            )
+
+        tokens_a = comp_a.split()
+        tokens_b = comp_b.split()
 
         # 3. Honorific stripping check (e.g. 'Ms. Priti Ahire' vs 'Priti Ahire')
         clean_a = [t for t in tokens_a if t not in HONORIFICS]
         clean_b = [t for t in tokens_b if t not in HONORIFICS]
         if clean_a == clean_b and clean_a:
+            explanation = (
+                f"{field_label} matches exactly after cross-script transliteration disregarding honorific titles."
+                if cross_script
+                else f"{field_label} matches exactly after disregarding honorific titles."
+            )
             return ComparisonFinding(
                 field_name=field_name,
                 source_document=source_document,
@@ -203,11 +243,16 @@ class NameMatcher:
                 similarity_score=1.0,
                 status=MatchStatus.MATCH,
                 needs_verification=False,
-                explanation=f"{field_label} matches exactly after disregarding honorific titles.",
+                explanation=explanation,
             )
 
         # 4. Token permutation (reordered tokens, e.g. 'Ahire Priti Shashikant' vs 'Priti Shashikant Ahire')
         if sorted(clean_a) == sorted(clean_b) and clean_a:
+            explanation = (
+                f"{field_label} tokens match exactly after cross-script transliteration with reordered token sequence."
+                if cross_script
+                else f"{field_label} tokens match exactly with reordered token sequence."
+            )
             return ComparisonFinding(
                 field_name=field_name,
                 source_document=source_document,
@@ -219,7 +264,7 @@ class NameMatcher:
                 similarity_score=1.0,
                 status=MatchStatus.MATCH,
                 needs_verification=False,
-                explanation=f"{field_label} tokens match exactly with reordered token sequence.",
+                explanation=explanation,
             )
 
         # 5. Initials alignment check (e.g. 'Priti S Ahire' or 'P S Ahire' vs 'Priti Shashikant Ahire')
@@ -264,7 +309,7 @@ class NameMatcher:
                     comparison_value=comparison_value if comparison_value is not None else name_b,
                     normalized_source_value=norm_a,
                     normalized_comparison_value=norm_b,
-                    similarity_score=round(fuzz.token_sort_ratio(norm_a, norm_b) / 100.0, 4),
+                    similarity_score=round(fuzz.token_sort_ratio(comp_a, comp_b) / 100.0, 4),
                     status=MatchStatus.MISMATCH,
                     needs_verification=False,
                     explanation=f"{field_label} contains only a single token against a multi-token name; insufficient evidence of identity.",

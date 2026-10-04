@@ -1,12 +1,12 @@
 {
   "case_id": "match_34_latin_vs_devanagari_sneha",
-  "description": "Latin script vs Devanagari script comparison for Sneha Deshmukh",
+  "description": "Latin script vs Devanagari script comparison for Sneha Deshmukh with cross-script transliteration",
   "field_name": "name",
   "value_a": "Sneha Deshmukh",
   "value_b": "स्नेहा देशमुख",
-  "expected_status": "verification_required",
-  "expected_needs_verification": true,
+  "expected_status": "match",
+  "expected_needs_verification": false,
   "language": "bilingual",
   "document_condition": "clean",
-  "difficulty": "hard"
+  "difficulty": "medium"
 }

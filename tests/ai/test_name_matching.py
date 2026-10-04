@@ -161,3 +161,109 @@ def test_devanagari_family_member_subset_safety() -> None:
     assert finding.similarity_score is not None
     assert finding.similarity_score < 1.0
     assert "subset" in finding.explanation.lower()
+
+
+# ==============================================================================
+# Task 20: Cross-Script Latin <-> Devanagari Matching Tests
+# ==============================================================================
+
+def test_cross_script_exact_match_priti_ahire() -> None:
+    """Exact cross-script equivalent Priti Ahire <-> प्रीती अहिरे produces MATCH with score 1.0."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Priti Ahire", "प्रीती अहिरे")
+    assert finding.status == MatchStatus.MATCH
+    assert finding.similarity_score == 1.0
+    assert finding.needs_verification is False
+
+
+def test_cross_script_spelling_variation_priti() -> None:
+    """Common spelling variation Priti <-> प्रीति produces MATCH."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Priti", "प्रीति")
+    assert finding.status == MatchStatus.MATCH
+    assert finding.similarity_score == 1.0
+    assert finding.needs_verification is False
+
+
+def test_cross_script_marathi_name_shashikant_ahire() -> None:
+    """Marathi name Shashikant Ahire <-> शशिकांत अहिरे produces MATCH."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Shashikant Ahire", "शशिकांत अहिरे")
+    assert finding.status == MatchStatus.MATCH
+    assert finding.similarity_score == 1.0
+    assert finding.needs_verification is False
+
+
+def test_cross_script_common_name_amit_patil() -> None:
+    """Hindi/Marathi common name Amit Patil <-> अमित पाटील produces MATCH."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Amit Patil", "अमित पाटील")
+    assert finding.status == MatchStatus.MATCH
+    assert finding.similarity_score == 1.0
+    assert finding.needs_verification is False
+
+
+def test_cross_script_preserves_original_values() -> None:
+    """Original names and normalized Devanagari strings are never replaced in findings."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Priti Ahire", "प्रीती अहिरे")
+    assert finding.source_value == "Priti Ahire"
+    assert finding.comparison_value == "प्रीती अहिरे"
+    assert finding.normalized_source_value == "priti ahire"
+    assert finding.normalized_comparison_value == "प्रीती अहिरे"
+
+
+def test_cross_script_same_script_regressions() -> None:
+    """Same-script comparisons bypass transliteration and remain exact MATCH."""
+    matcher = NameMatcher()
+
+    # Same Latin
+    f1 = matcher.compare("Priti Ahire", "Priti Ahire")
+    assert f1.status == MatchStatus.MATCH
+    assert f1.similarity_score == 1.0
+    assert f1.needs_verification is False
+
+    # Same Devanagari
+    f2 = matcher.compare("अमित पाटील", "अमित पाटील")
+    assert f2.status == MatchStatus.MATCH
+    assert f2.similarity_score == 1.0
+    assert f2.needs_verification is False
+
+
+def test_cross_script_false_positive_rejection() -> None:
+    """Clearly unrelated cross-script names must NOT match."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Priti Ahire", "राहुल शर्मा")
+    assert finding.status == MatchStatus.MISMATCH
+    assert finding.similarity_score is not None
+    assert finding.similarity_score < 0.75
+    assert finding.needs_verification is False
+
+
+def test_cross_script_family_member_subset_regression() -> None:
+    """CRITICAL SAFETY: Cross-script family-member subset must require verification in both directions."""
+    matcher = NameMatcher()
+
+    # Latin father vs Devanagari daughter
+    f1 = matcher.compare("Shashikant Ahire", "प्रीती शशिकांत अहिरे")
+    assert f1.status == MatchStatus.VERIFICATION_REQUIRED
+    assert f1.needs_verification is True
+    assert f1.similarity_score is not None
+    assert f1.similarity_score < 1.0
+    assert "subset" in f1.explanation.lower()
+
+    # Reverse direction: Devanagari daughter vs Latin father
+    f2 = matcher.compare("प्रीती शशिकांत अहिरे", "Shashikant Ahire")
+    assert f2.status == MatchStatus.VERIFICATION_REQUIRED
+    assert f2.needs_verification is True
+    assert f2.similarity_score is not None
+    assert f2.similarity_score < 1.0
+    assert "subset" in f2.explanation.lower()
+
+
+def test_cross_script_partial_name_single_token_regression() -> None:
+    """Partial surname token against full cross-script name produces MISMATCH."""
+    matcher = NameMatcher()
+    finding = matcher.compare("Ahire", "प्रीती शशिकांत अहिरे")
+    assert finding.status == MatchStatus.MISMATCH
+    assert finding.needs_verification is False

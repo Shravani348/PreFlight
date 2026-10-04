@@ -1,0 +1,12 @@
+{
+  "case_id": "match_45_latin_vs_devanagari_shashikant",
+  "description": "Latin script vs Devanagari script comparison for Shashikant Ahire",
+  "field_name": "name",
+  "value_a": "Shashikant Ahire",
+  "value_b": "शशिकांत अहिरे",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

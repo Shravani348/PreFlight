@@ -346,3 +346,72 @@ While simple, structured Indic administrative text is now well-supported by the 
    Smartphone photo submissions without machine-readable text continue to require a Vision OCR provider.
 
 > **Evaluation Caveat:** These results evaluate deterministic baseline signals on synthetic, anonymized development fixtures. They demonstrate framework correctness and baseline logic, NOT production accuracy on degraded, handwritten, or live government records.
+
+---
+
+## 13. Task 20 Evaluation: Cross-Script Latin ↔ Devanagari Name Matching
+
+### 1. Executive Summary & Benchmark Progression
+
+Task 19 introduced Hindi and Marathi classification and instruction signals, but identified a major cross-document matching barrier:
+names in English (`"Priti Ahire"`) and Devanagari (`"प्रीती अहिरे"`) produced `0.0000` similarity and `0.0000` accuracy across all bilingual pairs.
+
+Task 20 resolved this vulnerability by introducing a lightweight, deterministic, explainable cross-script transliteration layer (`ai/matching/transliteration.py`) and integrating it into `NameMatcher`.
+
+#### Benchmark Comparison: Before vs. After Task 20
+
+| Metric | Before Task 20 (Task 19 Baseline) | After Task 20 (Cross-Script Transliteration) | Absolute Change | Impact & Analysis |
+| :--- | :---: | :---: | :---: | :--- |
+| **Matching Overall Accuracy** | **0.8182** (36/44) | **0.8958** (43/48) | **+7.76%** | Latin ↔ Devanagari name comparisons now resolve accurately |
+| **Matching Overall F1 (Macro)** | **0.8400** | **0.9049** | **+0.0649** | Balanced category performance across scripts |
+| **Bilingual Matching Accuracy** | **0.0000** (0/3) | **1.0000** (7/7) | **+100.0%** | Cross-script matches (*Priti*, *Amit*, *Sneha*, *Shashikant*, *Pooja*) resolve |
+| **Bilingual Matching F1** | **0.0000** | **1.0000** | **+1.0000** | Complete elimination of cross-script false mismatches |
+| **English Matching Accuracy** | 0.8667 (26/30) | 0.8667 (26/30) | **0.00%** | Zero regression on existing English matching |
+| **Hindi Matching Accuracy** | 1.0000 (3/3) | 1.0000 (3/3) | **0.00%** | Zero regression on existing Hindi matching |
+| **Marathi Matching Accuracy** | 0.8750 (7/8) | 0.8750 (7/8) | **0.00%** | Zero regression on existing Marathi matching |
+| **Matching False Matches (FP)** | **0** | **0** | **0 (Preserved)** | Task 16 family-member safety invariant strictly preserved |
+| **Matching False Mismatches (FN)**| **2** | **2** | **0** | Remaining mismatches are heavily degraded OCR test fixtures |
+
+*(Note: Synthetic matching dataset expanded to 48 cases, adding representative cross-script equivalents, spelling variants, unrelated false-positive controls, and cross-script family-member subset cases).*
+
+---
+
+### 2. Architectural Design & Guardrails
+
+1. **Lightweight Deterministic Transliteration (`ai/matching/transliteration.py`):**
+   - **Independent Vowels:** Canonical mappings for `अ` (`a`), `आ` (`a`), `इ`/`ई` (`i`), `उ`/`ऊ` (`u`), `ऋ` (`ri`), `ए` (`e`), `ऐ` (`ai`), `ओ` (`o`), `औ` (`au`).
+   - **Consonants & Matras:** Mapped standard Sanskrit/Hindi/Marathi consonants and dependent vowel signs (`ा`, `ि`, `ी`, `ु`, `ू`, `े`, `ै`, `ो`, `ौ`).
+   - **Marathi Special Consonants:** Handled retroflex `ळ` (`l`), `ऱ` (`r`), and phonetic Anglicization of `व` before `ा` (`wa` as in *Pawar*, *Gaikwad*, *Sawant*, vs `v` as in *Vikas*, *Vijay*).
+   - **Phonetic Anusvara (`ं`) Assimilation:** Assimilates to `m` before labial consonants (`प`, `फ`, `ब`, `भ`, `म`, e.g. *अंबर* → *ambar*), and `n` elsewhere (*शशिकांत* → *shashikant*, *संजय* → *sanjay*).
+   - **Schwa Deletion:** Applies deterministic Hindi/Marathi schwa deletion: drops inherent `a` at word endings (*अमित* → *amit*, *पाटील* → *patil*, *सुरेश* → *suresh*), and deletes medial schwa in $VC\_CV$ phonological environments (*देशमुख* → *deshmukh*).
+
+2. **Cross-Script Gating (`is_cross_script`):**
+   - Transliteration is triggered **only** when one name is Latin and the other is Devanagari.
+   - Same-script comparisons (`"Priti Ahire"` vs `"Priti Ahire"`, or `"अमित पाटील"` vs `"अमित पाटील"`) completely bypass transliteration and take the existing high-speed exact path.
+
+3. **Original Value & Finding Integrity:**
+   - Transliterated forms (`comp_a`, `comp_b`) are strictly internal ephemeral comparison keys.
+   - The returned `ComparisonFinding` preserves original user strings (`source_value`, `comparison_value`) and original normalized strings (`normalized_source_value`, `normalized_comparison_value`) untouched.
+
+4. **Task 16 Family-Member Subset Invariant Preservation:**
+   - Shorter family-member names across scripts (`"Shashikant Ahire"` vs `"प्रीती शशिकांत अहिरे"`) trigger strict subset protection.
+   - The finding identifies the missing full-name tokens (`'priti'`) and prohibits `MATCH` or `LIKELY_MATCH`, strictly routing to `VERIFICATION_REQUIRED` (`needs_verification=True`).
+   - Single-token surnames (`"Ahire"` vs `"प्रीती शशिकांत अहिरे"`) route to `MISMATCH` due to insufficient identity evidence.
+
+---
+
+### 3. Remaining Limitations & Edge Cases
+
+While standard, well-formed Hindi and Marathi names now match across scripts, the following real-world boundaries remain:
+
+1. **Unusual or Multiple English Spelling Variants:**
+   - English representations of Indian names frequently exhibit divergent Anglo-Indian spelling conventions (e.g. *Choudhary* vs *Chaudhari*, *Diksha* vs *Deeksha*, *Rao* vs *Raut*).
+   - RapidFuzz similarity handles slight edit distances, but radically divergent spellings still require manual verification.
+2. **Rare or Complex Sanskrit/Vedic Conjuncts:**
+   - Unusual ligature clusters (e.g., archaic epigraphic or scholastic spellings) may not map perfectly to standard modern Latin digraphs.
+3. **OCR Optical Degeneracy:**
+   - Scanned and camera documents with optical noise (e.g. broken matras, blurred conjuncts, digit substitutions) can degrade both Latin and Devanagari text before transliteration.
+4. **Handwritten Submissions:**
+   - Handwritten administrative records cannot be parsed by rule-based character mappings without an OCR/Vision recognition layer.
+5. **No General-Purpose Transliteration Claim:**
+   - This implementation is purposefully scoped as an explainable, deterministic helper for Indian administrative names; it does not claim complete dictionary coverage for arbitrary prose sentences.
