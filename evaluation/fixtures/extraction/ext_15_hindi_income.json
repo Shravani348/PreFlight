@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_15_hindi_income",
+  "description": "Hindi income certificate with Tahsildar identifier and date",
+  "document_type": "income_certificate",
+  "document_text": "आय प्रमाण पत्र\nनाम: राजेश शर्मा\nप्रमाण पत्र क्रमांक: INC-HIN-9988\nदिनांक: 15/01/2026",
+  "expected_fields": {
+    "name": "राजेश शर्मा",
+    "certificate_number": "INC-HIN-9988",
+    "issue_date": "15/01/2026"
+  },
+  "expected_normalized_fields": {
+    "name": "राजेश शर्मा",
+    "certificate_number": "inc-hin-9988",
+    "issue_date": "2026-01-15"
+  },
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

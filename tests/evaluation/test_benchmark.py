@@ -27,15 +27,42 @@ from evaluation.schemas import (
 
 
 def test_fixture_dataset_counts() -> None:
-    """Verify synthetic dataset fixture case counts satisfy requirements."""
-    assert len(CLASSIFICATION_CASES) >= 10
-    assert len(MATCHING_CASES) >= 10
-    assert len(INSTRUCTION_CASES) >= 5
-    assert len(EXTRACTION_CASES) >= 4
+    """Verify synthetic dataset fixture case counts satisfy requirements (>=40, >=40, >=20, >=20)."""
+    assert len(CLASSIFICATION_CASES) >= 40
+    assert len(MATCHING_CASES) >= 40
+    assert len(INSTRUCTION_CASES) >= 20
+    assert len(EXTRACTION_CASES) >= 20
+
+
+def test_metadata_fields_presence() -> None:
+    """Verify that all fixture cases possess valid language, condition, and difficulty metadata."""
+    valid_langs = {"english", "hindi", "marathi", "bilingual"}
+    valid_conditions = {"clean", "scanned", "camera", "rotated", "blurry", "low_contrast", "compressed", "multi_page"}
+    valid_diffs = {"easy", "medium", "hard"}
+
+    for case in CLASSIFICATION_CASES:
+        assert case.language in valid_langs
+        assert case.document_condition in valid_conditions
+        assert case.difficulty in valid_diffs
+
+    for case in MATCHING_CASES:
+        assert case.language in valid_langs
+        assert case.document_condition in valid_conditions
+        assert case.difficulty in valid_diffs
+
+    for case in INSTRUCTION_CASES:
+        assert case.language in valid_langs
+        assert case.document_condition in valid_conditions
+        assert case.difficulty in valid_diffs
+
+    for case in EXTRACTION_CASES:
+        assert case.language in valid_langs
+        assert case.document_condition in valid_conditions
+        assert case.difficulty in valid_diffs
 
 
 def test_classification_benchmark_execution() -> None:
-    """Verify classification benchmark executes and computes non-empty metrics."""
+    """Verify classification benchmark executes and computes non-empty metrics with category breakdowns."""
     metrics = run_classification_benchmark()
     assert metrics.total_cases == len(CLASSIFICATION_CASES)
     assert 0.0 <= metrics.accuracy <= 1.0
@@ -44,15 +71,42 @@ def test_classification_benchmark_execution() -> None:
     assert 0.0 <= metrics.f1_macro <= 1.0
     assert metrics.correct > 0
 
+    # Verify breakdowns exist
+    assert "english" in metrics.by_language
+    assert "hindi" in metrics.by_language
+    assert "marathi" in metrics.by_language
+    assert "bilingual" in metrics.by_language
+    assert "clean" in metrics.by_condition
+
 
 def test_matching_benchmark_execution() -> None:
-    """Verify matching benchmark executes and tracks error cases."""
+    """Verify matching benchmark executes, tracks error cases, and enforces zero false matches."""
     metrics = run_matching_benchmark()
     assert metrics.total_cases == len(MATCHING_CASES)
     assert 0.0 <= metrics.accuracy <= 1.0
-    assert metrics.false_matches >= 0
+    # Zero false matches invariant from Task 16 must hold even with Devanagari additions
+    assert metrics.false_matches == 0
     assert metrics.false_mismatches >= 0
     assert metrics.correct > 0
+
+    # Verify breakdowns exist
+    assert "english" in metrics.by_language
+    assert "hindi" in metrics.by_language
+    assert "marathi" in metrics.by_language
+    assert "bilingual" in metrics.by_language
+
+
+def test_devanagari_matching_safety_cases() -> None:
+    """Verify specific Devanagari name matching behaviors."""
+    # Find Devanagari family member protection case
+    subset_case = next(c for c in MATCHING_CASES if c.case_id == "match_29_devanagari_family_member_protection")
+    from ai.matching.cross_document import CrossDocumentMatcher
+    matcher = CrossDocumentMatcher()
+    finding = matcher.name_matcher.compare(subset_case.value_a, subset_case.value_b)
+
+    from ai.schemas.comparison import MatchStatus
+    assert finding.status == MatchStatus.VERIFICATION_REQUIRED
+    assert finding.needs_verification is True
 
 
 def test_instruction_benchmark_execution() -> None:

@@ -1,0 +1,12 @@
+{
+  "case_id": "match_40_blurry_ocr_extra_space",
+  "description": "Blurry optical scan resulting in spaced letter artifacts (P r i t i)",
+  "field_name": "name",
+  "value_a": "P r i t i  A h i r e",
+  "value_b": "Priti Ahire",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "blurry",
+  "difficulty": "hard"
+}

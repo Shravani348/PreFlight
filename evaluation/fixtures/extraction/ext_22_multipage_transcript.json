@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_22_multipage_transcript",
+  "description": "Multi-page academic transcript with aggregate marks and overall percentage",
+  "document_type": "marksheet",
+  "document_text": "UNIVERSITY TRANSCRIPT STATEMENT OF MARKS\nName: Amit Patil\nTotal Marks: 850/1000\nPercentage: 85.0%",
+  "expected_fields": {
+    "name": "Amit Patil",
+    "marks": "850/1000",
+    "percentage": "85.0%"
+  },
+  "expected_normalized_fields": {
+    "name": "amit patil",
+    "marks": "850/1000",
+    "percentage": "85.0%"
+  },
+  "language": "english",
+  "document_condition": "multi_page",
+  "difficulty": "medium"
+}

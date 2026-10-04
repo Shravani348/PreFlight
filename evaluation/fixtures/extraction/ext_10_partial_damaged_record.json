@@ -14,5 +14,8 @@
     "date_of_birth": null,
     "certificate_number": null,
     "marks": "500/600"
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

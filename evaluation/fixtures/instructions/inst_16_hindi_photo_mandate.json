@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_16_hindi_photo_mandate",
+  "description": "Passport photo requirement specification in pure Hindi",
+  "instruction_text": "सफेद पृष्ठभूमि वाला पासपोर्ट आकार का फोटो अपलोड करें।",
+  "expected_requirement_types": [
+    "photograph"
+  ],
+  "expected_document_types": [
+    "photograph"
+  ],
+  "expected_constraints": {},
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_21_scanned_missing_required",
+  "description": "Scanned damaged certificate where certificate number and issue date are absent",
+  "document_type": "caste_certificate",
+  "document_text": "COMMUNITY CASTE CERTIFICATE\nName: Priti Ahire\nStatus: Verified",
+  "expected_fields": {
+    "name": "Priti Ahire",
+    "certificate_number": null,
+    "issue_date": null
+  },
+  "expected_normalized_fields": {
+    "name": "priti ahire",
+    "certificate_number": null,
+    "issue_date": null
+  },
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "hard"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "match_36_ocr_noise_name_severe",
+  "description": "Multiple optical substitutions in surname (Ah1r3 vs Ahire)",
+  "field_name": "name",
+  "value_a": "Priti Ah1r3",
+  "value_b": "Priti Ahire",
+  "expected_status": "likely_match",
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "medium"
+}

@@ -5,5 +5,8 @@
   "value_a": "Flat 402, Shivam Appt, Rd No 4, Pune",
   "value_b": "Flat 402 Shivam Apartments Road Number 4 Pune",
   "expected_status": "verification_required",
-  "expected_needs_verification": true
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "medium"
 }

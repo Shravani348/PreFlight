@@ -1,0 +1,14 @@
+{
+  "case_id": "class_27_hindi_income",
+  "description": "Hindi Tahsildar revenue office income certificate (आय प्रमाण पत्र)",
+  "file_name": "hindi_income.pdf",
+  "text_content": "राजस्व विभाग\nतहसीलदार कार्यालय\nआय प्रमाण पत्र\nप्रमाणित किया जाता है कि वार्षिक आय रु. 1,40,000 है।",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

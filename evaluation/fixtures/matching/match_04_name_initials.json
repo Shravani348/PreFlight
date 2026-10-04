@@ -5,5 +5,8 @@
   "value_a": "Priti S Ahire",
   "value_b": "Priti Shashikant Ahire",
   "expected_status": "likely_match",
-  "expected_needs_verification": true
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "medium"
 }

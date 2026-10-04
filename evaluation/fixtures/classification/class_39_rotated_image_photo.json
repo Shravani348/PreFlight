@@ -1,0 +1,14 @@
+{
+  "case_id": "class_39_rotated_image_photo",
+  "description": "Sideways rotated photograph image (landscape aspect ratio due to missing EXIF orientation)",
+  "file_name": "photo_sideways.jpg",
+  "text_content": null,
+  "has_image": true,
+  "image_width": 400,
+  "image_height": 300,
+  "expected_document_type": "photograph",
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "rotated",
+  "difficulty": "hard"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "class_41_sparse_text_scan",
+  "description": "Heavily degraded scan with fragmented OCR text and missing essential keywords",
+  "file_name": "degraded_scan.pdf",
+  "text_content": "Govt... Document... Ref... No 12345... Date...",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "hard"
+}

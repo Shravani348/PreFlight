@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_14_marathi_marksheet",
+  "description": "Marathi secondary board statement of marks (गुणपत्रिका)",
+  "document_type": "marksheet",
+  "document_text": "महाराष्ट्र राज्य माध्यमिक मंडळ\nगुणपत्रिका\nविद्यार्थ्याचे नाव: स्नेहा देशमुख\nप्राप्त गुण: 475/500\nटक्केवारी: 95.0%",
+  "expected_fields": {
+    "name": "स्नेहा देशमुख",
+    "marks": "475/500",
+    "percentage": "95.0%"
+  },
+  "expected_normalized_fields": {
+    "name": "स्नेहा देशमुख",
+    "marks": "475/500",
+    "percentage": "95.0%"
+  },
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

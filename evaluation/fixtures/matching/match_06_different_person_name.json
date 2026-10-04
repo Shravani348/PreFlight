@@ -5,5 +5,8 @@
   "value_a": "Priti Shashikant Ahire",
   "value_b": "Rahul Ramesh Sharma",
   "expected_status": "mismatch",
-  "expected_needs_verification": false
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

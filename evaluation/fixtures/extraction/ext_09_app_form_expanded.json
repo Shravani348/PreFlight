@@ -16,5 +16,8 @@
     "mother_name": "sunita patil",
     "address": "shivaji nagar kolhapur",
     "date_of_birth": "2004-11-22"
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

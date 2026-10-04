@@ -1,0 +1,14 @@
+{
+  "case_id": "class_29_hindi_caste",
+  "description": "Hindi competent authority caste certificate (जाति प्रमाण पत्र)",
+  "file_name": "hindi_caste.pdf",
+  "text_content": "सक्षम प्राधिकारी कार्यालय\nजाति प्रमाण पत्र\nप्रमाणित किया जाता है कि आवेदक अनुसूचित जाति वर्ग से संबंधित है।",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "caste_certificate",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

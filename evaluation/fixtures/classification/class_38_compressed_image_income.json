@@ -1,0 +1,14 @@
+{
+  "case_id": "class_38_compressed_image_income",
+  "description": "Heavily compressed JPEG of revenue income certificate",
+  "file_name": "income_cert_compressed.jpg",
+  "text_content": "REVENUE DEPARTMENT GOVERNMENT OF MAHARASHTRA\nINCOME CERTIFICATE\nOffice of the Tahsildar\nCertified Income",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "compressed",
+  "difficulty": "medium"
+}

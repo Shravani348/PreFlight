@@ -1,0 +1,12 @@
+{
+  "case_id": "match_35_ocr_noise_name",
+  "description": "Minor OCR optical substitution noise in name (Pr1ti vs Priti)",
+  "field_name": "name",
+  "value_a": "Pr1ti Ahire",
+  "value_b": "Priti Ahire",
+  "expected_status": "likely_match",
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "medium"
+}

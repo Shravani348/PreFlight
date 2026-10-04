@@ -1,0 +1,12 @@
+{
+  "case_id": "match_37_noisy_address_punctuation",
+  "description": "Noisy scanned address with extraneous OCR symbols and separators",
+  "field_name": "address",
+  "value_a": "Flat#402, @Shivam Apts; Kothrud / Pune",
+  "value_b": "Flat 402 Shivam Apts Kothrud Pune",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "easy"
+}

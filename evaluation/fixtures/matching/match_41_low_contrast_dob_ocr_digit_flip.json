@@ -1,0 +1,12 @@
+{
+  "case_id": "match_41_low_contrast_dob_ocr_digit_flip",
+  "description": "Low contrast scan resulting in single day digit misread (01 vs 07)",
+  "field_name": "date_of_birth",
+  "value_a": "2005-05-01",
+  "value_b": "2005-05-07",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "low_contrast",
+  "difficulty": "medium"
+}

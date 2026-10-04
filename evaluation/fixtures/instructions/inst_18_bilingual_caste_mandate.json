@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_18_bilingual_caste_mandate",
+  "description": "Bilingual English + Marathi caste certificate requirement",
+  "instruction_text": "Caste certificate (जात प्रमाणपत्र) must be uploaded for reserved category applicants.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "caste_certificate"
+  ],
+  "expected_constraints": {},
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

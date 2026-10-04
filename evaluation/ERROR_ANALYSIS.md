@@ -130,7 +130,7 @@ def test_name_family_member_subset_critical_vulnerability():
 
 ---
 
-## 5. Current Suite Performance
+## 5. Milestone Suite Performance (Task 16 Baseline)
 
 ```powershell
 pytest tests/ai -q           # 251 passed in 1.43s
@@ -140,8 +140,136 @@ python -m evaluation.benchmark # All 4 suites passing, 0 false matches
 
 ---
 
-## 6. Remaining Limitations & Future Work
+## 6. Task 17 — Multilingual & Difficult Document Evaluation
 
-1. **Devanagari Transliteration:** Current fuzzy matching operates in Latin script. Names in Marathi (*शशिकांत अहिरे*) compared against English records require phonetic transliteration normalization (e.g. IndicSoundex or Double Metaphone).
-2. **Compound Surnames:** Compound names with prefixes (*Deshmukh*, *Kulkarni*, *Patil-Bhosale*) require continuous expansion in synthetic test sets.
-3. **Synthetic Data Constraint:** Metrics reflect development fixtures and validate algorithmic guardrails; they do not establish production accuracy on uncalibrated camera photos.
+In Task 17, the evaluation dataset was expanded from 65 cases to **132 synthetic fixtures** across four evaluation categories, explicitly targeting **Hindi (Devanagari)**, **Marathi (Devanagari)**, **Bilingual (English + Indic)**, and **eight degraded document conditions** (scanned, camera capture, rotated, blurry, low-contrast, compressed, multi-page, and clean).
+
+### Expanded Dataset Composition
+
+* **Classification:** 44 cases (English: 31, Bilingual: 5, Hindi: 4, Marathi: 4)
+* **Matching:** 44 cases (English: 30, Marathi: 8, Hindi: 3, Bilingual: 3)
+* **Instructions:** 22 cases (English: 12, Bilingual: 5, Hindi: 3, Marathi: 2)
+* **Field Extraction:** 22 cases / 72 fields (English: 14, Marathi: 4, Hindi: 3, Bilingual: 1)
+
+### Empirical Benchmark Results
+
+| Evaluation Suite | Cases / Fields | Metric 1 | Metric 2 | Metric 3 | Safety Finding |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Classification** | 44 cases | **Accuracy: 0.7273** | Precision: 0.8594 | **Macro F1: 0.7857** | Clean degradation on Indic text |
+| **Matching** | 44 cases | **Accuracy: 0.8182** | Precision: 0.8698 | **Macro F1: 0.8456** | **0 False Matches (Zero Regressions)** |
+| **Instructions** | 22 cases | Precision: 1.0000 | Recall: 0.6957 | **F1: 0.8205** | High precision, lower Indic recall |
+| **Field Extraction** | 72 fields | Exact: 0.7639 | **Normalized: 0.9861** | Missing: 0 | Extraction contract intact |
+
+---
+
+## 7. Multilingual Performance Breakdown
+
+### Document Classification by Language
+
+| Language | Total Cases | Correct | Accuracy | Macro F1 | Observed Behavior |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Bilingual** (English + Indic) | 5 | 5 | **1.0000** | **1.0000** | English keywords present; 100% classified correctly |
+| **English** | 31 | 27 | **0.8710** | **0.9018** | High accuracy baseline; errors on ambiguous/empty text |
+| **Hindi** (Devanagari) | 4 | 0 | **0.0000** | **0.0000** | Complete blindness; predicted UNKNOWN (0.0 score) |
+| **Marathi** (Devanagari) | 4 | 0 | **0.0000** | **0.0000** | Complete blindness; predicted UNKNOWN (0.0 score) |
+
+**Key Finding:** The deterministic classifier relies solely on Latin ASCII regexes. It functions seamlessly on bilingual documents that include English headers, but is completely blind to pure Hindi or Marathi documents.
+
+### Cross-Document Matching by Language
+
+| Language / Script Pair | Total Cases | Correct | Accuracy | Macro F1 | False Matches (FP) | False Mismatches (FN) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Hindi** (Same-script Devanagari) | 3 | 3 | **1.0000** | **1.0000** | **0** | 0 |
+| **Marathi** (Same-script Devanagari) | 8 | 7 | **0.8750** | **0.6190** | **0** | 0 |
+| **English** (Latin) | 30 | 26 | **0.8667** | **0.8815** | **0** | 2 |
+| **Bilingual** (Latin vs Devanagari) | 3 | 0 | **0.0000** | **0.0000** | **0** | 0 |
+
+**Safety Invariant Verified:**
+The critical family-member subset safety protection discovered in Task 16 (**`"शशिकांत अहिरे"` vs `"प्रीती शशिकांत अहिरे"`**) was thoroughly evaluated in Devanagari. It successfully prevented any false positive match, correctly returning `VERIFICATION_REQUIRED` (`needs_verification=True`). Across all 44 cases and all language pairs, **0 false matches were produced**.
+
+---
+
+## 8. Document Condition Evaluation
+
+### Classification by Condition
+
+| Condition | Cases | Accuracy | Macro F1 | Performance Notes |
+| :--- | :---: | :---: | :---: | :--- |
+| **Clean** | 36 | 0.6944 | 0.7491 | Drops from 0.86 to 0.69 due to pure Hindi/Marathi documents |
+| **Scanned** | 2 | 1.0000 | 1.0000 | Text-layer survives standard scanning |
+| **Rotated** | 1 | 1.0000 | 1.0000 | Aspect-ratio heuristic flags portrait/landscape orientation |
+| **Blurry** | 1 | 1.0000 | 1.0000 | Document classified if salient tokens survive optical blur |
+| **Low Contrast** | 1 | 1.0000 | 1.0000 | Header tokens remain readable |
+| **Compressed** | 1 | 1.0000 | 1.0000 | Lossy compression artifacts do not destroy ASCII keywords |
+| **Multi-Page** | 1 | 1.0000 | 1.0000 | First-page weighting correctly prioritizes marksheet |
+| **Camera** | 1 | 0.0000 | 0.0000 | Smartphone photo without native OCR text predicts UNKNOWN |
+
+### Matching by Condition
+
+| Condition | Cases | Accuracy | Macro F1 | Performance Notes |
+| :--- | :---: | :---: | :---: | :--- |
+| **Clean** | 36 | 0.8889 | 0.9056 | Standard baseline matching performance |
+| **Camera** | 1 | 1.0000 | 1.0000 | Truncation safety correctly prevents false match |
+| **Compressed** | 1 | 1.0000 | 1.0000 | Minor character drops match within fuzzy tolerance |
+| **Low Contrast** | 1 | 1.0000 | 1.0000 | Date digit flip correctly flagged as MISMATCH |
+| **Scanned** | 4 | 0.2500 | 0.1667 | Optical noise (e.g. `Pr1ti Ah1r3`) drops similarity below threshold |
+| **Blurry** | 1 | 0.0000 | 0.0000 | Spaced-letter OCR artifacts (`P r i t i`) disrupt token parsing |
+
+---
+
+## 9. Newly Discovered Weaknesses (Observed Empirical Evidence)
+
+### 1. Indic Combining Vowel Mark (Matra) Stripping in `NameNormalizer`
+* **Observation:** In `ai/normalization/name_normalizer.py`, regex `re.sub(r"[^\w\s]", " ", raw)` is used to strip punctuation.
+* **Failure Mechanism:** In Python's standard `re` engine, `\w` matches only Unicode category `L` (Letters) and `N` (Numbers). Indic vowel signs (*matras*: `ा`, `ि`, `ी`, `ु`, `ू`, `्`, `ं`) belong to the `M` (Combining Mark) category (`Mn`/`Mc`).
+* **Impact:** Standard normalization inadvertently replaces all Devanagari vowel signs with spaces. For example, `"पाटील"` becomes `"प ट ल"`, and `"प्रीती"` fragments into `"प"`, `"र"`, `"त"`. While exact matches still coincide, word structure and token length calculations are distorted.
+
+### 2. Complete Cross-Script Blindness (Latin vs. Devanagari)
+* **Observation:** Cross-document matching between English application records and Marathi/Hindi identity records (e.g., `"Priti Ahire"` vs. `"प्रीती अहिरे"`) achieves **0.0000 Accuracy**.
+* **Failure Mechanism:** With zero shared characters across Latin and Devanagari scripts, RapidFuzz reports `similarity = 0.0`, returning `MISMATCH`.
+* **Impact:** State scholarship platforms regularly receive bilingual documentation. Without a transliteration bridge, cross-script comparisons cannot identify matching applicant records.
+
+### 3. Pure Indic Text Blindness in Document Classifier & Instruction Extractor
+* **Observation:** Pure Hindi and Marathi documents score **0.0000 Accuracy** in classification, and instruction recall drops to **0.6957**.
+* **Failure Mechanism:** `CLASSIFICATION_SIGNALS` and `DOCUMENT_KEYWORDS` contain only English regex patterns (`\bmarksheet\b`, `\bincome\s+certificate\b`).
+* **Impact:** Administrative documents issued exclusively in state languages (e.g. Tahsildar *उत्पन्न प्रमाणपत्र* or state board *गुणपत्रिका*) cannot be categorized by the deterministic rule engine without English headers or an OCR/transliteration translation step.
+
+### 4. Optical Substitution Noise in Scanned Records
+* **Observation:** Scanned document matching accuracy fell to **0.2500**.
+* **Failure Mechanism:** OCR character substitutions common in degraded scans (e.g., digit `1` for `i`, `3` for `e`) cause `token_sort_ratio` to drop below the `likely_match_threshold` of `0.90`.
+
+---
+
+## 10. Bottleneck Identification
+
+Following the empirical benchmark execution, we identify the primary pipeline bottlenecks in order of impact:
+
+```text
+Rank 1: E. Multilingual handling (Combined with C. Normalization)
+        - Pure Hindi/Marathi classification = 0%
+        - Latin vs Devanagari cross-script matching = 0%
+        - Matra stripping in regex normalization
+        - Pure Hindi/Marathi instruction recall drops to 0%
+
+Rank 2: F. Image/document preprocessing & Vision OCR
+        - Smartphone camera photos and image scans lack machine-readable text
+        - Inability to classify image-only documents without Vision API / OCR
+
+Rank 3: B. Name matching on OCR-degraded strings
+        - OCR character confusion (1/i, 0/o, 5/s) penalizes edit distance
+```
+
+---
+
+## 11. Ranked Recommendations
+
+Based on concrete benchmark evidence:
+
+1. **Extend `NameNormalizer` to Preserve Indic Combining Marks:**
+   Update `ai/normalization/name_normalizer.py` to preserve Unicode category `M` (`\p{M}`) or range `\u0900-\u097F` so Devanagari words maintain their phonetic and orthographic integrity.
+2. **Expand Classification and Instruction Vocabulary to Indic Terminology:**
+   Add Hindi and Marathi keyword mappings to `CLASSIFICATION_SIGNALS` and `DOCUMENT_KEYWORDS` (e.g., *उत्पन्न प्रमाणपत्र*, *आय प्रमाण पत्र*, *गुणपत्रिका*, *अंकतालिका*, *जात प्रमाणपत्र*, *अर्ज*).
+3. **Implement Cross-Script Transliteration Layer:**
+   Introduce a deterministic Indic-to-Latin transliteration preprocessor (e.g., IndicSoundex or rule-based Devanagari-to-Latin character transliteration) before name matching.
+4. **Connect Live Vision / OCR Extraction Pipeline:**
+   Deploy a Vision OCR provider to extract structured text from camera photos and scanned image PDFs before passing them to the downstream intelligence pipeline.

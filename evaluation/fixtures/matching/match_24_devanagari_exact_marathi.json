@@ -1,0 +1,12 @@
+{
+  "case_id": "match_24_devanagari_exact_marathi",
+  "description": "Exact identical Devanagari name in Marathi records",
+  "field_name": "name",
+  "value_a": "अमित पाटील",
+  "value_b": "अमित पाटील",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

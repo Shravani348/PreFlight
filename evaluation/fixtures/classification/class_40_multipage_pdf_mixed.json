@@ -1,0 +1,14 @@
+{
+  "case_id": "class_40_multipage_pdf_mixed",
+  "description": "Multi-page document containing academic marksheet on page 1 with subsequent fee page",
+  "file_name": "academic_bundle.pdf",
+  "text_content": "MAHARASHTRA STATE BOARD OF SECONDARY EDUCATION\nSTATEMENT OF MARKS\nTotal Marks: 450/500\n--- PAGE 2 ---\nCOLLEGE FEE RECEIPT",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "multi_page",
+  "difficulty": "medium"
+}

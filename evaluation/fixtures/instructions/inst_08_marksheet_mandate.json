@@ -8,5 +8,8 @@
   "expected_document_types": [
     "marksheet"
   ],
-  "expected_constraints": {}
+  "expected_constraints": {},
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

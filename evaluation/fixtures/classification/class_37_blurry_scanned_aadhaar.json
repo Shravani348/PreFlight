@@ -1,0 +1,14 @@
+{
+  "case_id": "class_37_blurry_scanned_aadhaar",
+  "description": "Blurry scanned Aadhaar card where partial UIDAI keywords survived degradation",
+  "file_name": "blurry_aadhaar_scan.pdf",
+  "text_content": "GOVERNMENT OF INDIA\nUNIQUE IDENTIFICATION AUTHORITY OF INDIA\nAadhaar Card\nIdentity Details",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "aadhaar_or_identity",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "blurry",
+  "difficulty": "hard"
+}

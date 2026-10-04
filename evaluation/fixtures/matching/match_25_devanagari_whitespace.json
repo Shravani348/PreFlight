@@ -1,0 +1,12 @@
+{
+  "case_id": "match_25_devanagari_whitespace",
+  "description": "Devanagari name with irregular leading and trailing whitespace",
+  "field_name": "name",
+  "value_a": "  स्नेहा   देशमुख  ",
+  "value_b": "स्नेहा देशमुख",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

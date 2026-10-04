@@ -1,0 +1,12 @@
+{
+  "case_id": "match_43_honorific_shri_devanagari",
+  "description": "Devanagari title prefix requiring verification before transliteration/title removal",
+  "field_name": "name",
+  "value_a": "श्री शशिकांत अहिरे",
+  "value_b": "शशिकांत अहिरे",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

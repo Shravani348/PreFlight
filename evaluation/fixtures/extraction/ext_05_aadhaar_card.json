@@ -12,5 +12,8 @@
     "name": "priti shashikant ahire",
     "date_of_birth": "2004-08-15",
     "address": "kothrud pune maharashtra"
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

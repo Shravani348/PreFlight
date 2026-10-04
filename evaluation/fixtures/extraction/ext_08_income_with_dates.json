@@ -12,5 +12,8 @@
     "name": "ramesh sharma",
     "certificate_number": "rev-inc-4455",
     "issue_date": "2026-02-20"
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

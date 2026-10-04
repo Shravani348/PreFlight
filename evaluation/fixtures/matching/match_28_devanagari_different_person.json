@@ -1,0 +1,12 @@
+{
+  "case_id": "match_28_devanagari_different_person",
+  "description": "Completely distinct Devanagari names across records",
+  "field_name": "name",
+  "value_a": "प्रिया शर्मा",
+  "value_b": "अमित पाटील",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

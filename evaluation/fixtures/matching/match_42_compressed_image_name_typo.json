@@ -1,0 +1,12 @@
+{
+  "case_id": "match_42_compressed_image_name_typo",
+  "description": "Lossy compression artifact causing dropped trailing vowel (Sneh vs Sneha)",
+  "field_name": "name",
+  "value_a": "Sneh Deshmukh",
+  "value_b": "Sneha Deshmukh",
+  "expected_status": "likely_match",
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "compressed",
+  "difficulty": "medium"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "class_31_bilingual_hindi_income",
+  "description": "Bilingual English + Hindi Tahsildar revenue income certificate",
+  "file_name": "bilingual_income_cert.pdf",
+  "text_content": "GOVERNMENT OF MAHARASHTRA / महाराष्ट्र शासन\nREVENUE DEPARTMENT / महसूल विभाग\nINCOME CERTIFICATE / आय प्रमाण पत्र\nOffice of the Tahsildar / तहसीलदार कार्यालय\nAnnual Family Income: Rs. 1,60,000",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

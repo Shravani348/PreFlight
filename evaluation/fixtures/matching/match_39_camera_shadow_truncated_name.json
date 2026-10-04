@@ -1,0 +1,12 @@
+{
+  "case_id": "match_39_camera_shadow_truncated_name",
+  "description": "Camera shadow truncated single given name token against full applicant name",
+  "field_name": "name",
+  "value_a": "Priti",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "camera",
+  "difficulty": "hard"
+}

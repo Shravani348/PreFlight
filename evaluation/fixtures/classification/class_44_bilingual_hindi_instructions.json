@@ -1,0 +1,14 @@
+{
+  "case_id": "class_44_bilingual_hindi_instructions",
+  "description": "Bilingual English + Hindi official scholarship brochure guidelines",
+  "file_name": "bilingual_guidelines.pdf",
+  "text_content": "DIRECTORATE OF HIGHER EDUCATION / उच्च शिक्षा निदेशालय\nGENERAL INSTRUCTIONS / सामान्य निर्देश\nGuidelines for Scheme Applicants / योजना दिशा-निर्देश\nRequired Documents to be submitted",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "instructions",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

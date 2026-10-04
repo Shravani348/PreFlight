@@ -10,5 +10,8 @@
   ],
   "expected_constraints": {
     "conditional": true
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

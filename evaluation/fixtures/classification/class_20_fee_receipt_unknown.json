@@ -7,5 +7,8 @@
   "image_width": null,
   "image_height": null,
   "expected_document_type": "unknown",
-  "expected_needs_verification": true
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "medium"
 }

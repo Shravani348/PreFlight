@@ -5,5 +5,8 @@
   "value_a": "Shashikant Ahire",
   "value_b": "Priti Shashikant Ahire",
   "expected_status": "verification_required",
-  "expected_needs_verification": true
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "hard"
 }

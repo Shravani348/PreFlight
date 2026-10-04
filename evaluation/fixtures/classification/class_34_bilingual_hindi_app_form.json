@@ -1,0 +1,14 @@
+{
+  "case_id": "class_34_bilingual_hindi_app_form",
+  "description": "Bilingual English + Hindi scholarship application form submission",
+  "file_name": "bilingual_app_form.pdf",
+  "text_content": "SCHOLARSHIP APPLICATION FORM / छात्रवृत्ति आवेदन प्रपत्र\nApplication ID: HIN-2026-9912\nApplicant Details / आवेदक विवरण\nStudent Registration Profile",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "application_form",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

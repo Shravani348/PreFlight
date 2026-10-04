@@ -105,6 +105,56 @@ def test_benchmark_report_schema() -> None:
         precision_macro=0.82,
         recall_macro=0.80,
         f1_macro=0.81,
+        by_language={"english": {"total_cases": 10, "correct": 8, "accuracy": 0.8, "f1_macro": 0.81}},
+        by_condition={"clean": {"total_cases": 10, "correct": 8, "accuracy": 0.8, "f1_macro": 0.81}},
     )
     data = report.model_dump()
     assert data["classification"]["accuracy"] == 0.8
+    assert "english" in data["classification"]["by_language"]
+
+
+def test_schema_metadata_fields() -> None:
+    """Verify that language, document_condition, and difficulty metadata are supported with defaults."""
+    c_case = ClassificationTestCase(
+        case_id="case_meta_01",
+        file_name="meta.pdf",
+        expected_document_type=DocumentType.MARKSHEET,
+        language="marathi",
+        document_condition="scanned",
+        difficulty="hard",
+    )
+    assert c_case.language == "marathi"
+    assert c_case.document_condition == "scanned"
+    assert c_case.difficulty == "hard"
+
+    m_case = MatchingTestCase(
+        case_id="match_meta_01",
+        field_name="name",
+        value_a="अमित पाटील",
+        value_b="अमित पाटील",
+        expected_status=MatchStatus.MATCH,
+        language="marathi",
+        document_condition="clean",
+        difficulty="easy",
+    )
+    assert m_case.language == "marathi"
+    assert m_case.value_a == "अमित पाटील"
+
+    i_case = InstructionTestCase(
+        case_id="inst_meta_01",
+        instruction_text="उत्पन्न प्रमाणपत्र आवश्यक आहे.",
+        expected_requirement_types=["required_document"],
+        language="marathi",
+    )
+    assert i_case.language == "marathi"
+    assert i_case.document_condition == "clean"
+
+    e_case = FieldExtractionTestCase(
+        case_id="ext_meta_01",
+        document_type=DocumentType.INCOME_CERTIFICATE,
+        document_text="आय प्रमाण पत्र",
+        expected_fields={"name": "राजेश शर्मा"},
+        language="hindi",
+    )
+    assert e_case.language == "hindi"
+    assert e_case.difficulty == "easy"

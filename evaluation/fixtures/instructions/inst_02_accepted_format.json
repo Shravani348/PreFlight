@@ -6,5 +6,8 @@
     "file_format"
   ],
   "expected_document_types": [],
-  "expected_constraints": {}
+  "expected_constraints": {},
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

@@ -1,0 +1,12 @@
+{
+  "case_id": "match_23_devanagari_exact_hindi",
+  "description": "Exact identical Devanagari name in Hindi records",
+  "field_name": "name",
+  "value_a": "प्रिया शर्मा",
+  "value_b": "प्रिया शर्मा",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

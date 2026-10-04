@@ -1,0 +1,12 @@
+{
+  "case_id": "match_44_devanagari_missing_b",
+  "description": "Devanagari name present in source document but absent in comparison document",
+  "field_name": "name",
+  "value_a": "प्रिया शर्मा",
+  "value_b": null,
+  "expected_status": "missing",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

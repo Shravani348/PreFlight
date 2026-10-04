@@ -1,0 +1,12 @@
+{
+  "case_id": "match_26_devanagari_reordering",
+  "description": "Surname-first sequence in Marathi records (पाटील अमित vs अमित पाटील)",
+  "field_name": "name",
+  "value_a": "पाटील अमित",
+  "value_b": "अमित पाटील",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

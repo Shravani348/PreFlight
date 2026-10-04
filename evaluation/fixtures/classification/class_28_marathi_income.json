@@ -1,0 +1,14 @@
+{
+  "case_id": "class_28_marathi_income",
+  "description": "Marathi revenue authority family income certificate (उत्पन्न प्रमाणपत्र)",
+  "file_name": "marathi_income.pdf",
+  "text_content": "महाराष्ट्र शासन महसूल विभाग\nतहसीलदार कार्यालय\nउत्पन्न प्रमाणपत्र\nप्रमाणित करण्यात येते की कुटुंबाचे वार्षिक उत्पन्न रु. 1,50,000 आहे.",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

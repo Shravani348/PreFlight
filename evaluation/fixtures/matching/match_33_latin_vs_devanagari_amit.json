@@ -1,0 +1,12 @@
+{
+  "case_id": "match_33_latin_vs_devanagari_amit",
+  "description": "Latin script vs Devanagari script comparison for Amit Patil",
+  "field_name": "name",
+  "value_a": "Amit Patil",
+  "value_b": "अमित पाटील",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "hard"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "class_24_marathi_app_form",
+  "description": "Marathi scholarship portal application submission receipt",
+  "file_name": "marathi_application.pdf",
+  "text_content": "महाराष्ट्र राज्य शिष्यवृत्ती अर्ज\nअर्ज क्रमांक: MAH-2026-404\nविद्यार्थ्याचे नाव: स्नेहा देशमुख\nवडिलांचे नाव: संजय देशमुख\nजन्म तारीख: 15/08/2004",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "application_form",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

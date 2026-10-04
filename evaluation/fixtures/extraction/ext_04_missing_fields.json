@@ -12,5 +12,8 @@
     "name": "priti ahire",
     "date_of_birth": null,
     "certificate_number": null
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

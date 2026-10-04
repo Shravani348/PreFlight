@@ -1,0 +1,14 @@
+{
+  "case_id": "class_33_bilingual_marathi_marksheet",
+  "description": "Bilingual English + Marathi secondary education statement of marks",
+  "file_name": "bilingual_marksheet.pdf",
+  "text_content": "MAHARASHTRA STATE BOARD / महाराष्ट्र राज्य मंडळ\nSTATEMENT OF MARKS / गुणपत्रिका\nSeat Number: M10293\nMarks Obtained: 480/500\nPercentage: 96.00%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

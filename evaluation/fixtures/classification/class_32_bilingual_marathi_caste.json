@@ -1,0 +1,14 @@
+{
+  "case_id": "class_32_bilingual_marathi_caste",
+  "description": "Bilingual English + Marathi caste validity certificate",
+  "file_name": "bilingual_caste_cert.pdf",
+  "text_content": "GOVERNMENT OF MAHARASHTRA / महाराष्ट्र शासन\nCOMMUNITY CASTE CERTIFICATE / जात प्रमाणपत्र\nSub-Divisional Magistrate / सक्षम प्राधिकारी\nScheduled Caste Category / अनुसूचित जाती प्रवर्ग",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "caste_certificate",
+  "expected_needs_verification": false,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

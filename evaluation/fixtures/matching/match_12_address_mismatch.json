@@ -5,5 +5,8 @@
   "value_a": "Kothrud Pune Maharashtra",
   "value_b": "Anna Nagar Chennai Tamil Nadu",
   "expected_status": "mismatch",
-  "expected_needs_verification": false
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

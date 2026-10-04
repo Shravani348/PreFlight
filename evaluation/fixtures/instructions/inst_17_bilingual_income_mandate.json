@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_17_bilingual_income_mandate",
+  "description": "Bilingual English + Hindi income certificate requirement",
+  "instruction_text": "Income certificate (आय प्रमाण पत्र) issued by competent authority must be uploaded.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "income_certificate"
+  ],
+  "expected_constraints": {},
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

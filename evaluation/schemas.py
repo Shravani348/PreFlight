@@ -25,6 +25,9 @@ class ClassificationTestCase(BaseModel):
     image_height: Optional[int] = None
     expected_document_type: DocumentType
     expected_needs_verification: Optional[bool] = None
+    language: str = "english"
+    document_condition: str = "clean"
+    difficulty: str = "easy"
 
 
 class MatchingTestCase(BaseModel):
@@ -39,6 +42,9 @@ class MatchingTestCase(BaseModel):
     value_b: Optional[str] = None
     expected_status: MatchStatus
     expected_needs_verification: Optional[bool] = None
+    language: str = "english"
+    document_condition: str = "clean"
+    difficulty: str = "easy"
 
 
 class InstructionTestCase(BaseModel):
@@ -52,6 +58,9 @@ class InstructionTestCase(BaseModel):
     expected_requirement_types: List[str]
     expected_document_types: List[Optional[DocumentType]] = Field(default_factory=list)
     expected_constraints: Dict[str, Any] = Field(default_factory=dict)
+    language: str = "english"
+    document_condition: str = "clean"
+    difficulty: str = "easy"
 
 
 class FieldExtractionTestCase(BaseModel):
@@ -65,6 +74,9 @@ class FieldExtractionTestCase(BaseModel):
     document_text: str
     expected_fields: Dict[str, Optional[str]]
     expected_normalized_fields: Dict[str, Optional[str]] = Field(default_factory=dict)
+    language: str = "english"
+    document_condition: str = "clean"
+    difficulty: str = "easy"
 
 
 # ==============================================================================
@@ -83,6 +95,9 @@ class ClassificationMetrics(BaseModel):
     recall_macro: float
     f1_macro: float
     per_class_metrics: Dict[str, Dict[str, float]] = Field(default_factory=dict)
+    by_language: Dict[str, Dict[str, float]] = Field(default_factory=dict)
+    by_condition: Dict[str, Dict[str, float]] = Field(default_factory=dict)
+    by_difficulty: Dict[str, Dict[str, float]] = Field(default_factory=dict)
 
 
 class MatchingMetrics(BaseModel):
@@ -98,6 +113,9 @@ class MatchingMetrics(BaseModel):
     f1_macro: float
     false_matches: int
     false_mismatches: int
+    by_language: Dict[str, Dict[str, float]] = Field(default_factory=dict)
+    by_condition: Dict[str, Dict[str, float]] = Field(default_factory=dict)
+    by_difficulty: Dict[str, Dict[str, float]] = Field(default_factory=dict)
 
 
 class InstructionMetrics(BaseModel):

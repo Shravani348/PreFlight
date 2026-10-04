@@ -1,0 +1,12 @@
+{
+  "case_id": "match_30_devanagari_mother_family_protection",
+  "description": "Mother name vs daughter in Devanagari with shared surname",
+  "field_name": "name",
+  "value_a": "सुनीता पाटील",
+  "value_b": "पूजा सुरेश पाटील",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "hard"
+}

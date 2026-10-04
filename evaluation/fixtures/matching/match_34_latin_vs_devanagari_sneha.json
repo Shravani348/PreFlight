@@ -1,0 +1,12 @@
+{
+  "case_id": "match_34_latin_vs_devanagari_sneha",
+  "description": "Latin script vs Devanagari script comparison for Sneha Deshmukh",
+  "field_name": "name",
+  "value_a": "Sneha Deshmukh",
+  "value_b": "स्नेहा देशमुख",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true,
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "hard"
+}

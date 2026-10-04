@@ -7,5 +7,8 @@
   "image_width": 300,
   "image_height": 400,
   "expected_document_type": "photograph",
-  "expected_needs_verification": true
+  "expected_needs_verification": true,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

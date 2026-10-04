@@ -1,0 +1,14 @@
+{
+  "case_id": "class_42_no_filename_clues_income",
+  "description": "Income certificate with randomized camera scanner filename (e.g., DOC_99214.pdf)",
+  "file_name": "DOC_99214.pdf",
+  "text_content": "GOVERNMENT OF MAHARASHTRA REVENUE DEPARTMENT\nINCOME CERTIFICATE\nOffice of the Tahsildar\nAnnual Family Income: Rs. 1,40,000",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "easy"
+}

@@ -1,0 +1,16 @@
+{
+  "case_id": "inst_19_bilingual_marksheet_mandate",
+  "description": "Bilingual English + Marathi marksheet requirement with PDF format constraint",
+  "instruction_text": "Qualifying examination marksheet (गुणपत्रिका) must be submitted in PDF format.",
+  "expected_requirement_types": [
+    "required_document",
+    "file_format"
+  ],
+  "expected_document_types": [
+    "marksheet"
+  ],
+  "expected_constraints": {},
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

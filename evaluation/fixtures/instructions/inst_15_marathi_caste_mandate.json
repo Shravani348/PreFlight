@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_15_marathi_caste_mandate",
+  "description": "Mandatory caste certificate instruction in pure Marathi",
+  "instruction_text": "मागासवर्गीय उमेदवारांसाठी सक्षम प्राधिकरणाचे जात प्रमाणपत्र आवश्यक आहे.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "caste_certificate"
+  ],
+  "expected_constraints": {},
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "ext_11_hindi_app_form",
+  "description": "Hindi application form core fields with Devanagari labels and names",
+  "document_type": "application_form",
+  "document_text": "छात्रवृत्ति आवेदन पत्र\nनाम: प्रिया शर्मा\nजन्म तिथि: 12/04/2005\nपिता का नाम: राजेश शर्मा\nपता: लखनऊ उत्तर प्रदेश",
+  "expected_fields": {
+    "name": "प्रिया शर्मा",
+    "date_of_birth": "12/04/2005",
+    "father_name": "राजेश शर्मा",
+    "address": "लखनऊ उत्तर प्रदेश"
+  },
+  "expected_normalized_fields": {
+    "name": "प्रिया शर्मा",
+    "date_of_birth": "2005-04-12",
+    "father_name": "राजेश शर्मा",
+    "address": "लखनऊ उत्तर प्रदेश"
+  },
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

@@ -11,5 +11,8 @@
   "expected_constraints": {
     "dimensions": "passport size",
     "background": "white"
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

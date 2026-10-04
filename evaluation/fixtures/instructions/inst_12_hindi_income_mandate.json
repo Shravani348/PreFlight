@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_12_hindi_income_mandate",
+  "description": "Mandatory income certificate instruction in pure Hindi",
+  "instruction_text": "सक्षम प्राधिकारी द्वारा जारी आय प्रमाण पत्र अपलोड करना अनिवार्य है।",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "income_certificate"
+  ],
+  "expected_constraints": {},
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

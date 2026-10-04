@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_13_marathi_income_mandate",
+  "description": "Mandatory income certificate instruction in pure Marathi",
+  "instruction_text": "तहसीलदार कार्यालयाने दिलेले उत्पन्न प्रमाणपत्र सादर करणे बंधनकारक आहे.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "income_certificate"
+  ],
+  "expected_constraints": {},
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

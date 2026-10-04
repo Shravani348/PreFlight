@@ -7,5 +7,8 @@
   "image_width": null,
   "image_height": null,
   "expected_document_type": "application_form",
-  "expected_needs_verification": false
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

@@ -1,0 +1,14 @@
+{
+  "case_id": "class_30_marathi_caste",
+  "description": "Marathi competent authority caste certificate (जात प्रमाणपत्र)",
+  "file_name": "marathi_caste.pdf",
+  "text_content": "सक्षम प्राधिकारी उपविभागीय अधिकारी\nजात प्रमाणपत्र\nप्रमाणित करण्यात येते की अर्जदार इतर मागासवर्ग प्रवर्गातील आहे.",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "caste_certificate",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

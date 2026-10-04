@@ -92,7 +92,46 @@ def run_classification_benchmark(
         result = classifier.classify(doc)
         predictions.append((result.document_type, case.expected_document_type))
 
-    return calculate_classification_metrics(predictions)
+    metrics = calculate_classification_metrics(predictions)
+
+    # Compute category breakdowns
+    languages = sorted({c.language for c in test_cases})
+    for lang in languages:
+        lang_preds = [p for p, c in zip(predictions, test_cases) if c.language == lang]
+        if lang_preds:
+            sub = calculate_classification_metrics(lang_preds)
+            metrics.by_language[lang] = {
+                "total_cases": sub.total_cases,
+                "correct": sub.correct,
+                "accuracy": sub.accuracy,
+                "f1_macro": sub.f1_macro,
+            }
+
+    conditions = sorted({c.document_condition for c in test_cases})
+    for cond in conditions:
+        cond_preds = [p for p, c in zip(predictions, test_cases) if c.document_condition == cond]
+        if cond_preds:
+            sub = calculate_classification_metrics(cond_preds)
+            metrics.by_condition[cond] = {
+                "total_cases": sub.total_cases,
+                "correct": sub.correct,
+                "accuracy": sub.accuracy,
+                "f1_macro": sub.f1_macro,
+            }
+
+    difficulties = sorted({c.difficulty for c in test_cases})
+    for diff in difficulties:
+        diff_preds = [p for p, c in zip(predictions, test_cases) if c.difficulty == diff]
+        if diff_preds:
+            sub = calculate_classification_metrics(diff_preds)
+            metrics.by_difficulty[diff] = {
+                "total_cases": sub.total_cases,
+                "correct": sub.correct,
+                "accuracy": sub.accuracy,
+                "f1_macro": sub.f1_macro,
+            }
+
+    return metrics
 
 
 def run_matching_benchmark(
@@ -115,7 +154,52 @@ def run_matching_benchmark(
 
         predictions.append((finding.status, case.expected_status))
 
-    return calculate_matching_metrics(predictions)
+    metrics = calculate_matching_metrics(predictions)
+
+    # Compute category breakdowns
+    languages = sorted({c.language for c in test_cases})
+    for lang in languages:
+        lang_preds = [p for p, c in zip(predictions, test_cases) if c.language == lang]
+        if lang_preds:
+            sub = calculate_matching_metrics(lang_preds)
+            metrics.by_language[lang] = {
+                "total_cases": sub.total_cases,
+                "correct": sub.correct,
+                "accuracy": sub.accuracy,
+                "f1_macro": sub.f1_macro,
+                "false_matches": sub.false_matches,
+                "false_mismatches": sub.false_mismatches,
+            }
+
+    conditions = sorted({c.document_condition for c in test_cases})
+    for cond in conditions:
+        cond_preds = [p for p, c in zip(predictions, test_cases) if c.document_condition == cond]
+        if cond_preds:
+            sub = calculate_matching_metrics(cond_preds)
+            metrics.by_condition[cond] = {
+                "total_cases": sub.total_cases,
+                "correct": sub.correct,
+                "accuracy": sub.accuracy,
+                "f1_macro": sub.f1_macro,
+                "false_matches": sub.false_matches,
+                "false_mismatches": sub.false_mismatches,
+            }
+
+    difficulties = sorted({c.difficulty for c in test_cases})
+    for diff in difficulties:
+        diff_preds = [p for p, c in zip(predictions, test_cases) if c.difficulty == diff]
+        if diff_preds:
+            sub = calculate_matching_metrics(diff_preds)
+            metrics.by_difficulty[diff] = {
+                "total_cases": sub.total_cases,
+                "correct": sub.correct,
+                "accuracy": sub.accuracy,
+                "f1_macro": sub.f1_macro,
+                "false_matches": sub.false_matches,
+                "false_mismatches": sub.false_mismatches,
+            }
+
+    return metrics
 
 
 def run_instruction_benchmark(
@@ -249,6 +333,14 @@ def print_benchmark_report(report: BenchmarkReport) -> None:
         print(f"Precision: {c.precision_macro:.4f}")
         print(f"Recall:    {c.recall_macro:.4f}")
         print(f"F1:        {c.f1_macro:.4f}")
+        if c.by_language:
+            print("\n  By Language:")
+            for lang, lm in c.by_language.items():
+                print(f"    {lang:<10} cases={int(lm['total_cases']):<3} acc={lm['accuracy']:.4f} f1={lm['f1_macro']:.4f}")
+        if c.by_condition:
+            print("\n  By Document Condition:")
+            for cond, cm in c.by_condition.items():
+                print(f"    {cond:<12} cases={int(cm['total_cases']):<3} acc={cm['accuracy']:.4f} f1={cm['f1_macro']:.4f}")
         print()
 
     if report.matching:
@@ -262,6 +354,14 @@ def print_benchmark_report(report: BenchmarkReport) -> None:
         print(f"F1:               {m.f1_macro:.4f}")
         print(f"False matches:    {m.false_matches}")
         print(f"False mismatches: {m.false_mismatches}")
+        if m.by_language:
+            print("\n  By Language:")
+            for lang, lm in m.by_language.items():
+                print(f"    {lang:<10} cases={int(lm['total_cases']):<3} acc={lm['accuracy']:.4f} f1={lm['f1_macro']:.4f} fp={int(lm.get('false_matches', 0))}")
+        if m.by_condition:
+            print("\n  By Document Condition:")
+            for cond, cm in m.by_condition.items():
+                print(f"    {cond:<12} cases={int(cm['total_cases']):<3} acc={cm['accuracy']:.4f} f1={cm['f1_macro']:.4f}")
         print()
 
     if report.instructions:

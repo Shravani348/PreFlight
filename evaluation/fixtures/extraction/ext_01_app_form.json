@@ -14,5 +14,8 @@
     "date_of_birth": "2004-08-15",
     "father_name": "shashikant ahire",
     "address": "pune maharashtra"
-  }
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "easy"
 }

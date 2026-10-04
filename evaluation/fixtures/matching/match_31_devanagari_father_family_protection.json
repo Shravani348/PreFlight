@@ -1,0 +1,12 @@
+{
+  "case_id": "match_31_devanagari_father_family_protection",
+  "description": "Father name vs daughter in Devanagari with patronymic middle name subset",
+  "field_name": "name",
+  "value_a": "सुरेश पाटील",
+  "value_b": "पूजा सुरेश पाटील",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "hard"
+}

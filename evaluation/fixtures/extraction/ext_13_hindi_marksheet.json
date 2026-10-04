@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_13_hindi_marksheet",
+  "description": "Hindi marksheet academic marks and candidate name",
+  "document_type": "marksheet",
+  "document_text": "माध्यमिक शिक्षा परिषद\nअंकतालिका\nपरीक्षार्थी: प्रिया शर्मा\nप्राप्तांक: 430/500\nप्रतिशत: 86.0%",
+  "expected_fields": {
+    "name": "प्रिया शर्मा",
+    "marks": "430/500",
+    "percentage": "86.0%"
+  },
+  "expected_normalized_fields": {
+    "name": "प्रिया शर्मा",
+    "marks": "430/500",
+    "percentage": "86.0%"
+  },
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

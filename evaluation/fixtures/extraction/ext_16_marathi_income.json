@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_16_marathi_income",
+  "description": "Marathi income certificate with serial code and issue date",
+  "document_type": "income_certificate",
+  "document_text": "उत्पन्न प्रमाणपत्र\nनाव: बाळू पाटील\nप्रमाणपत्र क्रमांक: INC-MAH-1122\nदिनांक: 10/02/2026",
+  "expected_fields": {
+    "name": "बाळू पाटील",
+    "certificate_number": "INC-MAH-1122",
+    "issue_date": "10/02/2026"
+  },
+  "expected_normalized_fields": {
+    "name": "बाळू पाटील",
+    "certificate_number": "inc-mah-1122",
+    "issue_date": "2026-02-10"
+  },
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

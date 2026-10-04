@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_19_date_formats_and_punctuation",
+  "description": "Document with dot-separated date format and multiline residential address",
+  "document_type": "application_form",
+  "document_text": "APPLICATION FORM\nName: Amit Patil\nDOB: 01.05.2005\nAddress: Flat 101 Galaxy Heights, MG Road, Pune 411001",
+  "expected_fields": {
+    "name": "Amit Patil",
+    "date_of_birth": "01.05.2005",
+    "address": "Flat 101 Galaxy Heights, MG Road, Pune 411001"
+  },
+  "expected_normalized_fields": {
+    "name": "amit patil",
+    "date_of_birth": "2005-05-01",
+    "address": "flat 101 galaxy heights mg road pune 411001"
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

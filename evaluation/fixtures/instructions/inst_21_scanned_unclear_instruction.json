@@ -1,0 +1,11 @@
+{
+  "case_id": "inst_21_scanned_unclear_instruction",
+  "description": "Scanned guideline with degraded OCR text yielding no discernible requirements",
+  "instruction_text": "Notice... doc... upload... req... sub... 2026...",
+  "expected_requirement_types": [],
+  "expected_document_types": [],
+  "expected_constraints": {},
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "hard"
+}

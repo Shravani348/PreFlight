@@ -1,0 +1,17 @@
+{
+  "case_id": "ext_20_initials_and_hyphenated",
+  "description": "Record with initials and hyphenated compound family surname",
+  "document_type": "application_form",
+  "document_text": "APPLICATION FORM\nName: P. S. Ahire-Kulkarni\nDOB: 15/08/2004",
+  "expected_fields": {
+    "name": "P. S. Ahire-Kulkarni",
+    "date_of_birth": "15/08/2004"
+  },
+  "expected_normalized_fields": {
+    "name": "p s ahire kulkarni",
+    "date_of_birth": "2004-08-15"
+  },
+  "language": "english",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

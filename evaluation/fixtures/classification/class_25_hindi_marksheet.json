@@ -1,0 +1,14 @@
+{
+  "case_id": "class_25_hindi_marksheet",
+  "description": "Hindi academic board statement of marks (अंकतालिका)",
+  "file_name": "hindi_marksheet.pdf",
+  "text_content": "माध्यमिक शिक्षा परिषद\nअंकतालिका\nपरीक्षार्थी का नाम: अमित कुमार\nप्राप्तांक: 430/500\nप्रतिशत: 86.0%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

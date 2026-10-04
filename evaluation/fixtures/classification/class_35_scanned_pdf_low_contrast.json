@@ -1,0 +1,14 @@
+{
+  "case_id": "class_35_scanned_pdf_low_contrast",
+  "description": "Low-contrast scanned statement of marks with faint header text",
+  "file_name": "scanned_marksheet_faint.pdf",
+  "text_content": "MAHARASHTRA STATE BOARD SECONDARY EDUCATION\nSTATEMENT OF MARKS\nCandidate Marks: 380/500\nResult Passed",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "low_contrast",
+  "difficulty": "medium"
+}

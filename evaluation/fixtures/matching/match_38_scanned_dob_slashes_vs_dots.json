@@ -1,0 +1,12 @@
+{
+  "case_id": "match_38_scanned_dob_slashes_vs_dots",
+  "description": "Birth date written with periods vs slashes in scanned record",
+  "field_name": "date_of_birth",
+  "value_a": "15.08.2004",
+  "value_b": "15/08/2004",
+  "expected_status": "match",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "scanned",
+  "difficulty": "easy"
+}

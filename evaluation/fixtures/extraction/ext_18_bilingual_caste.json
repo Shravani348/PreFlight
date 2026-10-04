@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_18_bilingual_caste",
+  "description": "Bilingual English + Hindi caste validity certificate",
+  "document_type": "caste_certificate",
+  "document_text": "CASTE VALIDITY CERTIFICATE / जाति प्रमाण पत्र\nName / नाम: Rahul Sharma\nCertificate Number: CST-2026-9090\nIssue Date: 01/03/2026",
+  "expected_fields": {
+    "name": "Rahul Sharma",
+    "certificate_number": "CST-2026-9090",
+    "issue_date": "01/03/2026"
+  },
+  "expected_normalized_fields": {
+    "name": "rahul sharma",
+    "certificate_number": "cst-2026-9090",
+    "issue_date": "2026-03-01"
+  },
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "class_36_camera_photo_marksheet",
+  "description": "Smartphone camera capture of marksheet with full-page image and partial OCR text",
+  "file_name": "IMG_20261004_marksheet.jpg",
+  "text_content": "STATEMENT OF MARKS\nSeat No 12345\nMarks Obtained 420/500",
+  "has_image": true,
+  "image_width": 1200,
+  "image_height": 1600,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "english",
+  "document_condition": "camera",
+  "difficulty": "medium"
+}

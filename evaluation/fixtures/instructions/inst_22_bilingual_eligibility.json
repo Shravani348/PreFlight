@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_22_bilingual_eligibility",
+  "description": "Bilingual English + Marathi percentage eligibility criterion",
+  "instruction_text": "Candidate must have secured minimum 60% marks (किमान 60% गुण) in qualifying examination.",
+  "expected_requirement_types": [
+    "eligibility"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "minimum_percentage": 60.0
+  },
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

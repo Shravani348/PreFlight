@@ -1,0 +1,14 @@
+{
+  "case_id": "class_23_hindi_app_form",
+  "description": "Hindi scholarship online application form with applicant metadata",
+  "file_name": "hindi_application.pdf",
+  "text_content": "छात्रवृत्ति आवेदन पत्र\nआवेदन संख्या: HIN-2026-101\nनाम: अमित कुमार\nपिता का नाम: राजेश कुमार\nजन्म तिथि: 12/04/2004",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "application_form",
+  "expected_needs_verification": false,
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

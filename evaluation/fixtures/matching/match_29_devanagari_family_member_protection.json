@@ -1,0 +1,12 @@
+{
+  "case_id": "match_29_devanagari_family_member_protection",
+  "description": "Father name vs applicant in Devanagari - Task 16 subset safety invariant",
+  "field_name": "name",
+  "value_a": "शशिकांत अहिरे",
+  "value_b": "प्रीती शशिकांत अहिरे",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "hard"
+}

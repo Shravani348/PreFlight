@@ -1,0 +1,14 @@
+{
+  "case_id": "class_26_marathi_marksheet",
+  "description": "Marathi state secondary board statement of marks (गुणपत्रिका)",
+  "file_name": "marathi_marksheet.pdf",
+  "text_content": "महाराष्ट्र राज्य माध्यमिक व उच्च माध्यमिक शिक्षण मंडळ\nगुणपत्रिका\nविद्यार्थ्याचे नाव: स्नेहा देशमुख\nप्राप्त गुण: 475/500\nटक्केवारी: 95.00%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false,
+  "language": "marathi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

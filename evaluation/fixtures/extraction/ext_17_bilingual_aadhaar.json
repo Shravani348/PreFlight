@@ -1,0 +1,19 @@
+{
+  "case_id": "ext_17_bilingual_aadhaar",
+  "description": "Bilingual English + Marathi Aadhaar identity card",
+  "document_type": "aadhaar_or_identity",
+  "document_text": "GOVERNMENT OF INDIA / भारत सरकार\nAadhaar Card / आधार कार्ड\nName: Priti Ahire / प्रीती अहिरे\nDOB / जन्म तारीख: 15/08/2004\nAddress: Flat 402 Pune Maharashtra 411038",
+  "expected_fields": {
+    "name": "Priti Ahire",
+    "date_of_birth": "15/08/2004",
+    "address": "Flat 402 Pune Maharashtra 411038"
+  },
+  "expected_normalized_fields": {
+    "name": "priti ahire",
+    "date_of_birth": "2004-08-15",
+    "address": "flat 402 pune maharashtra 411038"
+  },
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}

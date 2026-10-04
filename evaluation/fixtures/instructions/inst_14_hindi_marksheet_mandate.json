@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_14_hindi_marksheet_mandate",
+  "description": "Mandatory qualifying marksheet instruction in pure Hindi",
+  "instruction_text": "कक्षा 12वीं की अंकतालिका संलग्न करना आवश्यक है।",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "marksheet"
+  ],
+  "expected_constraints": {},
+  "language": "hindi",
+  "document_condition": "clean",
+  "difficulty": "medium"
+}

@@ -1,0 +1,16 @@
+{
+  "case_id": "inst_20_bilingual_photo_and_size",
+  "description": "Bilingual English + Hindi photo requirement with 500 KB limit",
+  "instruction_text": "Recent passport size photograph (पासपोर्ट फोटो) limit 500 KB.",
+  "expected_requirement_types": [
+    "photograph",
+    "file_size"
+  ],
+  "expected_document_types": [
+    "photograph"
+  ],
+  "expected_constraints": {},
+  "language": "bilingual",
+  "document_condition": "clean",
+  "difficulty": "easy"
+}
