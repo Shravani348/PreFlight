@@ -1,0 +1,23 @@
+{
+  "application_type": "scholarship",
+  "requirements": [
+    {
+      "document_type": "aadhaar",
+      "required": true
+    },
+    {
+      "document_type": "marksheet",
+      "required": true
+    },
+    {
+      "document_type": "income_certificate",
+      "required": true
+    },
+    {
+      "document_type": "photograph",
+      "required": true,
+      "allowed_formats": ["jpg", "jpeg"],
+      "max_size_kb": 200
+    }
+  ]
+}

@@ -13,18 +13,40 @@ PreFlight helps detect avoidable application errors before submission, such as:
 
 ## Supported Demo
 
-Scholarship Application
+Scholarship Application (as well as College, Exam, Job, Visa, and KYC applications)
 
-## Project Modules
+## Architecture
 
-- `ai/` - AI/ML document understanding and validation
-- `backend/` - Backend/API
-- `frontend/` - User interface
-- `tests/` - Project tests
+- `ai/` - AI/ML document intelligence, classification, extraction, normalization, and cross-document verification
+- `backend/` - FastAPI backend, Rule Engine, Risk Engine, Recommendation Engine, Fix Plan, and PDF report service
+- `frontend/` - Modern React + Vite responsive interface with dark/light themes, live upload, checks, and reports
+- `tests/` - Comprehensive test suites across AI, evaluation, and backend
 
-## Team Branches
+## Quick Start
 
-- `main`
-- `feature/aiml`
-- `feature/backend`
-- `feature/frontend`
+### 1. Backend
+```bash
+# Install backend dependencies
+pip install -r backend/requirements.txt
+
+# Start FastAPI server (runs on http://127.0.0.1:8000)
+uvicorn backend.main:app --reload --port 8000
+```
+
+### 2. Frontend
+```bash
+# Install dependencies
+cd frontend
+npm install
+
+# Start Vite dev server (runs on http://localhost:5173 with proxy to backend)
+npm run dev
+```
+
+### 3. Running Tests
+```bash
+# Run all tests
+pytest tests/ai -q
+pytest tests/evaluation -q
+pytest backend/tests -q
+```
