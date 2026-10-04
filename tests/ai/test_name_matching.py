@@ -126,3 +126,38 @@ def test_name_single_token_vs_full_name() -> None:
     finding = matcher.compare("Ahire", "Priti Shashikant Ahire")
     assert finding.status == MatchStatus.MISMATCH
     assert finding.needs_verification is False
+
+
+def test_devanagari_exact_match() -> None:
+    """Exact identical Devanagari names produce MATCH with score 1.0."""
+    matcher = NameMatcher()
+    finding = matcher.compare("अमित पाटील", "अमित पाटील")
+    assert finding.status == MatchStatus.MATCH
+    assert finding.similarity_score == 1.0
+    assert finding.needs_verification is False
+
+
+def test_devanagari_spelling_variation() -> None:
+    """Devanagari spelling variations (e.g. पाटील vs पाटिल) require human verification."""
+    matcher = NameMatcher()
+    finding = matcher.compare("अमित पाटील", "अमित पाटिल")
+    # Must not be an unverified false match; should require verification
+    assert finding.status != MatchStatus.MISMATCH
+    assert finding.status in (MatchStatus.LIKELY_MATCH, MatchStatus.VERIFICATION_REQUIRED)
+    assert finding.needs_verification is True
+    assert finding.similarity_score is not None
+    assert finding.similarity_score >= 0.75
+
+
+def test_devanagari_family_member_subset_safety() -> None:
+    """CRITICAL SAFETY: Father vs applicant Devanagari name must NEVER be MATCH or LIKELY_MATCH."""
+    matcher = NameMatcher()
+    finding = matcher.compare("शशिकांत अहिरे", "प्रीती शशिकांत अहिरे")
+
+    # MUST NOT be MATCH or LIKELY_MATCH
+    assert finding.status not in (MatchStatus.MATCH, MatchStatus.LIKELY_MATCH)
+    assert finding.status == MatchStatus.VERIFICATION_REQUIRED
+    assert finding.needs_verification is True
+    assert finding.similarity_score is not None
+    assert finding.similarity_score < 1.0
+    assert "subset" in finding.explanation.lower()

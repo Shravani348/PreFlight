@@ -1,6 +1,6 @@
 """Name normalizer for scholarship application documents."""
 
-import re
+import unicodedata
 from typing import Optional
 
 
@@ -12,8 +12,10 @@ class NameNormalizer:
 
         Rules:
         - Convert to lowercase.
+        - Normalize Unicode sequences to canonical NFC representation.
         - Strip leading and trailing whitespace.
-        - Replace common separators/punctuation (hyphens, dots, commas, slashes, underscores) with spaces.
+        - Replace punctuation and separators (hyphens, dots, commas, slashes, underscores) with spaces.
+        - Preserve valid Indic/Devanagari characters, combining marks (matras), viramas, and conjuncts.
         - Collapse repeated whitespace into a single space.
         - Preserve meaningful name tokens and initials without guessing or expanding.
         - Return None for empty, whitespace-only, or punctuation-only strings.
@@ -24,16 +26,21 @@ class NameNormalizer:
         if not isinstance(name, str):
             name = str(name)
 
-        raw = name.strip()
+        raw = unicodedata.normalize("NFC", name).strip()
         if not raw:
             return None
 
-        # Replace separators and common punctuation with space
-        cleaned = re.sub(r"[\-.,/\\_'\"]", " ", raw)
-        # Replace any remaining non-alphanumeric punctuation (keeping word characters and spaces)
-        cleaned = re.sub(r"[^\w\s]", " ", cleaned)
-        cleaned = cleaned.lower()
+        # Filter characters: preserve Letters (L), Numbers (N), Combining Marks (M), and spaces.
+        # Replace punctuation, symbols, and formatting controls with spaces.
+        chars = []
+        for c in raw:
+            cat = unicodedata.category(c)
+            if cat.startswith(("L", "N", "M")) or c.isspace():
+                chars.append(c)
+            else:
+                chars.append(" ")
 
+        cleaned = "".join(chars).lower()
         tokens = cleaned.split()
         if not tokens:
             return None
