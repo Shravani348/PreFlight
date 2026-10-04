@@ -1,10 +1,11 @@
 """Top-level AI processing result schema."""
 
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel, ConfigDict, Field
 from ai.schemas.comparison import ComparisonFinding
 from ai.schemas.extraction import ExtractedDocument
 from ai.schemas.instructions import InstructionRequirement
+from ai.verification.confidence_service import VerificationResult
 
 
 class AIProcessingResult(BaseModel):
@@ -15,3 +16,4 @@ class AIProcessingResult(BaseModel):
     documents: List[ExtractedDocument] = Field(default_factory=list)
     cross_document_findings: List[ComparisonFinding] = Field(default_factory=list)
     instruction_requirements: List[InstructionRequirement] = Field(default_factory=list)
+    verification: Optional[VerificationResult] = None
