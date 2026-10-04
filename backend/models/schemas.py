@@ -15,3 +15,11 @@ class DocumentMetadata(BaseModel):
     document_type: str
     format: str
     size_kb: int
+    extracted_data: dict = {}
+
+class Issue(BaseModel):
+    type: str
+    severity: str
+    message: str
+    evidence: List[str] = []
+    document_type: Optional[str] = None
