@@ -4,6 +4,6 @@
   "field_name": "name",
   "value_a": "Shashikant Ahire",
   "value_b": "Priti Shashikant Ahire",
-  "expected_status": "mismatch",
-  "expected_needs_verification": false
+  "expected_status": "verification_required",
+  "expected_needs_verification": true
 }

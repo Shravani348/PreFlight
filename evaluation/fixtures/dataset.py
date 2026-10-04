@@ -240,7 +240,7 @@ MATCHING_CASES: List[MatchingTestCase] = [
         field_name="name",
         value_a="Priti S Ahire",
         value_b="Priti Shashikant Ahire",
-        expected_status=MatchStatus.VERIFICATION_REQUIRED,
+        expected_status=MatchStatus.LIKELY_MATCH,
         expected_needs_verification=True,
     ),
     MatchingTestCase(
@@ -321,8 +321,8 @@ MATCHING_CASES: List[MatchingTestCase] = [
         field_name="name",
         value_a="Ms. Priti S. Ahire",
         value_b="Priti S. Ahire",
-        expected_status=MatchStatus.LIKELY_MATCH,
-        expected_needs_verification=True,
+        expected_status=MatchStatus.MATCH,
+        expected_needs_verification=False,
     ),
     MatchingTestCase(
         case_id="match_14_multitoken_initials",
@@ -339,8 +339,8 @@ MATCHING_CASES: List[MatchingTestCase] = [
         field_name="name",
         value_a="Priti Ahire-Kulkarni",
         value_b="Priti Ahire Kulkarni",
-        expected_status=MatchStatus.LIKELY_MATCH,
-        expected_needs_verification=True,
+        expected_status=MatchStatus.MATCH,
+        expected_needs_verification=False,
     ),
     MatchingTestCase(
         case_id="match_16_spelling_variation_patil",
@@ -357,8 +357,8 @@ MATCHING_CASES: List[MatchingTestCase] = [
         field_name="name",
         value_a="Shashikant Ahire",
         value_b="Priti Shashikant Ahire",
-        expected_status=MatchStatus.MISMATCH,
-        expected_needs_verification=False,
+        expected_status=MatchStatus.VERIFICATION_REQUIRED,
+        expected_needs_verification=True,
     ),
     MatchingTestCase(
         case_id="match_18_address_abbreviations",

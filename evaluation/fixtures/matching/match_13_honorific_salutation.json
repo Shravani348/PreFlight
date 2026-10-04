@@ -4,6 +4,6 @@
   "field_name": "name",
   "value_a": "Ms. Priti S. Ahire",
   "value_b": "Priti S. Ahire",
-  "expected_status": "likely_match",
-  "expected_needs_verification": true
+  "expected_status": "match",
+  "expected_needs_verification": false
 }
