@@ -230,3 +230,52 @@ def test_basic_metadata_preservation(tmp_path: Path) -> None:
     assert doc.metadata["file_size_bytes"] > 0
     assert len(doc.pages) == 1
     assert doc.pages[0].metadata["width"] == 320
+
+
+def test_image_exif_orientation_transposed(tmp_path: Path) -> None:
+    """Image with EXIF orientation metadata is transposed (e.g. smartphone photo)."""
+    img_path = tmp_path / "camera_photo.jpg"
+    # Create landscape image (400 width, 200 height)
+    img = Image.new("RGB", (400, 200), color=(120, 150, 180))
+    exif = img.getexif()
+    # Orientation 6 specifies 90 deg rotation, transforming 400x200 to 200x400
+    exif[0x0112] = 6
+    img.save(img_path, "JPEG", exif=exif)
+
+    processor = ImageProcessor()
+    doc = processor.process(img_path)
+
+    assert doc.images[0].size == (200, 400)
+    assert doc.metadata["width"] == 200
+    assert doc.metadata["height"] == 400
+    assert doc.pages[0].metadata["width"] == 200
+    assert doc.pages[0].metadata["height"] == 400
+
+
+def test_image_without_exif_orientation(tmp_path: Path) -> None:
+    """Image with no orientation metadata processes cleanly without dimensions alteration."""
+    img_path = tmp_path / "standard_photo.jpg"
+    img = Image.new("RGB", (400, 200), color=(100, 200, 100))
+    img.save(img_path, "JPEG")
+
+    processor = ImageProcessor()
+    doc = processor.process(img_path)
+
+    assert doc.images[0].size == (400, 200)
+    assert doc.metadata["width"] == 400
+    assert doc.metadata["height"] == 200
+
+
+def test_grayscale_image_rgb_conversion(tmp_path: Path) -> None:
+    """Grayscale images must be converted to RGB while preserving original_mode in metadata."""
+    img_path = tmp_path / "gray_doc.png"
+    img = Image.new("L", (180, 220), color=128)
+    img.save(img_path, "PNG")
+
+    processor = ImageProcessor()
+    doc = processor.process(img_path)
+
+    assert doc.images[0].mode == "RGB"
+    assert doc.metadata["original_mode"] == "L"
+    assert doc.metadata["width"] == 180
+    assert doc.metadata["height"] == 220

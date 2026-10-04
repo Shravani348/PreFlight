@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 from typing import Dict, Union
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 from ai.exceptions import CorruptedDocumentError, DocumentNotFoundError, UnsupportedDocumentError
 from ai.preprocessing.models import PreprocessedDocument, PreprocessedPage
@@ -39,13 +39,19 @@ class ImageProcessor:
             with Image.open(path) as img:
                 img_format = img.format or ext.lstrip(".").upper()
                 orig_mode = img.mode
-                width, height = img.size
+
+                # Apply EXIF orientation transposition if present (e.g. smartphone camera orientation)
+                transposed_img = ImageOps.exif_transpose(img)
+                if transposed_img is None:
+                    transposed_img = img
+
+                width, height = transposed_img.size
 
                 # Safe conversion to consistent RGB representation without destructive resizing
-                if orig_mode != "RGB":
-                    rgb_img = img.convert("RGB")
+                if transposed_img.mode != "RGB":
+                    rgb_img = transposed_img.convert("RGB")
                 else:
-                    rgb_img = img.copy()
+                    rgb_img = transposed_img.copy()
         except (UnidentifiedImageError, OSError, Exception) as exc:
             raise CorruptedDocumentError(
                 f"Cannot open or read image file '{path.name}': {exc}"
