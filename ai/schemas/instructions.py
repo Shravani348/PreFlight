@@ -1,14 +1,20 @@
-"""Instruction and application rule schemas."""
+"""Instruction and guideline requirement schemas."""
 
-from dataclasses import dataclass, field
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+from ai.schemas.document import DocumentType, Evidence
 
 
-@dataclass
-class ApplicationInstruction:
-    """Parsed application instruction or document requirement."""
+class InstructionRequirement(BaseModel):
+    """Explicitly stated requirement extracted from application instructions."""
 
-    requirement_id: str
-    description: str
-    required_document_types: List[str] = field(default_factory=list)
-    rules: Dict[str, Any] = field(default_factory=dict)
+    model_config = ConfigDict(extra="allow")
+
+    requirement_id: Optional[str] = None
+    requirement_type: str
+    document_type_requested: Optional[DocumentType] = None
+    is_required: bool = True
+    accepted_formats: List[str] = Field(default_factory=list)
+    max_file_size_bytes: Optional[int] = Field(default=None, ge=1)
+    constraints: Dict[str, Any] = Field(default_factory=dict)
+    evidence: List[Evidence] = Field(default_factory=list)

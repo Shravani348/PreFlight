@@ -1,22 +1,40 @@
-"""Comparison and cross-document schemas."""
+"""Comparison and cross-document matching schemas."""
 
-from dataclasses import dataclass, field
-from typing import Any, Dict, List
+from enum import Enum
+from typing import Any, Optional
+from pydantic import BaseModel, ConfigDict, Field
 
 
-@dataclass
-class FieldMatchResult:
-    """Result of matching a specific field across documents."""
+class MatchStatus(str, Enum):
+    """Status outcomes for cross-document field comparisons."""
+
+    MATCH = "match"
+    LIKELY_MATCH = "likely_match"
+    VERIFICATION_REQUIRED = "verification_required"
+    MISMATCH = "mismatch"
+    MISSING = "missing"
+
+
+class ComparisonFinding(BaseModel):
+    """Finding resulting from comparing a field across two documents."""
+
+    model_config = ConfigDict(extra="forbid")
 
     field_name: str
-    is_match: bool
-    similarity_score: float
-    details: Dict[str, Any] = field(default_factory=dict)
+    source_document: str
+    comparison_document: str
+
+    source_value: Optional[Any] = None
+    comparison_value: Optional[Any] = None
+
+    normalized_source_value: Optional[Any] = None
+    normalized_comparison_value: Optional[Any] = None
+
+    similarity_score: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    status: MatchStatus
+    needs_verification: bool = False
+    explanation: Optional[str] = None
 
 
-@dataclass
-class CrossDocumentComparisonResult:
-    """Result of comparing fields across multiple documents."""
-
-    matched_fields: List[FieldMatchResult] = field(default_factory=list)
-    has_mismatches: bool = False
+# Alias for explicit naming
+CrossDocumentFinding = ComparisonFinding
