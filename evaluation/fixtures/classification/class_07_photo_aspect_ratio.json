@@ -1,0 +1,11 @@
+{
+  "case_id": "class_07_photo_aspect_ratio",
+  "description": "Photograph document identified by portrait aspect ratio (no text)",
+  "file_name": "image_001.png",
+  "text_content": null,
+  "has_image": true,
+  "image_width": 300,
+  "image_height": 400,
+  "expected_document_type": "photograph",
+  "expected_needs_verification": true
+}

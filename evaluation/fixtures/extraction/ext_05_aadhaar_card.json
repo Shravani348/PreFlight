@@ -1,0 +1,16 @@
+{
+  "case_id": "ext_05_aadhaar_card",
+  "description": "Aadhaar identity card core attributes",
+  "document_type": "aadhaar_or_identity",
+  "document_text": "AADHAAR CARD\nName: Priti Shashikant Ahire\nDOB: 15/08/2004\nAddress: Kothrud Pune Maharashtra",
+  "expected_fields": {
+    "name": "Priti Shashikant Ahire",
+    "date_of_birth": "15/08/2004",
+    "address": "Kothrud Pune Maharashtra"
+  },
+  "expected_normalized_fields": {
+    "name": "priti shashikant ahire",
+    "date_of_birth": "2004-08-15",
+    "address": "kothrud pune maharashtra"
+  }
+}

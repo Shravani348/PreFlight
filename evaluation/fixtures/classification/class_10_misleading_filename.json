@@ -1,0 +1,11 @@
+{
+  "case_id": "class_10_misleading_filename",
+  "description": "File named income_cert.pdf but containing unrelated office inventory text",
+  "file_name": "income_cert.pdf",
+  "text_content": "Office Stationery Inventory Log\nPrinter Paper Reams: 25\nWhiteboard Markers: 50\nDepartment Supplies Only",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

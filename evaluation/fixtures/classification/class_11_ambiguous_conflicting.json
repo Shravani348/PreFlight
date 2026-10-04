@@ -1,0 +1,11 @@
+{
+  "case_id": "class_11_ambiguous_conflicting",
+  "description": "Document with conflicting signals (tie between application and income)",
+  "file_name": "doc_mixed.pdf",
+  "text_content": "Application\nAnnual Income",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

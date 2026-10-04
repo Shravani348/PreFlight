@@ -1,0 +1,9 @@
+{
+  "case_id": "match_18_address_abbreviations",
+  "description": "Address with standard abbreviations (Appt, Rd) vs expanded words",
+  "field_name": "address",
+  "value_a": "Flat 402, Shivam Appt, Rd No 4, Pune",
+  "value_b": "Flat 402 Shivam Apartments Road Number 4 Pune",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true
+}

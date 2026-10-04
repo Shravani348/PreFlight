@@ -1,0 +1,9 @@
+{
+  "case_id": "match_02_case_whitespace_name",
+  "description": "Name variation with uppercase and irregular whitespace",
+  "field_name": "name",
+  "value_a": "PRITI   SHASHIKANT   AHIRE",
+  "value_b": "priti shashikant ahire",
+  "expected_status": "match",
+  "expected_needs_verification": false
+}

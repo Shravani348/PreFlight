@@ -1,0 +1,11 @@
+{
+  "case_id": "class_15_university_grade_card",
+  "description": "University semester examination statement of marks",
+  "file_name": "sem4_marks.pdf",
+  "text_content": "SAVITRIBAI PHULE PUNE UNIVERSITY\nSTATEMENT OF MARKS\nBachelor of Engineering Semester IV\nMarks Obtained: 650/750\nPercentage: 86.67%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false
+}

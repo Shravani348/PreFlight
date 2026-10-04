@@ -1,0 +1,11 @@
+{
+  "case_id": "class_05_caste",
+  "description": "Community caste validity certificate issued by competent authority",
+  "file_name": "caste_cert.pdf",
+  "text_content": "GOVERNMENT OF MAHARASHTRA\nCOMMUNITY CASTE CERTIFICATE\nSub-Divisional Magistrate Competent Authority\nScheduled Caste Category",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "caste_certificate",
+  "expected_needs_verification": false
+}

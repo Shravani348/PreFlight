@@ -1,0 +1,11 @@
+{
+  "case_id": "class_21_bank_passbook_unknown",
+  "description": "Bank savings account passbook front page (unsupported category)",
+  "file_name": "bank_passbook.pdf",
+  "text_content": "STATE BANK OF INDIA\nSAVINGS BANK ACCOUNT\nAccount Holder: Priti Ahire\nAccount Number: 112233445566\nIFSC Code: SBIN0001234\nBranch: Kothrud Pune",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

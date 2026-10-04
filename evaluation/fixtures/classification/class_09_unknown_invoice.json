@@ -1,0 +1,11 @@
+{
+  "case_id": "class_09_unknown_invoice",
+  "description": "Unrelated commercial invoice with zero scholarship signals",
+  "file_name": "invoice_987.pdf",
+  "text_content": "Commercial Tax Invoice No. 987\nVendor: Hardware Parts Ltd\nItem: Motherboard and RAM components\nTotal Amount: 14500",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

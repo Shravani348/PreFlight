@@ -1,0 +1,9 @@
+{
+  "case_id": "match_14_multitoken_initials",
+  "description": "First and middle initials (P. S. Ahire) vs full name",
+  "field_name": "name",
+  "value_a": "P. S. Ahire",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true
+}

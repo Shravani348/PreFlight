@@ -1,0 +1,16 @@
+{
+  "case_id": "ext_02_marksheet",
+  "description": "Academic marksheet fields",
+  "document_type": "marksheet",
+  "document_text": "STATEMENT OF MARKS\nName: Priti Ahire\nTotal Marks: 450/500\nPercentage: 90.0%",
+  "expected_fields": {
+    "name": "Priti Ahire",
+    "marks": "450/500",
+    "percentage": "90.0%"
+  },
+  "expected_normalized_fields": {
+    "name": "priti ahire",
+    "marks": "450/500",
+    "percentage": "90.0%"
+  }
+}

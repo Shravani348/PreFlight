@@ -1,0 +1,9 @@
+{
+  "case_id": "match_10_missing_both_dob",
+  "description": "Both documents lack date of birth",
+  "field_name": "date_of_birth",
+  "value_a": null,
+  "value_b": null,
+  "expected_status": "missing",
+  "expected_needs_verification": false
+}

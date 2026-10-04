@@ -1,0 +1,9 @@
+{
+  "case_id": "match_07_missing_one_name",
+  "description": "Name is present on Document A but missing on Document B",
+  "field_name": "name",
+  "value_a": "Priti Shashikant Ahire",
+  "value_b": null,
+  "expected_status": "missing",
+  "expected_needs_verification": false
+}

@@ -1,0 +1,11 @@
+{
+  "case_id": "class_18_scholarship_portal_summary",
+  "description": "State scholarship portal online application form submission receipt",
+  "file_name": "scholarship_app.pdf",
+  "text_content": "MAHADBT SCHOLARSHIP PORTAL\nSCHOLARSHIP APPLICATION FORM\nApplication ID: MHD-2026-44331\nApplicant Details:\nPersonal and Academic Profile",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "application_form",
+  "expected_needs_verification": false
+}

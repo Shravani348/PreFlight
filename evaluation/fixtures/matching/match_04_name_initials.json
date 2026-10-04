@@ -1,0 +1,9 @@
+{
+  "case_id": "match_04_name_initials",
+  "description": "Middle name abbreviated as initial vs full middle name",
+  "field_name": "name",
+  "value_a": "Priti S Ahire",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true
+}

@@ -1,0 +1,9 @@
+{
+  "case_id": "match_12_address_mismatch",
+  "description": "Completely different addresses in different states",
+  "field_name": "address",
+  "value_a": "Kothrud Pune Maharashtra",
+  "value_b": "Anna Nagar Chennai Tamil Nadu",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false
+}

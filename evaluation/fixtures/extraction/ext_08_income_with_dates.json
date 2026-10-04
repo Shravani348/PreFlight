@@ -1,0 +1,16 @@
+{
+  "case_id": "ext_08_income_with_dates",
+  "description": "Tahsildar income certificate with issue date",
+  "document_type": "income_certificate",
+  "document_text": "TAHSILDAR INCOME CERTIFICATE\nName: Ramesh Sharma\nCertificate Number: REV-INC-4455\nIssue Date: 20/02/2026",
+  "expected_fields": {
+    "name": "Ramesh Sharma",
+    "certificate_number": "REV-INC-4455",
+    "issue_date": "20/02/2026"
+  },
+  "expected_normalized_fields": {
+    "name": "ramesh sharma",
+    "certificate_number": "rev-inc-4455",
+    "issue_date": "2026-02-20"
+  }
+}

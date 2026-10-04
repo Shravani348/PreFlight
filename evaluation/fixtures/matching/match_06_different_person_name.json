@@ -1,0 +1,9 @@
+{
+  "case_id": "match_06_different_person_name",
+  "description": "Completely different individuals across documents",
+  "field_name": "name",
+  "value_a": "Priti Shashikant Ahire",
+  "value_b": "Rahul Ramesh Sharma",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false
+}

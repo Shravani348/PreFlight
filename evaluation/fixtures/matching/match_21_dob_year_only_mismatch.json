@@ -1,0 +1,9 @@
+{
+  "case_id": "match_21_dob_year_only_mismatch",
+  "description": "Dates of birth differing only in year",
+  "field_name": "date_of_birth",
+  "value_a": "2005-01-01",
+  "value_b": "2004-01-01",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false
+}

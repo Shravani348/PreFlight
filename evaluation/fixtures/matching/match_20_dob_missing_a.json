@@ -1,0 +1,9 @@
+{
+  "case_id": "match_20_dob_missing_a",
+  "description": "Date of birth present on document A but missing on document B",
+  "field_name": "date_of_birth",
+  "value_a": "2005-01-01",
+  "value_b": null,
+  "expected_status": "missing",
+  "expected_needs_verification": false
+}

@@ -1,0 +1,9 @@
+{
+  "case_id": "match_16_spelling_variation_patil",
+  "description": "Common regional transliteration divergence (Patil vs Patle)",
+  "field_name": "name",
+  "value_a": "Pooja Suresh Patil",
+  "value_b": "Pooja Suresh Patle",
+  "expected_status": "likely_match",
+  "expected_needs_verification": true
+}

@@ -1,0 +1,20 @@
+{
+  "case_id": "ext_09_app_form_expanded",
+  "description": "Application form with parental names and residential address",
+  "document_type": "application_form",
+  "document_text": "SCHOLARSHIP APPLICATION FORM\nName: Pooja Suresh Patil\nFather Name: Suresh Patil\nMother Name: Sunita Patil\nAddress: Shivaji Nagar Kolhapur\nDOB: 22/11/2004",
+  "expected_fields": {
+    "name": "Pooja Suresh Patil",
+    "father_name": "Suresh Patil",
+    "mother_name": "Sunita Patil",
+    "address": "Shivaji Nagar Kolhapur",
+    "date_of_birth": "22/11/2004"
+  },
+  "expected_normalized_fields": {
+    "name": "pooja suresh patil",
+    "father_name": "suresh patil",
+    "mother_name": "sunita patil",
+    "address": "shivaji nagar kolhapur",
+    "date_of_birth": "2004-11-22"
+  }
+}

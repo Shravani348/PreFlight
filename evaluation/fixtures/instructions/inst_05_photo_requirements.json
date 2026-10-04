@@ -1,0 +1,15 @@
+{
+  "case_id": "inst_05_photo_requirements",
+  "description": "Photograph framing and background color specifications",
+  "instruction_text": "Passport size photograph with white background is required.",
+  "expected_requirement_types": [
+    "photograph"
+  ],
+  "expected_document_types": [
+    "photograph"
+  ],
+  "expected_constraints": {
+    "dimensions": "passport size",
+    "background": "white"
+  }
+}

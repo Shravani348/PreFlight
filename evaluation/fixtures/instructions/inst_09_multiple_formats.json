@@ -1,0 +1,10 @@
+{
+  "case_id": "inst_09_multiple_formats",
+  "description": "Specification allowing both PDF and JPEG file formats",
+  "instruction_text": "Uploaded documents must be in PDF or JPEG format.",
+  "expected_requirement_types": [
+    "file_format"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {}
+}

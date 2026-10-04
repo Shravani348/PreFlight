@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_10_small_file_size",
+  "description": "1 MB file size constraint for document scans",
+  "instruction_text": "Maximum file size should not exceed 1 MB.",
+  "expected_requirement_types": [
+    "file_size"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "max_file_size_bytes": 1048576
+  }
+}

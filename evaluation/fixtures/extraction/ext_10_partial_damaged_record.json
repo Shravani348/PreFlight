@@ -1,0 +1,18 @@
+{
+  "case_id": "ext_10_partial_damaged_record",
+  "description": "Document where birth date and certificate number could not be extracted",
+  "document_type": "marksheet",
+  "document_text": "MARKS STATEMENT\nName: Pooja Patil\nMarks: 500/600",
+  "expected_fields": {
+    "name": "Pooja Patil",
+    "date_of_birth": null,
+    "certificate_number": null,
+    "marks": "500/600"
+  },
+  "expected_normalized_fields": {
+    "name": "pooja patil",
+    "date_of_birth": null,
+    "certificate_number": null,
+    "marks": "500/600"
+  }
+}

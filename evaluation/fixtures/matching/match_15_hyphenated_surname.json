@@ -1,0 +1,9 @@
+{
+  "case_id": "match_15_hyphenated_surname",
+  "description": "Hyphenated compound surname vs spaced surname",
+  "field_name": "name",
+  "value_a": "Priti Ahire-Kulkarni",
+  "value_b": "Priti Ahire Kulkarni",
+  "expected_status": "likely_match",
+  "expected_needs_verification": true
+}

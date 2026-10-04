@@ -1,0 +1,9 @@
+{
+  "case_id": "match_11_address_exact",
+  "description": "Identical normalized address strings",
+  "field_name": "address",
+  "value_a": "Flat 402 Shivam Apts Kothrud Pune Maharashtra 411038",
+  "value_b": "Flat 402 Shivam Apts Kothrud Pune Maharashtra 411038",
+  "expected_status": "match",
+  "expected_needs_verification": false
+}

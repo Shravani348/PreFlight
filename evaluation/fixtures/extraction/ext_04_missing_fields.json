@@ -1,0 +1,16 @@
+{
+  "case_id": "ext_04_missing_fields",
+  "description": "Document with name only, all absent fields remain None",
+  "document_type": "application_form",
+  "document_text": "APPLICATION FORM\nName: Priti Ahire",
+  "expected_fields": {
+    "name": "Priti Ahire",
+    "date_of_birth": null,
+    "certificate_number": null
+  },
+  "expected_normalized_fields": {
+    "name": "priti ahire",
+    "date_of_birth": null,
+    "certificate_number": null
+  }
+}

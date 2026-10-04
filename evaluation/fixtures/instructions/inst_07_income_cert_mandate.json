@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_07_income_cert_mandate",
+  "description": "Mandatory annual income certificate issued by Tahsildar",
+  "instruction_text": "Income certificate issued by competent authority must be submitted.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "income_certificate"
+  ],
+  "expected_constraints": {}
+}

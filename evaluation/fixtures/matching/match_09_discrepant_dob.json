@@ -1,0 +1,9 @@
+{
+  "case_id": "match_09_discrepant_dob",
+  "description": "Conflicting birth dates across application and Aadhaar",
+  "field_name": "date_of_birth",
+  "value_a": "2005-05-01",
+  "value_b": "2004-12-15",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false
+}

@@ -1,0 +1,9 @@
+{
+  "case_id": "match_17_family_member_confusion",
+  "description": "Father name vs applicant name - subset tokens match but different individuals",
+  "field_name": "name",
+  "value_a": "Shashikant Ahire",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false
+}

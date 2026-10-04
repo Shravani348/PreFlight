@@ -1,0 +1,10 @@
+{
+  "case_id": "inst_02_accepted_format",
+  "description": "Prescribed accepted document upload file formats",
+  "instruction_text": "Documents must be uploaded in PDF format.",
+  "expected_requirement_types": [
+    "file_format"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {}
+}

@@ -1,0 +1,11 @@
+{
+  "case_id": "class_06_photo_clue",
+  "description": "Photograph document identified by explicit filename clue and image payload",
+  "file_name": "candidate_photo.jpg",
+  "text_content": null,
+  "has_image": true,
+  "image_width": 350,
+  "image_height": 450,
+  "expected_document_type": "photograph",
+  "expected_needs_verification": false
+}

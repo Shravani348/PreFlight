@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_11_high_eligibility",
+  "description": "High academic score threshold for merit-based freeship",
+  "instruction_text": "Candidate must have secured minimum 75% marks in board examination.",
+  "expected_requirement_types": [
+    "eligibility"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "minimum_percentage": 75.0
+  }
+}

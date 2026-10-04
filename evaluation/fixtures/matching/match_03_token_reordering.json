@@ -1,0 +1,9 @@
+{
+  "case_id": "match_03_token_reordering",
+  "description": "Surname-first ordering permutation common in Maharashtra records",
+  "field_name": "name",
+  "value_a": "Ahire Priti Shashikant",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "match",
+  "expected_needs_verification": false
+}

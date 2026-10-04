@@ -1,0 +1,11 @@
+{
+  "case_id": "class_16_revenue_income",
+  "description": "Taluka revenue authority annual family income certificate",
+  "file_name": "tahsil_income.pdf",
+  "text_content": "GOVERNMENT OF MAHARASHTRA\nTALUKA EXECUTIVE MAGISTRATE REVENUE OFFICE\nINCOME CERTIFICATE\nOffice of the Tahsildar\nCertified that Annual Family Income is Rs. 1,80,000",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false
+}

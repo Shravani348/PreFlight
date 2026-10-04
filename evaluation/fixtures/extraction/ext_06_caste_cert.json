@@ -1,0 +1,16 @@
+{
+  "case_id": "ext_06_caste_cert",
+  "description": "Caste validity certificate core identifiers",
+  "document_type": "caste_certificate",
+  "document_text": "CASTE VALIDITY CERTIFICATE\nName: Priti Ahire\nCertificate Number: CST-2026-1122\nIssue Date: 05/01/2026",
+  "expected_fields": {
+    "name": "Priti Ahire",
+    "certificate_number": "CST-2026-1122",
+    "issue_date": "05/01/2026"
+  },
+  "expected_normalized_fields": {
+    "name": "priti ahire",
+    "certificate_number": "cst-2026-1122",
+    "issue_date": "2026-01-05"
+  }
+}

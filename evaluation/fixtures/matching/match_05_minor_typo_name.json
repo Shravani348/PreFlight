@@ -1,0 +1,9 @@
+{
+  "case_id": "match_05_minor_typo_name",
+  "description": "Phonetic / transliteration typo (Preeti vs Priti)",
+  "field_name": "name",
+  "value_a": "Preeti Shashikant Ahire",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "likely_match",
+  "expected_needs_verification": true
+}

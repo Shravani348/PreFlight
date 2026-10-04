@@ -1,0 +1,11 @@
+{
+  "case_id": "class_03_marksheet",
+  "description": "Academic board statement of marks with scores and percentage",
+  "file_name": "marksheet.pdf",
+  "text_content": "MAHARASHTRA STATE BOARD OF SECONDARY EDUCATION\nSTATEMENT OF MARKS\nMarks Obtained: 450/500\nPercentage: 90.00%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false
+}

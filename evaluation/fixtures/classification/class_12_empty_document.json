@@ -1,0 +1,11 @@
+{
+  "case_id": "class_12_empty_document",
+  "description": "Document with neither usable text nor readable images",
+  "file_name": "blank.pdf",
+  "text_content": "",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

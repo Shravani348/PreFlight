@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_04_eligibility_percentage",
+  "description": "Minimum academic score requirement for scheme eligibility",
+  "instruction_text": "Applicant must have secured at least 60% marks in the qualifying examination.",
+  "expected_requirement_types": [
+    "eligibility"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "minimum_percentage": 60.0
+  }
+}

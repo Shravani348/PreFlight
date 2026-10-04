@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_08_marksheet_mandate",
+  "description": "Mandatory qualifying examination marksheet submission",
+  "instruction_text": "Marksheet of the qualifying examination must be uploaded.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "marksheet"
+  ],
+  "expected_constraints": {}
+}

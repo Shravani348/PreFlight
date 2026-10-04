@@ -1,0 +1,11 @@
+{
+  "case_id": "class_02_aadhaar",
+  "description": "Government of India Aadhaar identity card with UIDAI markers",
+  "file_name": "aadhaar.pdf",
+  "text_content": "UNIQUE IDENTIFICATION AUTHORITY OF INDIA\nGOVERNMENT OF INDIA\nAadhaar Card\nEnrollment No: 1234/5678",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "aadhaar_or_identity",
+  "expected_needs_verification": false
+}

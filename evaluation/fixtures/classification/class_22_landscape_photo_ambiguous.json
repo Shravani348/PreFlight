@@ -1,0 +1,11 @@
+{
+  "case_id": "class_22_landscape_photo_ambiguous",
+  "description": "Landscape photograph image with no filename clues and no text",
+  "file_name": "scan_photo.jpg",
+  "text_content": null,
+  "has_image": true,
+  "image_width": 800,
+  "image_height": 500,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

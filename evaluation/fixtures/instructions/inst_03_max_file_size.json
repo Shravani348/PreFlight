@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_03_max_file_size",
+  "description": "Maximum file size threshold for digital uploads",
+  "instruction_text": "Maximum file size limit is 2 MB.",
+  "expected_requirement_types": [
+    "file_size"
+  ],
+  "expected_document_types": [],
+  "expected_constraints": {
+    "max_file_size_bytes": 2097152
+  }
+}

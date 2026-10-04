@@ -1,0 +1,16 @@
+{
+  "case_id": "ext_03_income",
+  "description": "Income certificate fields",
+  "document_type": "income_certificate",
+  "document_text": "INCOME CERTIFICATE\nName: Shashikant Ahire\nCertificate Number: INC/2026/8899\nIssue Date: 10/03/2026",
+  "expected_fields": {
+    "name": "Shashikant Ahire",
+    "certificate_number": "INC/2026/8899",
+    "issue_date": "10/03/2026"
+  },
+  "expected_normalized_fields": {
+    "name": "shashikant ahire",
+    "certificate_number": "inc/2026/8899",
+    "issue_date": "2026-03-10"
+  }
+}

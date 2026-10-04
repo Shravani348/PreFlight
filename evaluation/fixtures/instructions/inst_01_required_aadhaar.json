@@ -1,0 +1,12 @@
+{
+  "case_id": "inst_01_required_aadhaar",
+  "description": "Mandatory requirement for Aadhaar identity document",
+  "instruction_text": "Aadhaar card must be uploaded by the applicant.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "aadhaar_or_identity"
+  ],
+  "expected_constraints": {}
+}

@@ -1,0 +1,11 @@
+{
+  "case_id": "class_01_app_form",
+  "description": "Standard online scholarship application form with application ID",
+  "file_name": "application_form.pdf",
+  "text_content": "MAHARASHTRA STATE SCHOLARSHIP APPLICATION FORM\nApplication ID: APP-2026-9901\nApplicant Details:\nStudent Registration",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "application_form",
+  "expected_needs_verification": false
+}

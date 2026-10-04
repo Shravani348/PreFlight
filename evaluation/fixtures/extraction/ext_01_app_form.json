@@ -1,0 +1,18 @@
+{
+  "case_id": "ext_01_app_form",
+  "description": "Application form core fields",
+  "document_type": "application_form",
+  "document_text": "SCHOLARSHIP APPLICATION FORM\nName: Priti Shashikant Ahire\nDOB: 15/08/2004\nFather Name: Shashikant Ahire\nAddress: Pune Maharashtra",
+  "expected_fields": {
+    "name": "Priti Shashikant Ahire",
+    "date_of_birth": "15/08/2004",
+    "father_name": "Shashikant Ahire",
+    "address": "Pune Maharashtra"
+  },
+  "expected_normalized_fields": {
+    "name": "priti shashikant ahire",
+    "date_of_birth": "2004-08-15",
+    "father_name": "shashikant ahire",
+    "address": "pune maharashtra"
+  }
+}

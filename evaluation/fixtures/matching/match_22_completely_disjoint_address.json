@@ -1,0 +1,9 @@
+{
+  "case_id": "match_22_completely_disjoint_address",
+  "description": "Addresses in entirely separate union territories / cities",
+  "field_name": "address",
+  "value_a": "Flat 101 Pune",
+  "value_b": "Sector 15 Chandigarh",
+  "expected_status": "mismatch",
+  "expected_needs_verification": false
+}

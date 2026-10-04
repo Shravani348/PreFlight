@@ -1,0 +1,9 @@
+{
+  "case_id": "match_19_address_different_street",
+  "description": "Addresses in same city but distinct localities",
+  "field_name": "address",
+  "value_a": "Kothrud Pune Maharashtra",
+  "value_b": "Karve Road Pune Maharashtra",
+  "expected_status": "verification_required",
+  "expected_needs_verification": true
+}

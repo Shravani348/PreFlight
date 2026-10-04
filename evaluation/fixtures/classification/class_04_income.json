@@ -1,0 +1,11 @@
+{
+  "case_id": "class_04_income",
+  "description": "Revenue Department Tahsildar Office Income Certificate",
+  "file_name": "income_cert.pdf",
+  "text_content": "REVENUE DEPARTMENT GOVERNMENT OF MAHARASHTRA\nINCOME CERTIFICATE\nOffice of the Tahsildar\nAnnual Family Income from all sources: Rs. 1,50,000",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "income_certificate",
+  "expected_needs_verification": false
+}

@@ -1,0 +1,11 @@
+{
+  "case_id": "class_14_hsc_transcript",
+  "description": "Higher secondary board statement of marks and grades",
+  "file_name": "hsc_statement.pdf",
+  "text_content": "MAHARASHTRA STATE BOARD OF HIGHER SECONDARY EDUCATION\nSTATEMENT OF MARKS\nSeat Number: M098231\nMarks Obtained: 510/600\nPercentage: 85.00%",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "marksheet",
+  "expected_needs_verification": false
+}

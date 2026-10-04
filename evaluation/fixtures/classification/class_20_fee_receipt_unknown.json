@@ -1,0 +1,11 @@
+{
+  "case_id": "class_20_fee_receipt_unknown",
+  "description": "College tuition fee payment transaction receipt (unsupported category)",
+  "file_name": "fee_receipt.pdf",
+  "text_content": "COLLEGE OF ENGINEERING PUNE\nACADEMIC YEAR 2025-2026\nTUITION FEE RECEIPT\nTransaction Reference: TXN99881122\nAmount Received: Rs. 65,000 via NetBanking",
+  "has_image": false,
+  "image_width": null,
+  "image_height": null,
+  "expected_document_type": "unknown",
+  "expected_needs_verification": true
+}

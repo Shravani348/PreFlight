@@ -1,0 +1,9 @@
+{
+  "case_id": "match_01_exact_name",
+  "description": "Exact identical name strings across application and identity doc",
+  "field_name": "name",
+  "value_a": "Priti Shashikant Ahire",
+  "value_b": "Priti Shashikant Ahire",
+  "expected_status": "match",
+  "expected_needs_verification": false
+}

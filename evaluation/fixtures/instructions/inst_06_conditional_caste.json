@@ -1,0 +1,14 @@
+{
+  "case_id": "inst_06_conditional_caste",
+  "description": "Conditional requirement for reserved category applicants",
+  "instruction_text": "Caste certificate must be uploaded for applicable categories.",
+  "expected_requirement_types": [
+    "required_document"
+  ],
+  "expected_document_types": [
+    "caste_certificate"
+  ],
+  "expected_constraints": {
+    "conditional": true
+  }
+}
