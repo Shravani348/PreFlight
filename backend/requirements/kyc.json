@@ -1,0 +1,23 @@
+{
+  "application_type": "kyc",
+  "requirements": [
+    {
+      "document_type": "identity_proof",
+      "required": true
+    },
+    {
+      "document_type": "address_proof",
+      "required": true
+    },
+    {
+      "document_type": "pan_card",
+      "required": true
+    },
+    {
+      "document_type": "photograph",
+      "required": true,
+      "allowed_formats": ["jpg", "jpeg", "png"],
+      "max_size_kb": 500
+    }
+  ]
+}
