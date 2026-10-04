@@ -23,3 +23,11 @@ class Issue(BaseModel):
     message: str
     evidence: List[str] = []
     document_type: Optional[str] = None
+
+class RiskAssessment(BaseModel):
+    risk: str
+    readiness_score: int
+    critical_count: int
+    warning_count: int
+    info_count: int
+    highest_risk_issue: Optional[Issue] = None
