@@ -57,7 +57,7 @@ The goal is simple:
 
 ### 🌐 Frontend
 
-**[Launch PreFlight](https://preflight.vercel.app/)**
+**[Launch PreFlight]([https://preflight.vercel.app/](https://pre-flight-pearl.vercel.app/))**
 
 ### ⚙️ Backend API
 
