@@ -10,7 +10,18 @@ from backend.services.ai_adapter import adapt_ai_output
 from backend.services.ai_service import UploadedDocument
 from backend.services.upload_service import UnknownSlotError, analyze_uploads
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="PreFlight Backend")
+
+# Allow CORS for frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # In production, replace "*" with your Vercel URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Application types for which the AI document-intelligence module is implemented.
 AI_SUPPORTED_APPLICATION_TYPES = {"scholarship"}
