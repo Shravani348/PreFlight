@@ -34,8 +34,6 @@
   </a>
 </p>
 
-🎥 **[Watch the full project walkthrough on Google Drive](https://drive.google.com/drive/folders/1G4JXY5RJ4mPzAjf0vwKQQer3NP-kk7qR?usp=sharing)**
-
 **What the video covers:**
 
 1. The problem: small mistakes that get applications rejected
