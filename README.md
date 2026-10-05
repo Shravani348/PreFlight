@@ -29,12 +29,12 @@
 **The idea in one line:** upload your application and supporting documents, and PreFlight tells you what to fix **before** you submit.
 
 <p align="center">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeEDEWvfrVNiJjQ25kVOXCXqi2aCBzUn-gtJVOMCgO5JG6X_A/viewform?pli=1">
+  <a href="https://drive.google.com/drive/folders/1G4JXY5RJ4mPzAjf0vwKQQer3NP-kk7qR?usp=sharing">
     <img src="https://img.shields.io/badge/▶%20Watch%20the%20Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=googledrive&logoColor=white" alt="Watch the PreFlight demo video">
   </a>
 </p>
 
-🎥 **[Watch the full project walkthrough on Google Drive](https://docs.google.com/forms/d/e/1FAIpQLSeEDEWvfrVNiJjQ25kVOXCXqi2aCBzUn-gtJVOMCgO5JG6X_A/viewform?pli=1)**
+🎥 **[Watch the full project walkthrough on Google Drive](https://drive.google.com/drive/folders/1G4JXY5RJ4mPzAjf0vwKQQer3NP-kk7qR?usp=sharing)**
 
 **What the video covers:**
 
