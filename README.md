@@ -296,7 +296,7 @@ The prototype is designed to minimize unnecessary storage of sensitive applicati
 | ---- | ---- | ------------ |
 | Shravani Paralkar | Backend & Integration | Developed the FastAPI backend and REST APIs, implemented backend validation and rule integration, connected frontend and backend, and handled deployment and overall system integration. |
 | Priti Ahire | AI/ML & Document Intelligence | Worked on AI/ML-based document processing, information extraction, data normalization, and document verification logic. |
-| Anupriya | Frontend Development | Developed the React/Vite frontend, including document upload, application screens, verification results, status indicators, and user interface. |
+| Anupriya Kundu | Frontend Development | Developed the React/Vite frontend, including document upload, application screens, verification results, status indicators, and user interface. |
 
 ---
 
