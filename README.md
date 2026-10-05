@@ -11,7 +11,7 @@
 ![Vercel](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)
 ![Render](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render&logoColor=black)
 
-[🚀 Live Demo](https://pre-flight-pearl.vercel.app/) · [📘 API Docs](https://preflight-backend-63wo.onrender.com/docs) · [🏗️ Architecture](#system-architecture) · [💻 Run Locally](#run-locally)
+[🎬 Demo Video](#demo-video) · [🚀 Live Demo](https://pre-flight-pearl.vercel.app/) · [📘 API Docs](https://preflight-backend-63wo.onrender.com/docs) · [🏗️ Architecture](#system-architecture) · [💻 Run Locally](#run-locally)
 
 **🏆 Hackathon Track 03 — Everyday Automation**
 
@@ -24,8 +24,32 @@
 
 ---
 
+## Demo Video
+
+**The idea in one line:** upload your application and supporting documents, and PreFlight tells you what to fix **before** you submit.
+
+<p align="center">
+  <a href="DRIVE_LINK_HERE">
+    <img src="https://img.shields.io/badge/▶%20Watch%20the%20Demo%20Video-Google%20Drive-red?style=for-the-badge&logo=googledrive&logoColor=white" alt="Watch the PreFlight demo video">
+  </a>
+</p>
+
+🎥 **[Watch the full project walkthrough on Google Drive](DRIVE_LINK_HERE)**
+
+**What the video covers:**
+
+1. The problem: small mistakes that get applications rejected
+2. Uploading the application form, supporting documents, and official instructions
+3. How PreFlight extracts data and compares documents
+4. Detecting issues such as name mismatches and missing documents
+5. The final result: 🟢 **Ready to Submit** or 🔴 **Fix These First**, with recommended fixes
+6. The architecture behind the system
+
+---
+
 ## Table of Contents
 
+- [Demo Video](#demo-video)
 - [Overview](#overview)
 - [The Problem](#the-problem)
 - [The Solution](#the-solution)
@@ -292,11 +316,11 @@ The prototype is designed to minimize unnecessary storage of sensitive applicati
 
 ## Team
 
-| Name | Role | Contribution |
-| ---- | ---- | ------------ |
-| Shravani Paralkar | Backend & Integration | Developed the FastAPI backend and REST APIs, implemented backend validation and rule integration, connected frontend and backend, and handled deployment and overall system integration. |
-| Priti Ahire | AI/ML & Document Intelligence | Worked on AI/ML-based document processing, information extraction, data normalization, and document verification logic. |
-| Anupriya Kundu | Frontend Development | Developed the React/Vite frontend, including document upload, application screens, verification results, status indicators, and user interface. |
+| Name | Role | GitHub | Contribution |
+| ---- | ---- | ------ | ------------ |
+| Shravani Paralkar | Backend & Integration | [@Shravani348](https://github.com/Shravani348) | Developed the FastAPI backend and REST APIs, implemented backend validation and rule integration, connected frontend and backend, and handled deployment and overall system integration. |
+| Priti Ahire | AI/ML & Document Intelligence | [@Priti30-ai](https://github.com/Priti30-ai) | Worked on AI/ML-based document processing, information extraction, data normalization, and document verification logic. |
+| Anupriya Kundu | Frontend Development | [@Amazing-Anu16](https://github.com/Amazing-Anu16) | Developed the React/Vite frontend, including document upload, application screens, verification results, status indicators, and user interface. |
 
 ---
 
