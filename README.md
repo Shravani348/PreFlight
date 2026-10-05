@@ -1,129 +1,115 @@
+<div align="center">
+
 # ✈️ PreFlight
 
 ### A pre-flight check for your application, before a mistake costs you the seat.
 
-PreFlight is an AI-assisted document verification platform that helps applicants identify avoidable mistakes **before submitting important applications**.
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Vercel](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)
+![Render](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render&logoColor=black)
 
-It checks application forms, supporting documents, and official requirements to detect inconsistencies, missing documents, and file-related issues.
+[🚀 Live Demo](https://pre-flight-pearl.vercel.app/) · [📘 API Docs](https://preflight-backend-63wo.onrender.com/docs) · [🏗️ Architecture](#system-architecture) · [💻 Run Locally](#run-locally)
 
----
+**🏆 Hackathon Track 03 — Everyday Automation**
 
-## 🏆 Hackathon
+</div>
 
-**Track 03 — Everyday Automation**
+> ⏳ **Heads up:** the backend runs on Render's free tier and may take **30–60 seconds to wake up** on the first request. If the first upload seems slow, please wait a moment and try again.
 
-PreFlight automates a repetitive and error-prone task: manually checking multiple application documents before submission.
-
-### 🎯 Problem
-
-Students and applicants can face rejection because of small mistakes such as:
-
-* Name or DOB mismatches
-* Missing required documents
-* Expired certificates
-* Incorrect file formats
-* File-size violations
-* Inconsistent information across documents
-
-These issues are often discovered only after submission or after a deadline.
+<!-- Add a screenshot or GIF of the "Fix These First" result here -->
+<!-- <p align="center"><img src="assets/demo.gif" alt="PreFlight demo" width="90%"></p> -->
 
 ---
 
-## 💡 Solution
+## Table of Contents
 
-PreFlight creates a **pre-submission verification layer**.
-
-Users upload:
-
-* Application form
-* Supporting documents
-* Official instructions
-
-The system extracts important information, compares documents, validates requirements, and generates a clear report:
-
-> 🟢 **Ready to Submit**
-
-or
-
-> 🔴 **Fix These First**
-
-The goal is simple:
-
-> **Don't discover an application mistake after submission.**
+- [Overview](#overview)
+- [The Problem](#the-problem)
+- [The Solution](#the-solution)
+- [Key Features](#key-features)
+- [Demo Examples](#demo-examples)
+- [How It Works](#how-it-works)
+- [System Architecture](#system-architecture)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Run Locally](#run-locally)
+- [Testing](#testing)
+- [Privacy](#privacy)
+- [Target Users](#target-users)
+- [Roadmap](#roadmap)
+- [Team](#team)
 
 ---
 
-## 🚀 Live Demo
+## Overview
 
-### 🌐 Frontend
+PreFlight is an AI-assisted document verification platform that helps applicants detect avoidable mistakes **before** submitting important applications.
 
-**[Launch PreFlight]([https://preflight.vercel.app/](https://pre-flight-pearl.vercel.app/))**
+It checks application forms, supporting documents, and official requirements to identify inconsistencies, missing documents, and file-related issues, then tells the user exactly what to fix.
 
-### ⚙️ Backend API
-
-**[FastAPI Swagger Documentation](https://preflight-backend-63wo.onrender.com/docs)**
-
-> If your actual Vercel URL is different, replace the frontend link with your deployed URL.
+**Track 03 — Everyday Automation:** PreFlight automates the repetitive, error-prone process of manually checking multiple documents before submitting an application.
 
 ---
 
-## 🏗️ System Architecture
+## The Problem
 
-![PreFlight System Architecture](system-architecture.png)
+Applications for scholarships, exams, visas, bank KYC, and college admissions are often rejected because of small, avoidable mistakes:
 
-The architecture separates the frontend, FastAPI backend, AI document intelligence, validation services, and reporting layer.
+- Name or date-of-birth mismatches
+- Missing required documents
+- Expired certificates
+- Incorrect file formats
+- File-size violations
+- Inconsistent information across documents
 
----
-
-## 🔄 How PreFlight Works
-
-![PreFlight Workflow](workflow.png)
-
-PreFlight takes the uploaded application package through extraction, normalization, cross-document verification, rule validation, and final readiness reporting.
-
----
-
-## ⭐ Key Features
-
-### 📄 Multi-Document Verification
-
-Analyze an application together with its supporting documents.
-
-### 🔍 Cross-Document Checking
-
-Detect inconsistencies in names, dates, certificates, and other important fields.
-
-### 🧠 AI-Assisted Extraction
-
-Extract important information from uploaded documents into structured data.
-
-### ⚡ Fuzzy Matching
-
-Identify variations in names instead of relying only on exact matches.
-
-### 📋 Requirement Checking
-
-Detect missing documents and unmet application requirements.
-
-### 📁 File Validation
-
-Check file formats, sizes, and document constraints.
-
-### 💡 Fix Recommendations
-
-Explain detected problems and what the applicant should review or correct.
-
-### 📊 Readiness Report
-
-Provide a simple **Ready to Submit / Fix These First** result.
+Applicants often discover these issues only **after submission or after the deadline**, when it is too late to fix them.
 
 ---
 
-## 🎬 Demo Scenario
+## The Solution
 
-Our primary demo focuses on a **Scholarship Application**.
+PreFlight adds a pre-submission verification layer.
 
-For example:
+**Users upload:**
+
+- Application form
+- Supporting documents
+- Official instructions
+
+**PreFlight then:**
+
+1. Extracts the important information from each document
+2. Compares documents against each other
+3. Checks them against the official requirements
+4. Produces a simple, clear verdict:
+
+| Result | Meaning |
+| ------ | ------- |
+| 🟢 **Ready to Submit** | No blocking issues found |
+| 🔴 **Fix These First** | Issues detected, with explanations and recommended actions |
+
+---
+
+## Key Features
+
+- 📄 **Multi-document verification**: check a full application bundle at once
+- 🔍 **Cross-document consistency checking**: names, dates, and details must agree
+- 🧠 **AI-assisted extraction**: structured data pulled from documents as JSON
+- ⚡ **Fuzzy name matching** with RapidFuzz (handles `Rahul K. Sharma` vs `Rahul Kumar Sharma`)
+- 📋 **Missing-document detection** against the stated requirements
+- 📁 **File format and size validation**
+- 💡 **Fix recommendations**: every issue comes with a suggested action
+- 📊 **Final readiness report**, with an optional PDF export
+- 🌗 **Dark / light theme**
+
+---
+
+## Demo Examples
+
+### Name Mismatch
 
 ```text
 Aadhaar:
@@ -132,10 +118,11 @@ Rahul Kumar Sharma
 Marksheet:
 Rahul K. Sharma
 
+Result:
 ⚠ Name mismatch detected
 ```
 
-Or:
+### Missing Document
 
 ```text
 Required Documents:
@@ -144,44 +131,103 @@ Required Documents:
 ✓ Marksheet
 ✗ Income Certificate
 
+Result:
 ⚠ Required document missing
 ```
 
-PreFlight identifies these problems **before the applicant submits the application**.
+PreFlight catches these issues **before submission**.
 
 ---
 
-## 👥 Target Users
+## How It Works
 
-**Primary:** Students, parents, scholarship applicants, college admission and examination applicants.
-
-**Extended:** Job applicants, visa applicants, bank KYC users, and small businesses handling document-heavy applications.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer               | Technologies                                      |
-| ------------------- | ------------------------------------------------- |
-| Frontend            | React.js, Vite, JavaScript, HTML, CSS             |
-| Backend             | Python, FastAPI, Uvicorn                          |
-| Document Processing | PyPDF, Pillow, python-multipart                   |
-| Validation          | Pydantic, RapidFuzz, Rule Engine                  |
-| AI                  | AI-assisted document extraction & structured JSON |
-| API                 | REST, OpenAPI / Swagger                           |
-| Deployment          | Vercel + Render                                   |
-
----
-
-## 🔐 Privacy
-
-PreFlight is designed to minimize unnecessary exposure of sensitive application information. The prototype focuses on processing documents for verification rather than building a permanent document-storage workflow.
+```text
+Upload Documents
+       ↓
+Document Processing
+       ↓
+AI-Assisted Extraction
+       ↓
+Data Normalization
+       ↓
+Cross-Document Verification
+       ↓
+Rule & Requirement Validation
+       ↓
+Issue Detection
+       ↓
+Recommendations
+       ↓
+Ready to Submit / Fix These First
+```
 
 ---
 
-## 💻 Run Locally
+## System Architecture
 
-### Backend
+### High-Level Flow
+
+<p align="center">
+  <img src="assets/architecture-overview.png" alt="PreFlight high-level architecture and flow" width="100%">
+</p>
+
+### Detailed Component View
+
+<p align="center">
+  <img src="assets/architecture-detailed.png" alt="PreFlight detailed system architecture" width="100%">
+</p>
+
+> Click an image to view it full size.
+
+---
+
+## Tech Stack
+
+| Layer               | Technologies                                        |
+| ------------------- | --------------------------------------------------- |
+| Frontend            | React.js, Vite, JavaScript, HTML, CSS               |
+| Backend             | Python, FastAPI, Uvicorn                            |
+| Document Processing | PyPDF, Pillow, python-multipart                     |
+| Validation          | Pydantic, RapidFuzz, Rule Engine                    |
+| AI                  | AI-assisted document extraction and structured JSON |
+| API                 | REST, OpenAPI / Swagger                             |
+| Deployment          | Vercel (frontend), Render (backend)                 |
+
+---
+
+## Project Structure
+
+```text
+PreFlight/
+├── backend/              # FastAPI app: API, rule engine, risk engine, recommendations
+│   └── tests/            # Backend tests
+├── frontend/             # React + Vite UI
+├── tests/
+│   ├── ai/               # AI extraction tests
+│   └── evaluation/       # Evaluation tests
+├── assets/               # Architecture diagrams and screenshots
+├── requirements-ai.txt   # Extra dependencies for the AI extraction layer
+└── README.md
+```
+
+---
+
+## Run Locally
+
+### Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+- Git
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/Shravani348/PreFlight.git
+cd PreFlight
+```
+
+### 2. Backend
 
 ```bash
 pip install -r backend/requirements.txt
@@ -189,13 +235,9 @@ pip install -r requirements-ai.txt
 uvicorn backend.main:app --reload --port 8000
 ```
 
-Backend API:
+Backend API docs: <http://127.0.0.1:8000/docs>
 
-```text
-http://127.0.0.1:8000/docs
-```
-
-### Frontend
+### 3. Frontend
 
 ```bash
 cd frontend
@@ -203,15 +245,13 @@ npm install
 npm run dev
 ```
 
-Frontend:
+Frontend: <http://localhost:5173>
 
-```text
-http://localhost:5173
-```
+> 💡 **Windows PowerShell:** if `npm run dev` is blocked by the script execution policy, use `npm.cmd run dev`, or run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once.
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 pytest tests/ai -q
@@ -221,12 +261,48 @@ pytest backend/tests -q
 
 ---
 
-## 🌍 Vision
+## Privacy
 
-Important applications deserve a **pre-flight checklist** before submission.
+The prototype is designed to minimize unnecessary storage of sensitive application documents. Documents are processed for verification, and processed data is held only temporarily.
+
+---
+
+## Target Users
+
+- 🎓 Students and scholarship applicants
+- 👨‍👩‍👧 Parents filling in application forms
+- 🏫 College and exam applicants
+- 💼 Job applicants
+- 🛂 Visa applicants
+- 🏦 Bank KYC users
+- 🏢 Small businesses handling document-heavy applications
+
+---
+
+## Roadmap
+
+- [ ] Support for more application templates (visa, bank KYC, job applications)
+- [ ] Multi-language document support (Hindi, Marathi, and other regional languages)
+- [ ] Automatic masking of sensitive fields such as Aadhaar numbers
+- [ ] Image quality checks (blur, cropping, unreadable scans)
+- [ ] DigiLocker integration
+- [ ] Deadline reminders and a saved checklist per application
+
+---
+
+## Team
+
+| Name | Role |
+| ---- | ---- |
+| Shravani | _Your role_ |
+| _Teammate name_ | _Role_ |
+
+---
+
+## Vision
+
+PreFlight brings a **pre-flight checklist** to important applications.
 
 ### Check → Fix → Verify → Submit
 
 **PreFlight — Check before you submit.**
-
----
